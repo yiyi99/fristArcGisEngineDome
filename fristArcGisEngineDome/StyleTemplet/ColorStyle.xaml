@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-->Color 样式<!-->
+    <SolidColorBrush x:Key="Static.Foreground1" Color="WhiteSmoke"/>
+    <SolidColorBrush x:Key="Static.Foreground2" Color="#FF6C6C6C"/>
+
+    <SolidColorBrush x:Key="static.Glyph" Color="WhiteSmoke"/>
+
+    <SolidColorBrush x:Key="Static.Background1" Color="#B23F719D"/>
+    <SolidColorBrush x:Key="Static.Background2" Color="#FF3F719D"/>
+    <SolidColorBrush x:Key="Static.Background3" Color="#FFE0E0E0"/>
+
+    <SolidColorBrush x:Key="MouseOver.Background1" Color="#FFDF7D7F"/>
+    <SolidColorBrush x:Key="MouseOver.Background2" Color="#FF3F719D"/>
+    <SolidColorBrush x:Key="MouseOver.Background3" Color="#FFBFBCBC"/>
+
+
+    <SolidColorBrush x:Key="Static.Border1" Color="#FFD3D3D3"/>
+    <SolidColorBrush x:Key="Static.Border2" Color="#FF444444"/>
+    <SolidColorBrush x:Key="Static.Border3" Color="#FFE0E0E0"/>
+
+    <SolidColorBrush x:Key="MouseOver.Border1" Color="#FF444444"/>
+    <SolidColorBrush x:Key="MouseOver.Border2" Color="#FFDF7D7F"/>
+    <SolidColorBrush x:Key="MouseOver.Border3" Color="#FF444444"/>
+
+
+    <SolidColorBrush x:Key="KeyFocus.Background1" Color="#FF3F719D"/>
+    <SolidColorBrush x:Key="KeyFocus.Background2" Color="#FF3F719D"/>
+    <SolidColorBrush x:Key="KeyFocus.Background3" Color="#FF3F719D"/>
+
+    <SolidColorBrush x:Key="KeyFocus.Border1" Color="#FFD3D3D3"/>
+    <SolidColorBrush x:Key="KeyFocus.Border2" Color="#FFD3D3D3"/>
+    <SolidColorBrush x:Key="KeyFocus.Border3" Color="#FFD3D3D3"/>
+
+</ResourceDictionary>

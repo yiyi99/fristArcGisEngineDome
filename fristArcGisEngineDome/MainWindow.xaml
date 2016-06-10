@@ -1,0 +1,127 @@
+﻿<Window x:Class="fristArcGisEngineDome.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        Title="MainWindow" Style="{StaticResource NoBorderWindowsStyle}" WindowStartupLocation="CenterScreen" Icon="Resource/Imgur.ico" Loaded="Window_Loaded">
+
+    <Grid Background="WhiteSmoke" Margin="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <Grid Name="Title" Background="#E0E0E0" MouseMove="Title_MouseMove" MouseDown="Title_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <Menu Background="Transparent" VerticalAlignment="Center">
+                <MenuItem Header="文件">
+                    <MenuItem Header="打开" Name="menu_OpenMxd" Click="menu_OpenMxd_Click" />
+                    <MenuItem Header="保存" Name="menu_SavaMxd" Click="menu_SavaMxd_Click" />
+                    <MenuItem Header="另存为" Name="menu_SavaAs" Click="menu_SavaAs_Click" />
+                    <Separator />
+                    <MenuItem Header="关闭工作空间" Name="menu_CloseWorkspace" Click="menu_CloseWorkspace_Click" />
+                </MenuItem>
+                <MenuItem Header="添加数据">
+                    <MenuItem Header="添加矢量数据" Name="menu_AddShp" Click="menu_AddShp_Click" />
+                    <MenuItem Header="添加栅格数据" Name="menu_AddRaster" Click="menu_AddRaster_Click" /> 
+                    <MenuItem Header="添加个人地理数据库（.mdb）" Name="menu_AddMdb" Click="menu_AddMdb_Click" />
+                    <MenuItem Header="添加企业地理数据库（ sde ）" Name="menu_ConnectArcSde" Click="menu_ConnectArcSde_Click" />
+                </MenuItem>
+                <MenuItem Header="常用操作">
+                    <MenuItem Header="放大" Name="menu_ZoomIn" Click="menu_Command_Click" />
+                    <MenuItem Header="缩小" Name="menu_ZoomOut" Click="menu_Command_Click" />
+                    <MenuItem Header="漫游" Name="menu_Pan" Click="menu_Command_Click" />
+                    <Separator />
+                    <MenuItem Header="全幅" Name="menu_Extent" Click="menu_Extent_Click" />
+                    <MenuItem Header="鹰眼" Name="menu_EagleEyed" Click="menu_EagleEyed_Click"/>
+                </MenuItem>
+                <MenuItem Header="要素绘制">
+                    <MenuItem Header="点绘制" Click="menu_DrawFeature_Click" />
+                    <MenuItem Header="线绘制" Click="menu_DrawFeature_Click" />
+                    <MenuItem Header="圆绘制" Click="menu_DrawFeature_Click" />
+                    <MenuItem Header="矩形绘制" Click="menu_DrawFeature_Click" />
+                    <MenuItem Header="多边形绘制" Click="menu_DrawFeature_Click" />
+                </MenuItem>
+                <MenuItem Header="量算">
+                    <MenuItem Header="距离量算" Name="menu_CalculateDistance" Click="menu_Calculate_Click" />
+                    <MenuItem Header="面积量算" Name="menu_CalculateArea" Click="menu_Calculate_Click" />
+                </MenuItem>
+                <MenuItem Header="空间分析">
+                    <MenuItem Header="缓冲区分析" Name="menu_BufferAnalysis" Click="menu_BufferAnalysis_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" MouseDown="Title_MouseDown" MouseMove="Title_MouseMove">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource NoMouseOverButtonStyle_title}" Name="btn_minimize" Click="btn_minimize_Click">
+                        <TextBlock Style="{DynamicResource BarTextBlockStyle}" Text="&#xE949;" />
+                    </Button>
+                    <Button Grid.Column="1" Style="{StaticResource NoMouseOverButtonStyle_title}" Name="btn_maximize" Click="btn_maximize_Click">
+                        <TextBlock Style="{DynamicResource BarTextBlockStyle}" Text="&#xE71A;" />
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource NoMouseOverButtonStyle_title}" Name="btn_exit" Click="btn_exit_Click">
+                        <TextBlock Style="{StaticResource BarTextBlockStyle}" Text="&#xE947;" />
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_OpenMxd" Click="btn_OpenMxd_Click" ToolTip="打开Mxd地图文档">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xEC50;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_AddData" Click="btn_AddData_Click" ToolTip="添加图层数据">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE1DA;" />
+            </Button>
+            <!--<Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_SavaMxd" Click="btn_SavaMxd_Click">
+                <TextBlock Style="{DynamicResource BarTextBlockStyle}" Text="&#xE28F;" FontSize="15" Margin="4"/>
+            </Button>-->
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_SavaAs" Click="btn_SavaAs_Click" ToolTip="另存为">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE105;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_ZoomIn" Click="btn_ZoomIn_Click" ToolTip="放大">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE1A3;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_ZoomOut" Click="btn_ZoomOut_Click" ToolTip="缩小">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE1A4;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_FixedZoomIn" Click="btn_FixedZoomIn_Click" ToolTip="中心放大">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE1D9;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_FixedZoomOut" Click="btn_FixedZoomOut_Click" ToolTip="中心缩小">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE1D8;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_Pan" Click="btn_Pan_Click" ToolTip="漫游">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE759;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_FullExtent" Click="btn_FullExtent_Click" ToolTip="全幅显示">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE128;" />
+            </Button>
+            <Button Style="{StaticResource NoMouseOverButtonStyle_toolbar}" Name="btn_Indentify" Click="btn_Indentify_Click" ToolTip="信息">
+                <TextBlock Style="{DynamicResource ToolBarTextBlockStyle}" Text="&#xE783;" />
+            </Button>
+        </StackPanel>
+
+        <TextBlock Style="{StaticResource BaseTextBlockStyle}" FontSize="48" FontWeight="Bold" Grid.Row="3"/>
+
+        <!--<WindowsFormsHost Grid.Row="2" Name="toolBarHost" Background="Transparent" />-->
+
+        <TextBlock Grid.Row="3" Name="txb_StarPrompt" Text="请导入文件" FontSize="48" FontWeight="Medium" Foreground ="LightGray"  VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" />
+
+        <WindowsFormsHost Grid.Row="3" Name="splitHost" Margin="-1,-1,-1,0" Background="Transparent" />
+
+        <TextBlock Grid.Row="4" Name="txb_StatusBar" Style="{StaticResource BaseTextBlockStyle}" FontSize="12"></TextBlock>
+
+    </Grid>
+</Window>

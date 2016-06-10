@@ -1,0 +1,24 @@
+﻿<Window x:Name="AttributeQueryResult" x:Class="fristArcGisEngineDome.AttributeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="640" Width="960" Style="{StaticResource AsideWindowsStyle}" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="AttributeQueryResult_Loaded" Icon="Resource/Imgur.ico">
+    
+    <Grid Background="WhiteSmoke" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid >
+            <Rectangle Height="30" Fill="#E0E0E0" MouseMove="Rectangle_MouseMove" />
+            <TextBlock Name="txb_Title" Text="占位符" HorizontalAlignment="Left" Style="{StaticResource BaseTextBlockStyle}" Foreground="#FFDF7D7F" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" />
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource NoMouseOverButtonStyle_title}" Margin="0,0,5,0" Name="btn_exit" Click="btn_exit_Click" >
+                <TextBlock Style="{StaticResource BarTextBlockStyle}" Text="&#xE947;" />
+            </Button>
+        </Grid>
+
+        <TextBlock Grid.Row="1" Name="txb_Prompt" Text="没有查询到结果" FontSize="48" FontWeight="Medium" Foreground ="LightGray"  VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" />
+
+        <DataGrid Grid.Row="1" Name="datagrid_Attribute" ItemsSource="{Binding}" IsReadOnly="True" />
+
+    </Grid>
+    
+</Window>

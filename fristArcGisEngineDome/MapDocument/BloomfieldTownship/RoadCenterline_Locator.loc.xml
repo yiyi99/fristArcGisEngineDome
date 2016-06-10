@@ -1,0 +1,5823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locators xsi:noNamespaceSchemaLocation="LocatorStyle.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<locator>
+		<name>US Address</name>
+		<desc>Locator style for US addresses</desc>
+		<version>10</version>
+		<!-- The input field names and their grammar references. The caption is used as the display label 
+    for the input field. The recognized_name tag contains the preferred field name for the input field 
+    in the table of addresses. -->
+		<inputs>
+			<default_input name="Single Line Input" length="100" grammar_ref="Location">
+				<caption xml:lang="en">Full Address</caption>
+				<std_elt standard="FGDC">CompleteAddress</std_elt>
+				<recognized_name>Address</recognized_name>
+				<recognized_name>Addr</recognized_name>
+				<recognized_name>Address_1</recognized_name>
+				<recognized_name>Customer_Address</recognized_name>
+			</default_input>
+			<input name="Street" length="100">
+				<caption xml:lang="en">Street or Intersection</caption>
+				<recognized_name>Address</recognized_name>
+				<recognized_name>Addr</recognized_name>
+				<recognized_name>Address_1</recognized_name>
+				<recognized_name>Customer_Address</recognized_name>
+			</input>
+			<input name="City" length="40">
+				<caption xml:lang="en">City or Placename</caption>
+				<recognized_name>City</recognized_name>
+				<recognized_name>Place</recognized_name>
+				<recognized_name>Placename</recognized_name>
+				<recognized_name>City16</recognized_name>
+			</input>
+			<input name="State" length="20">
+				<caption xml:lang="en">State</caption>
+				<recognized_name>State</recognized_name>
+				<recognized_name>State_Abbr</recognized_name>
+				<recognized_name>State_name</recognized_name>
+			</input>
+			<input name="ZIP" length="10">
+				<caption xml:lang="en">ZIPCode</caption>
+				<recognized_name>ZIP</recognized_name>
+				<recognized_name>ZIPCode</recognized_name>
+				<recognized_name>ZIP5</recognized_name>
+			</input>
+		</inputs>
+		<grammar>
+			<multiline_grammar>
+				<multiline_def>
+					<alt>
+						<field_ref ref="Street"/>
+						<elt ref="MultiLineAddress" search_context="addressSearch" strip_list=".,';"/>
+						<elt ref="multilineZone" search_context="addressSearch" strip_list=".,';"/>
+						<result tag="Address">
+							<search_value ref="addressSearch"/>
+							<format_ref ref="format_normal_address"/>
+						</result>
+					</alt>
+					<alt selector="supportsIntersections">
+						<field_ref ref="Street"/>
+						<elt ref="FullStreetName" search_context="leftStreet" weight="40" strip_list=".,';"/>
+						<elt ref="intConnector"/>
+						<elt ref="FullStreetName" search_context="rightStreet" weight="40" strip_list=".,';"/>
+						<elt ref="multilineZone" strip_list=".,';"/>
+						<result tag="Intersection">
+							<method ref="intersection">
+								<parameter>
+									<search_value ref="leftStreet" original_values="true"/>
+								</parameter>
+								<parameter>
+									<search_value ref="rightStreet" original_values="true"/>
+								</parameter>
+							</method>
+							<format_ref ref="format_intersections"/>
+						</result>
+					</alt>
+				</multiline_def>
+				<multiline_def name="multilineZone">
+					<alt>
+						<field_ref ref="ZIP"/>
+						<elt ref="GenZIP"/>
+					</alt>
+					<alt fallback="true" fallback_cutoff="90">
+						<field_ref ref="City"/>
+						<elt ref="City"/>
+						<field_ref ref="State"/>
+						<elt ref="OptState"/>
+					</alt>
+				</multiline_def>
+			</multiline_grammar>
+			<section desc="Aliases">
+				<alias_list name="StreetNameAliases">
+					<alias_def>
+						<alt>abraham lincoln</alt>
+						<alt>abe lincoln</alt>
+						<alt>a lincoln</alt>
+						<alt>lincoln</alt>
+					</alias_def>
+					<alias_def>
+						<alt>alt</alt>
+						<alt>alternate</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ave</alt>
+						<alt>av</alt>
+						<alt>avenue</alt>
+					</alias_def>
+					<alias_def>
+						<alt>benito a ramirez</alt>
+						<alt>b a ramirez</alt>
+						<alt>b ramirez</alt>
+					</alias_def>
+					<alias_def>
+						<alt>beltway</alt>
+						<alt>belt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>benito</alt>
+						<alt>bnito</alt>
+					</alias_def>
+					<alias_def>
+						<alt>bonita</alt>
+						<alt>bonnita</alt>
+					</alias_def>
+					<alias_def>
+						<alt>business highway</alt>
+						<alt>bs hwy</alt>
+						<alt>bus</alt>
+						<alt>busi</alt>
+						<alt>business</alt>
+						<alt>busi hwy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>canyon</alt>
+						<alt>cyn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cemetery</alt>
+						<alt>cmtery</alt>
+					</alias_def>
+					<alias_def>
+						<alt>central</alt>
+						<alt>cntrl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>complex</alt>
+						<alt>cmplex</alt>
+					</alias_def>
+					<alias_def>
+						<alt>colonel</alt>
+						<alt>col</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cottonwood</alt>
+						<alt>cottonwd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>county road</alt>
+						<alt>co rd</alt>
+						<alt>coord</alt>
+						<alt>cord</alt>
+						<alt>co</alt>
+						<alt>cr</alt>
+						<alt>cth</alt>
+						<alt>cty</alt>
+						<alt>county</alt>
+						<alt>county rd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>crownview</alt>
+						<alt>crown view</alt>
+					</alias_def>
+					<alias_def>
+						<alt>depot</alt>
+						<alt>dep</alt>
+						<alt>dept</alt>
+					</alias_def>
+					<alias_def>
+						<alt>executive</alt>
+						<alt>exec</alt>
+					</alias_def>
+					<alias_def>
+						<alt>felix garcia</alt>
+						<alt>f garcia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>felipe</alt>
+						<alt>felpe</alt>
+					</alias_def>
+					<alias_def>
+						<alt>flagstone</alt>
+						<alt>flagstn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>farm road</alt>
+						<alt>fm</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fort</alt>
+						<alt>ft</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fox</alt>
+						<alt>fx</alt>
+					</alias_def>
+					<alias_def>
+						<alt>george bush</alt>
+						<alt>geo bush</alt>
+					</alias_def>
+					<alias_def>
+						<alt>george washington</alt>
+						<alt>geo washington</alt>
+						<alt>g washington</alt>
+					</alias_def>
+					<alias_def>
+						<alt>golden</alt>
+						<alt>gldn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>governor</alt>
+						<alt>gov</alt>
+					</alias_def>
+					<alias_def>
+						<alt>great</alt>
+						<alt>gt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>georgia</alt>
+						<alt>grgia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>grove</alt>
+						<alt>grv</alt>
+					</alias_def>
+					<!--<alias_def>
+						<alt>hc</alt>
+						<alt>hco</alt>
+						<alt>hcr</alt>
+						<alt>hwc</alt>
+						<alt>sr</alt>
+					</alias_def>-->
+					<alias_def>
+						<alt>hill country road</alt>
+						<alt>hill country</alt>
+						<alt>hcr</alt>
+					</alias_def>
+					<!--<alias_def>
+						<alt ref="_hwy"/>
+					</alias_def>-->
+					<alias_def>
+						<alt>high</alt>
+						<alt>hi</alt>
+					</alias_def>
+					<alias_def>
+						<alt>highlands</alt>
+						<alt>hghds</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hill</alt>
+						<alt>hll</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hillcreek</alt>
+						<alt>hill creek</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hills</alt>
+						<alt>hlls</alt>
+						<alt>hls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>heights</alt>
+						<alt>hts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>industrial</alt>
+						<alt>indstrl</alt>
+						<alt>ind</alt>
+					</alias_def>
+					<alias_def>
+						<alt>international</alt>
+						<alt>int</alt>
+						<alt>internatl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>interstate</alt>
+						<alt>i</alt>
+						<alt>i-</alt>
+						<alt>ih</alt>
+					</alias_def>
+					<alias_def>
+						<alt>jct</alt>
+						<alt>junction</alt>
+					</alias_def>
+					<alias_def>
+						<alt>john f kennedy</alt>
+						<alt>jfk</alt>
+						<alt>jf kennedy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>kingfish</alt>
+						<alt>kngfsh</alt>
+					</alias_def>
+					<alias_def>
+						<alt>los angeles</alt>
+						<alt>la</alt>
+						<alt>ls angls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>laguana</alt>
+						<alt>laguna</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lake</alt>
+						<alt>lk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>las vegas</alt>
+						<alt>vegas</alt>
+						<alt>lv</alt>
+					</alias_def>
+					<alias_def>
+						<alt>las</alt>
+						<alt>los</alt>
+						<alt>ls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lakes</alt>
+						<alt>lks</alt>
+					</alias_def>
+					<alias_def>
+						<alt>loop</alt>
+						<alt>lp</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lower</alt>
+						<alt>lwr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>market</alt>
+						<alt>mkt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>martin luther king</alt>
+						<alt>martin l king</alt>
+						<alt>martin luther king jr</alt>
+						<alt>martin l king jr</alt>
+						<alt>martin lthr kng jr</alt>
+						<alt>mlk</alt>
+						<alt>mlk jr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mac</alt>
+						<alt>mc</alt>
+					</alias_def>
+					<alias_def>
+						<alt>medical</alt>
+						<alt>medcl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>meeting</alt>
+						<alt>mtng</alt>
+					</alias_def>
+					<alias_def>
+						<alt>memorial</alt>
+						<alt>mem</alt>
+						<alt>memrl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mile</alt>
+						<alt>mi</alt>
+						<alt>mil</alt>
+					</alias_def>
+					<alias_def>
+						<alt>military</alt>
+						<alt>milit</alt>
+						<alt>mltary</alt>
+						<alt>mltry</alt>
+					</alias_def>
+					<alias_def>
+						<alt>millcreek</alt>
+						<alt>mill creek</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mills ridge</alt>
+						<alt>mills</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mills</alt>
+						<alt>mls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>manor</alt>
+						<alt>mnr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mount</alt>
+						<alt>mnt</alt>
+						<alt>mt</alt>
+						<alt>mountain</alt>
+						<alt>mntn</alt>
+						<alt>mtn</alt>
+						<alt>mountains</alt>
+						<alt>mntns</alt>
+						<alt>mtns</alt>
+					</alias_def>
+					<alias_def>
+						<alt>morningside</alt>
+						<alt>mrngside</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mission</alt>
+						<alt>msn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nieves rodriguez</alt>
+						<alt>n rodriguez</alt>
+					</alias_def>
+					<alias_def>
+						<alt>national park</alt>
+						<alt>np</alt>
+						<alt>ntl pk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>old number</alt>
+						<alt>old no</alt>
+						<alt>old scenic</alt>
+						<alt>old</alt>
+					</alias_def>
+					<alias_def>
+						<alt>outer highway</alt>
+						<alt>outer</alt>
+						<alt>outer hwy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>patricio perez</alt>
+						<alt>p perez</alt>
+						<alt>patricio</alt>
+					</alias_def>
+					<alias_def>
+						<alt>park</alt>
+						<alt>parc</alt>
+						<alt>pk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pueblo</alt>
+						<alt>pblo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>padre island</alt>
+						<alt>pid</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pleasant</alt>
+						<alt>pleas</alt>
+						<alt>plsnt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pleasantview</alt>
+						<alt>pleasntvw</alt>
+					</alias_def>
+					<alias_def>
+						<alt>plantation</alt>
+						<alt>plt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pompano</alt>
+						<alt>pmpno</alt>
+					</alias_def>
+					<alias_def>
+						<alt>private road</alt>
+						<alt>pr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>parker</alt>
+						<alt>prkr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>point</alt>
+						<alt>pt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>rancho</alt>
+						<alt>ranch</alt>
+						<alt>ranches</alt>
+						<alt>ranchos</alt>
+						<alt>rnch</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ridge</alt>
+						<alt>rdg</alt>
+					</alias_def>
+					<alias_def>
+						<alt>reservation</alt>
+						<alt>res</alt>
+						<alt>reserv</alt>
+					</alias_def>
+					<alias_def>
+						<alt>robert f kennedy</alt>
+						<alt>rfk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>river</alt>
+						<alt>rio</alt>
+					</alias_def>
+					<alias_def>
+						<alt>rodgers</alt>
+						<alt>rogers</alt>
+					</alias_def>
+					<alias_def>
+						<alt>route</alt>
+						<alt>rte</alt>
+						<alt>rt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>saint</alt>
+						<alt>st</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sam houston</alt>
+						<alt>sam hou</alt>
+					</alias_def>
+					<alias_def>
+						<alt>san</alt>
+						<alt>sn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>santa</alt>
+						<alt>san</alt>
+						<alt>santo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sapphire</alt>
+						<alt>saphire</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sawmill</alt>
+						<alt>sawml</alt>
+					</alias_def>
+					<alias_def>
+						<alt>scenic</alt>
+						<alt>scenic_</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sgt m c garcia</alt>
+						<alt>sgt mc garcia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>speedway</alt>
+						<alt>spdwy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>springs</alt>
+						<alt>spgs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>station</alt>
+						<alt>sta</alt>
+					</alias_def>
+					<alias_def>
+						<alt>stuart</alt>
+						<alt>stewart</alt>
+					</alias_def>
+					<alias_def>
+						<alt ref="_hwy"/>
+						<alt ref="_sthwy"/>
+						<alt ref="_ushwy"/>
+					</alias_def>
+					<alias_def>
+						<alt>township</alt>
+						<alt>township highway</alt>
+						<alt>tw hwy</alt>
+						<alt>tw hy</alt>
+						<alt>twhwy</alt>
+						<alt>twhy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>state university</alt>
+						<alt>su</alt>
+					</alias_def>
+					<alias_def>
+						<alt>temple</alt>
+						<alt>templ</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tierra</alt>
+						<alt>tira</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tom mc cartney</alt>
+						<alt>tom mccartney</alt>
+					</alias_def>
+					<alias_def>
+						<alt>townhouse</alt>
+						<alt>twnhouse</alt>
+						<alt>twnhse</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tucson</alt>
+						<alt>tsn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tower</alt>
+						<alt>twr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>university</alt>
+						<alt>uni</alt>
+						<alt>univ</alt>
+					</alias_def>
+					<alias_def>
+						<alt>upper</alt>
+						<alt>up</alt>
+					</alias_def>
+					<alias_def>
+						<alt>urbana</alt>
+						<alt>urb</alt>
+					</alias_def>
+					<alias_def>
+						<alt>united states</alt>
+						<alt>us</alt>
+					</alias_def>
+					<alias_def>
+						<alt>united states air force</alt>
+						<alt>usaf</alt>
+						<alt>air force</alt>
+					</alias_def>
+					<alias_def>
+						<alt>venezuela</alt>
+						<alt>valenzuela</alt>
+					</alias_def>
+					<alias_def>
+						<alt>vicente</alt>
+						<alt>vcnte</alt>
+					</alias_def>
+					<alias_def>
+						<alt>verde</alt>
+						<alt>green</alt>
+					</alias_def>
+					<alias_def>
+						<alt>veterens</alt>
+						<alt>vets</alt>
+					</alias_def>
+					<alias_def>
+						<alt>villa</alt>
+						<alt>vil</alt>
+					</alias_def>
+					<alias_def>
+						<alt>vista</alt>
+						<alt>vis</alt>
+					</alias_def>
+					<alias_def>
+						<alt>village</alt>
+						<alt>vlg</alt>
+					</alias_def>
+					<alias_def>
+						<alt>white</alt>
+						<alt>whte</alt>
+						<alt>wh</alt>
+					</alias_def>
+					<alias_def>
+						<alt>willow</alt>
+						<alt>wlw</alt>
+					</alias_def>
+					<alias_def>
+						<alt>wood</alt>
+						<alt>wd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>100th</alt>
+						<alt>100</alt>
+						<alt>hundredth</alt>
+						<alt>hundred</alt>
+					</alias_def>
+					<alias_def>
+						<alt>10th</alt>
+						<alt>10</alt>
+						<alt>tenth</alt>
+						<alt>ten</alt>
+					</alias_def>
+					<alias_def>
+						<alt>11th</alt>
+						<alt>11</alt>
+						<alt>eleventh</alt>
+						<alt>eleven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>12th</alt>
+						<alt>12</alt>
+						<alt>twelfth</alt>
+						<alt>twelve</alt>
+					</alias_def>
+					<alias_def>
+						<alt>13th</alt>
+						<alt>13</alt>
+						<alt>thirteenth</alt>
+						<alt>thirteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>14th</alt>
+						<alt>14</alt>
+						<alt>fourteenth</alt>
+						<alt>fourteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>15th</alt>
+						<alt>15</alt>
+						<alt>fifteenth</alt>
+						<alt>fifteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>16th</alt>
+						<alt>16</alt>
+						<alt>sixteenth</alt>
+						<alt>sixteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>17th</alt>
+						<alt>17</alt>
+						<alt>seventeenth</alt>
+						<alt>seventeen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>18th</alt>
+						<alt>18</alt>
+						<alt>eighteenth</alt>
+						<alt>eighteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>19th</alt>
+						<alt>19</alt>
+						<alt>nineteenth</alt>
+						<alt>nineteen</alt>
+					</alias_def>
+					<alias_def>
+						<alt>1st</alt>
+						<alt>1</alt>
+						<alt>first</alt>
+						<alt>one</alt>
+					</alias_def>
+					<alias_def>
+						<alt>20th</alt>
+						<alt>20</alt>
+						<alt>twentieth</alt>
+						<alt>twenty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>21st</alt>
+						<alt>21</alt>
+						<alt>twentyfirst</alt>
+						<alt>twentyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>22nd</alt>
+						<alt>22</alt>
+						<alt>twentysecond</alt>
+						<alt>twentytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>23rd</alt>
+						<alt>23</alt>
+						<alt>twentythird</alt>
+						<alt>twentythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>24th</alt>
+						<alt>24</alt>
+						<alt>twentyfourth</alt>
+						<alt>twentyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>25th</alt>
+						<alt>25</alt>
+						<alt>twentyfifth</alt>
+						<alt>twentyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>26th</alt>
+						<alt>26</alt>
+						<alt>twentysixth</alt>
+						<alt>twentysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>27th</alt>
+						<alt>27</alt>
+						<alt>twentyseventh</alt>
+						<alt>twentyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>28th</alt>
+						<alt>28</alt>
+						<alt>twentyeighth</alt>
+						<alt>twentyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>29th</alt>
+						<alt>29</alt>
+						<alt>twentyninth</alt>
+						<alt>twentynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>2nd</alt>
+						<alt>2</alt>
+						<alt>second</alt>
+						<alt>two</alt>
+					</alias_def>
+					<alias_def>
+						<alt>30th</alt>
+						<alt>30</alt>
+						<alt>thirtieth</alt>
+						<alt>thirty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>31st</alt>
+						<alt>31</alt>
+						<alt>thirtyfirst</alt>
+						<alt>thirtyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>32nd</alt>
+						<alt>32</alt>
+						<alt>thirtysecond</alt>
+						<alt>thirtytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>33rd</alt>
+						<alt>33</alt>
+						<alt>thirtythird</alt>
+						<alt>thirtythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>34th</alt>
+						<alt>34</alt>
+						<alt>thirtyfourth</alt>
+						<alt>thirtyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>35th</alt>
+						<alt>35</alt>
+						<alt>thirtyfifth</alt>
+						<alt>thirtyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>36th</alt>
+						<alt>36</alt>
+						<alt>thirtysixth</alt>
+						<alt>thirtysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>37th</alt>
+						<alt>37</alt>
+						<alt>thirtyseventh</alt>
+						<alt>thirtyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>38th</alt>
+						<alt>38</alt>
+						<alt>thirtyeighth</alt>
+						<alt>thirtyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>39th</alt>
+						<alt>39</alt>
+						<alt>thirtyninth</alt>
+						<alt>thirtynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>3rd</alt>
+						<alt>3</alt>
+						<alt>third</alt>
+						<alt>three</alt>
+					</alias_def>
+					<alias_def>
+						<alt>40th</alt>
+						<alt>40</alt>
+						<alt>fourtieth</alt>
+						<alt>fourty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>41st</alt>
+						<alt>41</alt>
+						<alt>fourtyfirst</alt>
+						<alt>fourtyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>42nd</alt>
+						<alt>42</alt>
+						<alt>fourtysecond</alt>
+						<alt>fourtytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>43rd</alt>
+						<alt>43</alt>
+						<alt>fourtythird</alt>
+						<alt>fourtythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>44th</alt>
+						<alt>44</alt>
+						<alt>fourtyfourth</alt>
+						<alt>fourtyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>45th</alt>
+						<alt>45</alt>
+						<alt>fourtyfifth</alt>
+						<alt>fourtyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>46th</alt>
+						<alt>46</alt>
+						<alt>fourtysixth</alt>
+						<alt>fourtysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>47th</alt>
+						<alt>47</alt>
+						<alt>fourtyseventh</alt>
+						<alt>fourtyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>48th</alt>
+						<alt>48</alt>
+						<alt>fourtyeighth</alt>
+						<alt>fourtyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>49th</alt>
+						<alt>49</alt>
+						<alt>fourtyninth</alt>
+						<alt>fourtynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>4th</alt>
+						<alt>4</alt>
+						<alt>fourth</alt>
+						<alt>four</alt>
+					</alias_def>
+					<alias_def>
+						<alt>50th</alt>
+						<alt>50</alt>
+						<alt>fiftieth</alt>
+						<alt>fifty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>51st</alt>
+						<alt>51</alt>
+						<alt>fiftyfirst</alt>
+						<alt>fiftyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>52nd</alt>
+						<alt>52</alt>
+						<alt>fiftysecond</alt>
+						<alt>fiftytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>53rd</alt>
+						<alt>53</alt>
+						<alt>fiftythird</alt>
+						<alt>fiftythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>54th</alt>
+						<alt>54</alt>
+						<alt>fiftyfourth</alt>
+						<alt>fiftyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>55th</alt>
+						<alt>55</alt>
+						<alt>fiftyfifth</alt>
+						<alt>fiftyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>56th</alt>
+						<alt>56</alt>
+						<alt>fiftysixth</alt>
+						<alt>fiftysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>57th</alt>
+						<alt>57</alt>
+						<alt>fiftyseventh</alt>
+						<alt>fiftyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>58th</alt>
+						<alt>58</alt>
+						<alt>fiftyeighth</alt>
+						<alt>fiftyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>59th</alt>
+						<alt>59</alt>
+						<alt>fiftyninth</alt>
+						<alt>fiftynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>5th</alt>
+						<alt>5</alt>
+						<alt>fifth</alt>
+						<alt>five</alt>
+					</alias_def>
+					<alias_def>
+						<alt>60th</alt>
+						<alt>60</alt>
+						<alt>sixtieth</alt>
+						<alt>sixty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>61st</alt>
+						<alt>61</alt>
+						<alt>sixtyfirst</alt>
+						<alt>sixtyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>62nd</alt>
+						<alt>62</alt>
+						<alt>sixtysecond</alt>
+						<alt>sixtytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>63rd</alt>
+						<alt>63</alt>
+						<alt>sixtythird</alt>
+						<alt>sixtythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>64th</alt>
+						<alt>64</alt>
+						<alt>sixtyfourth</alt>
+						<alt>sixtyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>65th</alt>
+						<alt>65</alt>
+						<alt>sixtyfifth</alt>
+						<alt>sixtyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>66th</alt>
+						<alt>66</alt>
+						<alt>sixtysixth</alt>
+						<alt>sixtysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>67th</alt>
+						<alt>67</alt>
+						<alt>sixtyseventh</alt>
+						<alt>sixtyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>68th</alt>
+						<alt>68</alt>
+						<alt>sixtyeighth</alt>
+						<alt>sixtyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>69th</alt>
+						<alt>69</alt>
+						<alt>sixtyninth</alt>
+						<alt>sixtynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>6th</alt>
+						<alt>6</alt>
+						<alt>sixth</alt>
+						<alt>six</alt>
+					</alias_def>
+					<alias_def>
+						<alt>70th</alt>
+						<alt>70</alt>
+						<alt>seventieth</alt>
+						<alt>seventy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>71st</alt>
+						<alt>71</alt>
+						<alt>seventyfirst</alt>
+						<alt>seventyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>72nd</alt>
+						<alt>72</alt>
+						<alt>seventysecond</alt>
+						<alt>seventytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>73rd</alt>
+						<alt>73</alt>
+						<alt>seventythird</alt>
+						<alt>seventythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>74th</alt>
+						<alt>74</alt>
+						<alt>seventyfourth</alt>
+						<alt>seventyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>75th</alt>
+						<alt>75</alt>
+						<alt>seventyfifth</alt>
+						<alt>seventyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>76th</alt>
+						<alt>76</alt>
+						<alt>seventysixth</alt>
+						<alt>seventysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>77th</alt>
+						<alt>77</alt>
+						<alt>seventyseventh</alt>
+						<alt>seventyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>78th</alt>
+						<alt>78</alt>
+						<alt>seventyeighth</alt>
+						<alt>seventyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>79th</alt>
+						<alt>79</alt>
+						<alt>seventyninth</alt>
+						<alt>seventynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>7th</alt>
+						<alt>7</alt>
+						<alt>seventh</alt>
+						<alt>seven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>80th</alt>
+						<alt>80</alt>
+						<alt>eightieth</alt>
+						<alt>eighty</alt>
+					</alias_def>
+					<alias_def>
+						<alt>81st</alt>
+						<alt>81</alt>
+						<alt>eightyfirst</alt>
+						<alt>eightyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>82nd</alt>
+						<alt>82</alt>
+						<alt>eightysecond</alt>
+						<alt>eightytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>83rd</alt>
+						<alt>83</alt>
+						<alt>eightythird</alt>
+						<alt>eightythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>84th</alt>
+						<alt>84</alt>
+						<alt>eightyfourth</alt>
+						<alt>eightyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>85th</alt>
+						<alt>85</alt>
+						<alt>eightyfifth</alt>
+						<alt>eightyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>86th</alt>
+						<alt>86</alt>
+						<alt>eightysixth</alt>
+						<alt>eightysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>87th</alt>
+						<alt>87</alt>
+						<alt>eightyseventh</alt>
+						<alt>eightyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>88th</alt>
+						<alt>88</alt>
+						<alt>eightyeighth</alt>
+						<alt>eightyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>89th</alt>
+						<alt>89</alt>
+						<alt>eightyninth</alt>
+						<alt>eightynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>8th</alt>
+						<alt>8</alt>
+						<alt>eighth</alt>
+						<alt>eight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>90th</alt>
+						<alt>90</alt>
+						<alt>ninetieth</alt>
+						<alt>ninety</alt>
+					</alias_def>
+					<alias_def>
+						<alt>91st</alt>
+						<alt>91</alt>
+						<alt>ninetyfirst</alt>
+						<alt>ninetyone</alt>
+					</alias_def>
+					<alias_def>
+						<alt>92nd</alt>
+						<alt>92</alt>
+						<alt>ninetysecond</alt>
+						<alt>ninetytwo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>93rd</alt>
+						<alt>93</alt>
+						<alt>ninetythird</alt>
+						<alt>ninetythree</alt>
+					</alias_def>
+					<alias_def>
+						<alt>94th</alt>
+						<alt>94</alt>
+						<alt>ninetyfourth</alt>
+						<alt>ninetyfour</alt>
+					</alias_def>
+					<alias_def>
+						<alt>95th</alt>
+						<alt>95</alt>
+						<alt>ninetyfifth</alt>
+						<alt>ninetyfive</alt>
+					</alias_def>
+					<alias_def>
+						<alt>96th</alt>
+						<alt>96</alt>
+						<alt>ninetysixth</alt>
+						<alt>ninetysix</alt>
+					</alias_def>
+					<alias_def>
+						<alt>97th</alt>
+						<alt>97</alt>
+						<alt>ninetyseventh</alt>
+						<alt>ninetyseven</alt>
+					</alias_def>
+					<alias_def>
+						<alt>98th</alt>
+						<alt>98</alt>
+						<alt>ninetyeighth</alt>
+						<alt>ninetyeight</alt>
+					</alias_def>
+					<alias_def>
+						<alt>99th</alt>
+						<alt>99</alt>
+						<alt>ninetyninth</alt>
+						<alt>ninetynine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>9th</alt>
+						<alt>9</alt>
+						<alt>ninth</alt>
+						<alt>nine</alt>
+					</alias_def>
+				</alias_list>
+				<alias_list name="CityAliases">
+					<alias_def>
+						<alt>acres</alt>
+						<alt>acr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>air force base</alt>
+						<alt>afb</alt>
+						<alt>air</alt>
+						<alt>a f b</alt>
+					</alias_def>
+					<alias_def>
+						<alt>bayoo</alt>
+						<alt>byu</alt>
+					</alias_def>
+					<alias_def>
+						<alt>beach</alt>
+						<alt>bch</alt>
+					</alias_def>
+					<alias_def>
+						<alt>bend</alt>
+						<alt>bnd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>bluff</alt>
+						<alt>blf</alt>
+					</alias_def>
+					<alias_def>
+						<alt>branch</alt>
+						<alt>br</alt>
+					</alias_def>
+					<alias_def>
+						<alt>brook</alt>
+						<alt>brk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>camp</alt>
+						<alt>cmp</alt>
+						<alt>cp</alt>
+					</alias_def>
+					<alias_def>
+						<alt>census designated place</alt>
+						<alt>cdp</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cemetery</alt>
+						<alt>cmtery</alt>
+					</alias_def>
+					<alias_def>
+						<alt>center</alt>
+						<alt>cen</alt>
+						<alt>ctr</alt>
+						<alt>cent</alt>
+						<alt>centr</alt>
+						<alt>centre</alt>
+						<alt>cnter</alt>
+						<alt>ctr</alt>
+						<alt>cntr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cliff</alt>
+						<alt>clf</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cliffs</alt>
+						<alt>clfs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>complex</alt>
+						<alt>cmplex</alt>
+					</alias_def>
+					<alias_def>
+						<alt>corner</alt>
+						<alt>cor</alt>
+					</alias_def>
+					<alias_def>
+						<alt>corners</alt>
+						<alt>cors</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cottonwood</alt>
+						<alt>cottonwd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>cove</alt>
+						<alt>cv</alt>
+					</alias_def>
+					<alias_def>
+						<alt>coves</alt>
+						<alt>cvs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>creek</alt>
+						<alt>ck</alt>
+						<alt>crk</alt>
+						<alt>cr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>crossing</alt>
+						<alt>xing</alt>
+						<alt>crssing</alt>
+						<alt>crssng</alt>
+						<alt>xing</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fort worth</alt>
+						<alt>dfw</alt>
+						<alt>dallas</alt>
+					</alias_def>
+					<alias_def>
+						<alt>depot</alt>
+						<alt>dep</alt>
+						<alt>dept</alt>
+					</alias_def>
+					<alias_def>
+						<alt>estate</alt>
+						<alt>est</alt>
+						<alt>estates</alt>
+						<alt>ests</alt>
+					</alias_def>
+					<alias_def>
+						<alt>falls</alt>
+						<alt>fls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>felipe</alt>
+						<alt>felpe</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ferry</alt>
+						<alt>fry</alt>
+						<alt>frry</alt>
+					</alias_def>
+					<alias_def>
+						<alt>flagstone</alt>
+						<alt>flagstn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>flat</alt>
+						<alt>flt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>flats</alt>
+						<alt>flts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>forest</alt>
+						<alt>frst</alt>
+						<alt>forests</alt>
+					</alias_def>
+					<alias_def>
+						<alt>forge</alt>
+						<alt>forg</alt>
+						<alt>frg</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fork</alt>
+						<alt>frk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>forks</alt>
+						<alt>frks</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fort</alt>
+						<alt>ft</alt>
+						<alt>frt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>garden</alt>
+						<alt>gdn</alt>
+						<alt>grden</alt>
+						<alt>grdn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>gardens</alt>
+						<alt>gdns</alt>
+						<alt>grdns</alt>
+					</alias_def>
+					<alias_def>
+						<alt>george bush</alt>
+						<alt>geo bush</alt>
+					</alias_def>
+					<alias_def>
+						<alt>george washington</alt>
+						<alt>geo washington</alt>
+						<alt>g washington</alt>
+					</alias_def>
+					<alias_def>
+						<alt>goldenn</alt>
+						<alt>gldn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>glen</alt>
+						<alt>gln</alt>
+					</alias_def>
+					<alias_def>
+						<alt>glens</alt>
+						<alt>glns</alt>
+					</alias_def>
+					<alias_def>
+						<alt>green</alt>
+						<alt>grn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>greens</alt>
+						<alt>grns</alt>
+					</alias_def>
+					<alias_def>
+						<alt>georgia</alt>
+						<alt>grgia</alt>
+						<alt>ga</alt>
+					</alias_def>
+					<alias_def>
+						<alt>grove</alt>
+						<alt>grov</alt>
+						<alt>grv</alt>
+					</alias_def>
+					<alias_def>
+						<alt>groves</alt>
+						<alt>grvs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>harbor</alt>
+						<alt>harb</alt>
+						<alt>hbr</alt>
+						<alt>harbr</alt>
+						<alt>hrbor</alt>
+					</alias_def>
+					<alias_def>
+						<alt>harbors</alt>
+						<alt>hbrs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>haven</alt>
+						<alt>hvn</alt>
+						<alt>havn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>heights</alt>
+						<alt>height</alt>
+						<alt>hts</alt>
+						<alt>hgts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hign</alt>
+						<alt>hi</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hill</alt>
+						<alt>hl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hills</alt>
+						<alt>hls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hollow</alt>
+						<alt>hllw</alt>
+						<alt>holw</alt>
+						<alt>hollows</alt>
+						<alt>holws</alt>
+					</alias_def>
+					<alias_def>
+						<alt>heights</alt>
+						<alt>hts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>indstrial</alt>
+						<alt>ind</alt>
+						<alt>industrl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>inlet</alt>
+						<alt>inlt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>international</alt>
+						<alt>internatl</alt>
+						<alt>int</alt>
+					</alias_def>
+					<alias_def>
+						<alt>island</alt>
+						<alt>is</alt>
+						<alt>islnd</alt>
+						<alt>isle</alt>
+					</alias_def>
+					<alias_def>
+						<alt>islands</alt>
+						<alt>islnds</alt>
+					</alias_def>
+					<alias_def>
+						<alt>junction</alt>
+						<alt>jct</alt>
+						<alt>jction</alt>
+						<alt>jctn</alt>
+						<alt>junctn</alt>
+						<alt>juncton</alt>
+					</alias_def>
+					<alias_def>
+						<alt>junctions</alt>
+						<alt>jctns</alt>
+						<alt>jcts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>key</alt>
+						<alt>ky</alt>
+					</alias_def>
+					<alias_def>
+						<alt>keys</alt>
+						<alt>kys</alt>
+					</alias_def>
+					<alias_def>
+						<alt>kingfish</alt>
+						<alt>kngfsh</alt>
+					</alias_def>
+					<alias_def>
+						<alt>knoll</alt>
+						<alt>knl</alt>
+						<alt>knol</alt>
+					</alias_def>
+					<alias_def>
+						<alt>knolls</alt>
+						<alt>knls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>los angeles</alt>
+						<alt>la</alt>
+						<alt>ls angls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>laguna</alt>
+						<alt>laguana</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lake</alt>
+						<alt>lk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lakes</alt>
+						<alt>lks</alt>
+					</alias_def>
+					<alias_def>
+						<alt>landing</alt>
+						<alt>lndg</alt>
+						<alt>lndng</alt>
+					</alias_def>
+					<alias_def>
+						<alt>las vegas</alt>
+						<alt>vegas</alt>
+						<alt>lv</alt>
+					</alias_def>
+					<alias_def>
+						<alt>las</alt>
+						<alt>los</alt>
+						<alt>ls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>abraham lincoln</alt>
+						<alt>abe lincoln</alt>
+						<alt>lincoln</alt>
+						<alt>a lincoln</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lodge</alt>
+						<alt>ldg</alt>
+						<alt>ldge</alt>
+						<alt>lodg</alt>
+					</alias_def>
+					<alias_def>
+						<alt>loop</alt>
+						<alt>lp</alt>
+					</alias_def>
+					<alias_def>
+						<alt>lower</alt>
+						<alt>lwr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mac</alt>
+						<alt>mc</alt>
+					</alias_def>
+					<alias_def>
+						<alt>meadow</alt>
+						<alt>mdw</alt>
+					</alias_def>
+					<alias_def>
+						<alt>meadows</alt>
+						<alt>mdws</alt>
+						<alt>medows</alt>
+					</alias_def>
+					<alias_def>
+						<alt>medical</alt>
+						<alt>medcl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mile</alt>
+						<alt>mi</alt>
+						<alt>mil</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mission</alt>
+						<alt>msn</alt>
+						<alt>missn</alt>
+						<alt>mssn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mills</alt>
+						<alt>mls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>manor</alt>
+						<alt>mnr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mount</alt>
+						<alt>mnt</alt>
+						<alt>mt</alt>
+						<alt>mountain</alt>
+						<alt>mntain</alt>
+						<alt>mtn</alt>
+						<alt>mntn</alt>
+						<alt>mountin</alt>
+						<alt>mtin</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mountains</alt>
+						<alt>mntns</alt>
+						<alt>mtns</alt>
+					</alias_def>
+					<alias_def>
+						<alt>morningside</alt>
+						<alt>mrngside</alt>
+					</alias_def>
+					<alias_def>
+						<alt>national park</alt>
+						<alt>np</alt>
+						<alt>ntl pk</alt>
+					</alias_def>
+					<alias_def>
+						<alt>new york</alt>
+						<alt>nyc</alt>
+						<alt>ny</alt>
+						<alt>new york city</alt>
+					</alias_def>
+					<alias_def>
+						<alt>of</alt>
+						<alt>de</alt>
+					</alias_def>
+					<alias_def>
+						<alt>orchard</alt>
+						<alt>orch</alt>
+						<alt>orchrd</alt>
+					</alias_def>
+					<alias_def>
+						<alt>park</alt>
+						<alt>pk</alt>
+						<alt>parc</alt>
+						<alt>prk</alt>
+						<alt>parks</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pueblo</alt>
+						<alt>pblo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pines</alt>
+						<alt>pnes</alt>
+					</alias_def>
+					<alias_def>
+						<alt>place</alt>
+						<alt>pl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pleasantview</alt>
+						<alt>pleasntvw</alt>
+					</alias_def>
+					<alias_def>
+						<alt>plantation</alt>
+						<alt>plt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>point</alt>
+						<alt>pt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>points</alt>
+						<alt>pts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>prairie</alt>
+						<alt>pr</alt>
+						<alt>prarie</alt>
+						<alt>prr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ranch</alt>
+						<alt>ranches</alt>
+						<alt>ranchos</alt>
+						<alt>rnch</alt>
+					</alias_def>
+					<alias_def>
+						<alt>reservation</alt>
+						<alt>res</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ridge</alt>
+						<alt>rdg</alt>
+						<alt>rdge</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ridges</alt>
+						<alt>rdgs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>river</alt>
+						<alt>rio</alt>
+						<alt>riv</alt>
+						<alt>rivr</alt>
+						<alt>rvr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>santa</alt>
+						<alt>san</alt>
+						<alt>santo</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sapphire</alt>
+						<alt>saphire</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sawmill</alt>
+						<alt>sawml</alt>
+					</alias_def>
+					<alias_def>
+						<alt>shoal</alt>
+						<alt>shl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>shoals</alt>
+						<alt>shls</alt>
+					</alias_def>
+					<alias_def>
+						<alt>shore</alt>
+						<alt>shoar</alt>
+						<alt>shr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>shores</alt>
+						<alt>shrs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>salt lake city</alt>
+						<alt>slc</alt>
+						<alt>salt lake</alt>
+					</alias_def>
+					<alias_def>
+						<alt>speedway</alt>
+						<alt>spdwy</alt>
+					</alias_def>
+					<alias_def>
+						<alt>springs</alt>
+						<alt>spgs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>spring</alt>
+						<alt>spg</alt>
+						<alt>spng</alt>
+						<alt>sprng</alt>
+						<alt>springs</alt>
+						<alt>spgs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>springs</alt>
+						<alt>spgs</alt>
+						<alt>spring</alt>
+						<alt>spg</alt>
+						<alt>spng</alt>
+						<alt>sprng</alt>
+					</alias_def>
+					<alias_def>
+						<alt>saint</alt>
+						<alt>st</alt>
+						<alt>snt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>station</alt>
+						<alt>sta</alt>
+						<alt>statn</alt>
+						<alt>stn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>state university</alt>
+						<alt>st univ</alt>
+						<alt>st uni</alt>
+						<alt>su</alt>
+					</alias_def>
+					<alias_def>
+						<alt>summit</alt>
+						<alt>smt</alt>
+						<alt>sumit</alt>
+						<alt>sumitt</alt>
+					</alias_def>
+					<alias_def>
+						<alt>temple</alt>
+						<alt>templ</alt>
+					</alias_def>
+					<alias_def>
+						<alt>terrace</alt>
+						<alt>ter</alt>
+						<alt>terr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tierra</alt>
+						<alt>tira</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tucson</alt>
+						<alt>tsn</alt>
+					</alias_def>
+					<alias_def>
+						<alt>township</alt>
+						<alt>twp</alt>
+						<alt>town</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tower</alt>
+						<alt>twr</alt>
+					</alias_def>
+					<alias_def>
+						<alt>university</alt>
+						<alt>uni</alt>
+						<alt>univ</alt>
+					</alias_def>
+					<alias_def>
+						<alt>upper</alt>
+						<alt>up</alt>
+					</alias_def>
+					<alias_def>
+						<alt>urbana</alt>
+						<alt>urb</alt>
+					</alias_def>
+					<alias_def>
+						<alt>united states</alt>
+						<alt>us</alt>
+					</alias_def>
+					<alias_def>
+						<alt>united states air force</alt>
+						<alt>usaf</alt>
+						<alt>air force</alt>
+					</alias_def>
+					<alias_def>
+						<alt>verde</alt>
+						<alt>green</alt>
+					</alias_def>
+					<alias_def>
+						<alt>villa</alt>
+						<alt>vil</alt>
+					</alias_def>
+					<alias_def>
+						<alt>village</alt>
+						<alt>vill</alt>
+						<alt>vlg</alt>
+						<alt>villag</alt>
+						<alt>villg</alt>
+						<alt>vlg</alt>
+						<alt>villiage</alt>
+					</alias_def>
+					<alias_def>
+						<alt>villages</alt>
+						<alt>vlgs</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ville</alt>
+						<alt>vl</alt>
+					</alias_def>
+					<alias_def>
+						<alt>vista</alt>
+						<alt>vis</alt>
+					</alias_def>
+					<alias_def>
+						<alt>willow</alt>
+						<alt>wlw</alt>
+					</alias_def>
+				</alias_list>
+				<alias_list name="StateAliases">
+					<alias_def>
+						<alt>ak</alt>
+						<alt>alas</alt>
+						<alt>alaska</alt>
+					</alias_def>
+					<alias_def>
+						<alt>al</alt>
+						<alt>ala</alt>
+						<alt>alabama</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ar</alt>
+						<alt>ark</alt>
+						<alt>arkansas</alt>
+					</alias_def>
+					<alias_def>
+						<alt>az</alt>
+						<alt>ariz</alt>
+						<alt>arizona</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ca</alt>
+						<alt>cal</alt>
+						<alt>calif</alt>
+						<alt>california</alt>
+					</alias_def>
+					<alias_def>
+						<alt>co</alt>
+						<alt>col</alt>
+						<alt>colo</alt>
+						<alt>colorado</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ct</alt>
+						<alt>conn</alt>
+						<alt>connecticut</alt>
+						<alt>conneticut</alt>
+					</alias_def>
+					<alias_def>
+						<alt>dc</alt>
+						<alt>district of columbia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>de</alt>
+						<alt>del</alt>
+						<alt>delaware</alt>
+					</alias_def>
+					<alias_def>
+						<alt>fl</alt>
+						<alt>fla</alt>
+						<alt>flor</alt>
+						<alt>florida</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ga</alt>
+						<alt>georgia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>hi</alt>
+						<alt>hawaii</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ia</alt>
+						<alt>iowa</alt>
+					</alias_def>
+					<alias_def>
+						<alt>id</alt>
+						<alt>ida</alt>
+						<alt>idaho</alt>
+					</alias_def>
+					<alias_def>
+						<alt>il</alt>
+						<alt>ill</alt>
+						<alt>illinois</alt>
+						<alt>ills</alt>
+					</alias_def>
+					<alias_def>
+						<alt>in</alt>
+						<alt>ind</alt>
+						<alt>indiana</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ks</alt>
+						<alt>kan</alt>
+						<alt>kans</alt>
+						<alt>kansas</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ky</alt>
+						<alt>ken</alt>
+						<alt>kent</alt>
+						<alt>kentucky</alt>
+					</alias_def>
+					<alias_def>
+						<alt>la</alt>
+						<alt>louisiana</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ma</alt>
+						<alt>mass</alt>
+						<alt>massachusetts</alt>
+					</alias_def>
+					<alias_def>
+						<alt>md</alt>
+						<alt>maryland</alt>
+					</alias_def>
+					<alias_def>
+						<alt>me</alt>
+						<alt>maine</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mi</alt>
+						<alt>mich</alt>
+						<alt>michigan</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mn</alt>
+						<alt>minn</alt>
+						<alt>minnesota</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mo</alt>
+						<alt>missouri</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ms</alt>
+						<alt>miss</alt>
+						<alt>mississippi</alt>
+					</alias_def>
+					<alias_def>
+						<alt>mt</alt>
+						<alt>mont</alt>
+						<alt>montana</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nc</alt>
+						<alt>n car</alt>
+						<alt>north carolina</alt>
+						<alt>n carolina</alt>
+						<alt>no carolina</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nd</alt>
+						<alt>n dak</alt>
+						<alt>north dakota</alt>
+						<alt>n dakota</alt>
+						<alt>no dakota</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ne</alt>
+						<alt>neb</alt>
+						<alt>nebr</alt>
+						<alt>nebraska</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nh</alt>
+						<alt>new hampshire</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nj</alt>
+						<alt>new jersey</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nm</alt>
+						<alt>nmex</alt>
+						<alt>new m</alt>
+						<alt>new mexico</alt>
+					</alias_def>
+					<alias_def>
+						<alt>nv</alt>
+						<alt>nev</alt>
+						<alt>nevada</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ny</alt>
+						<alt>nyork</alt>
+						<alt>new york</alt>
+					</alias_def>
+					<alias_def>
+						<alt>oh</alt>
+						<alt>o</alt>
+						<alt>ohio</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ok</alt>
+						<alt>okla</alt>
+						<alt>oklahoma</alt>
+					</alias_def>
+					<alias_def>
+						<alt>or</alt>
+						<alt>ore</alt>
+						<alt>oreg</alt>
+						<alt>oregon</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pa</alt>
+						<alt>penn</alt>
+						<alt>penna</alt>
+						<alt>pennsylvania</alt>
+					</alias_def>
+					<alias_def>
+						<alt>pr</alt>
+						<alt>puerto rico</alt>
+						<alt>puerto</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ri</alt>
+						<alt>rhode island</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sc</alt>
+						<alt>s car</alt>
+						<alt>south carolina</alt>
+						<alt>s carolina</alt>
+						<alt>so carolina</alt>
+					</alias_def>
+					<alias_def>
+						<alt>sd</alt>
+						<alt>s dak</alt>
+						<alt>south dakota</alt>
+						<alt>s dakota</alt>
+						<alt>so dakota</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tn</alt>
+						<alt>tenn</alt>
+						<alt>tennessee</alt>
+					</alias_def>
+					<alias_def>
+						<alt>tx</alt>
+						<alt>tex</alt>
+						<alt>texas</alt>
+					</alias_def>
+					<alias_def>
+						<alt>ut</alt>
+						<alt>utah</alt>
+					</alias_def>
+					<alias_def>
+						<alt>va</alt>
+						<alt>virginia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>vt</alt>
+						<alt>vermont</alt>
+					</alias_def>
+					<alias_def>
+						<alt>wa</alt>
+						<alt>wash</alt>
+						<alt>washington</alt>
+					</alias_def>
+					<alias_def>
+						<alt>wi</alt>
+						<alt>wis</alt>
+						<alt>wisc</alt>
+						<alt>wisconsin</alt>
+					</alias_def>
+					<alias_def>
+						<alt>wv</alt>
+						<alt>w va</alt>
+						<alt>west virginia</alt>
+						<alt>w virginia</alt>
+					</alias_def>
+					<alias_def>
+						<alt>wy</alt>
+						<alt>wyo</alt>
+						<alt>wyoming</alt>
+					</alias_def>
+				</alias_list>
+			</section>
+			<!--This section defines the address grammar for the top level elemnts of a complete address. -->
+			<section desc="Top level elements">
+				<def name="Location">
+					<alt>
+						<elt ref="FullAddress" strip_list=".,';"/>
+					</alt>
+					<alt ref="Coordinates"/>
+					<alt ref="SpatialOperator"/>
+				</def>
+				<def name="Postal">
+					<alt>
+						<elt ref="GenZIP" search_context="ZIPSearch"/>
+						<result>
+							<search_value ref="ZIPSearch"/>
+						</result>
+					</alt>
+				</def>
+				<def name="FullAddress">
+					<alt>
+						<elt ref="FullNormalAddress" search_context="addressSearch"/>
+					</alt>
+					<alt selector="supportsIntersections" ref="FullIntersection"/>
+				</def>
+				<def name="FullNormalAddress">
+					<alt>
+						<elt ref="NormalAddress" weight="70"/>
+						<elt ref="OptSeparator"/>
+						<elt ref="Zone" weight="30"/>
+						<result tag="Address">
+							<search_value ref="addressSearch"/>
+							<format_ref ref="format_normal_address"/>
+						</result>
+					</alt>
+				</def>
+				<!--This section defines the address grammar for an intersection. 
+        (StreetName1 + Intersection Connector + StreetName2)-->
+				<def name="FullIntersection">
+					<alt>
+						<elt ref="FullStreetName" search_context="leftStreet" weight="40"/>
+						<elt ref="intConnector"/>
+						<elt ref="FullStreetName" search_context="rightStreet" weight="40"/>
+						<elt ref="OptSeparator"/>
+						<elt ref="Zone" weight="20"/>
+						<result tag="Intersection">
+							<method ref="intersection">
+								<parameter>
+									<search_value ref="leftStreet" original_values="true"/>
+								</parameter>
+								<parameter>
+									<search_value ref="rightStreet" original_values="true"/>
+								</parameter>
+							</method>
+							<format_ref ref="format_intersections"/>
+						</result>
+					</alt>
+				</def>
+				<!--This section defines the normal address format. 
+        (House Number + Street Name + Optional house units such as building name, apartment number)-->
+				<def name="NormalAddress">
+					<alt>
+						<elt ref="House" weight="40"/>
+						<elt ref="FullStreetName" weight="60"/>
+						<elt ref="OptionalUnit" weight="0"/>
+					</alt>
+				</def>
+				<!--This section is defined for batch mode geocoding using multiline inputs.-->
+				<def name="MultiLineAddress">
+					<alt>
+						<elt ref="House" weight="40"/>
+						<elt ref="FullStreetName" weight="60"/>
+						<elt ref="MultiLineOptionalUnit" weight="0"/>
+					</alt>
+				</def>
+				<!--Optional house units with optional separators, for example, # 12, Apt # 234.-->
+				<def name="OptionalUnit">
+					<alt>
+						<elt ref="OptSeparator"/>
+						<elt ref="unitAndNumber" weight="0"/>
+					</alt>
+					<alt>
+					</alt>
+				</def>
+				<!--Optional house units with optional separators for batch geocoding using 
+        multiline address inputs.-->
+				<def name="MultiLineOptionalUnit">
+					<alt>
+						<elt ref="OptSeparator"/>
+						<elt ref="MultiLineUnitAndNumber" weight="0"/>
+					</alt>
+					<alt>
+					</alt>
+				</def>
+				<!--Street name elements and their assigned weights-->
+				<def name="FullStreetName">
+					<alt>
+						<elt ref="prefix" weight="7"/>
+						<elt ref="pretype" weight="6"/>
+						<elt ref="OptHyphen" weight="0"/>
+						<elt ref="StName" weight="70" post_separator="required"/>
+						<elt ref="suftype" weight="10"/>
+						<elt ref="suffix" weight="7"/>
+					</alt>
+				</def>
+				<!--Individual address elements are optimized and defined.-->
+				<def name="prefix" optimize="true">
+					<alt ref="dir"/>
+					<alt/>
+				</def>
+				<def name="pretype" optimize="true">
+					<alt ref="type"/>
+					<alt/>
+				</def>
+				<def name="StName">
+					<alias_list_ref ref="StreetNameAliases"/>
+					<alt ref="name"/>
+				</def>
+				<def name="suftype" optimize="true">
+					<alt ref="type"/>
+					<alt/>
+				</def>
+				<def name="suffix" optimize="true">
+					<alt ref="dir"/>
+					<alt/>
+				</def>
+				<!--Intersection connectors for intersection addresses.-->
+				<def name="intConnector">
+					<alt ref="andConnector"/>
+					<alt>at</alt>
+					<alt>@</alt>
+					<alt>/</alt>
+					<alt>|</alt>
+				</def>
+				<def name="andConnector">
+					<alt>&amp;</alt>
+					<alt>and</alt>
+				</def>
+				<!--Street name is defined as word with an optional hyphen in between words-->
+				<def name="name">
+					<alt ref="word"/>
+					<alt>
+						<elt ref="word"/>
+						<elt ref="name"/>
+					</alt>
+					<alt>
+						<elt ref="word"/>-<elt ref="name"/>
+					</alt>
+				</def>
+				<!--Separators for numeric house numbers and unit numbers-->
+				<def name="NumSeparator">
+					<alt>-</alt>
+					<alt>#</alt>
+					<alt>/</alt>
+				</def>
+				<def name="OptNumSeparator">
+					<alt>
+						<elt ref="NumSeparator" pre_separator="optional" post_separator="optional"/>
+					</alt>
+					<alt>
+					</alt>
+				</def>
+				<!--Units and numbers (e.g., Apt # 123, Suite A etc)-->
+				<def name="unitAndNumber">
+					<alt>
+						<elt ref="HousingUnitType"/>
+						<elt ref="OptNumSeparator"/>
+						<elt ref="AlphaNumericUnit"/>
+					</alt>
+					<alt>
+						<elt ref="NumSeparator" pre_separator="optional" post_separator="optional"/>
+						<elt ref="AlphaNumericUnit"/>
+					</alt>
+					<alt>
+						<elt ref="NumSeparator" pre_separator="optional" post_separator="optional"/>
+						<elt ref="latinAlphaWord"/>
+					</alt>
+				</def>
+				<!--Units and numbers (e.g., Apt # 123, Suite A etc) for batch mode multiline geocoding-->
+				<def name="MultiLineUnitAndNumber">
+					<alt>
+						<elt ref="HousingUnitType"/>
+						<elt ref="OptNumSeparator"/>
+						<elt ref="UnitJunk"/>
+					</alt>
+					<alt>
+						<elt ref="NumSeparator" pre_separator="optional" post_separator="optional"/>
+						<elt ref="UnitJunk"/>
+					</alt>
+				</def>
+			</section>
+			<!--Zone properties and order of inputs (includes City, State, ZIP)-->
+			<section desc="Zones">
+				<def name="Zone">
+					<alt>
+						<elt ref="OptCity" weight="20"/>
+						<elt ref="OptState" weight="30"/>
+						<elt ref="OptGenZIP" weight="50"/>
+					</alt>
+				</def>
+				<def name="OptState">
+					<alt ref="State"/>
+					<alt/>
+				</def>
+				<def name="OptCity">
+					<alt ref="City"/>
+					<alt/>
+				</def>
+				<def name="OptGenZIP">
+					<alt ref="GenZIP"/>
+					<alt/>
+				</def>
+				<!--City Parameter defined as word and also called City Aliases for alias names-->
+				<def name="City">
+					<alias_list_ref ref="CityAliases"/>
+					<alt ref="wordlist"/>
+				</def>
+				<!--ZIP Code parameters (ZIP 9, ZIP5 and ZIP4)-->
+				<def name="GenZIP">
+					<alt ref="ZIP5"/>
+					<alt ref="ZIPPlus4"/>
+				</def>
+				<def name="ZIP5">
+					<alt>`[0-9][0-9][0-9][0-9][0-9]`</alt>
+				</def>
+				<def name="ZIP4">
+					<alt>`[0-9][0-9][0-9][0-9]`</alt>
+				</def>
+				<def name="ZIPPlus4">
+					<alt>
+						<elt ref="ZIP5" weight="100"/>
+						<elt ref="OptHyphen"/>
+						<elt ref="ZIP4" weight="50"/>
+					</alt>
+				</def>
+				<def name="OptCity">
+					<alt ref="City"/>
+					<alt/>
+				</def>
+				<def name="OptState">
+					<alt ref="State"/>
+					<alt/>
+				</def>
+				<def name="OptGenZIP">
+					<alt ref="GenZIP"/>
+					<alt/>
+				</def>
+			</section>
+			<!--This section defines basic elements for address parameters like otional Hyphens, 
+      Decimals, numbers, alphabets, Latin Characters, unit junks, separators etc.,-->
+			<section desc="Basic elements">
+				<def name="realNumber">
+					<alt>
+						<elt ref="OptHyphen"/>
+						<elt ref="positiveRealNumber"/>
+					</alt>
+				</def>
+				<def name="positiveRealNumber">
+					<alt>
+						<elt ref="number"/>
+						<elt ref="OptDecimal"/>
+					</alt>
+				</def>
+				<def name="OptDecimal">
+					<alt>
+						<elt pre_separator="none">.</elt>
+						<elt ref="number" pre_separator="none"/>
+					</alt>
+					<alt/>
+				</def>
+				<def name="number">
+					<alt>`[0-9]+`</alt>
+				</def>
+				<def name="wordlist">
+					<alt ref="word"/>
+					<alt>
+						<elt ref="word"/>
+						<elt ref="wordlist"/>
+					</alt>
+				</def>
+				<def name="latinAlphaWord">
+					<alt>`[a-zA-Z]+`</alt>
+				</def>
+				<def name="alphaNumericWord">
+					<alt>`[a-zA-Z0-9]+`</alt>
+				</def>
+				<def name="word">
+					<alt>`[^ \t,;#$%^&amp;*@!~|":]+`</alt>
+				</def>
+				<def name="UnitJunk">
+					<alt>`[^#]+`</alt>
+					<alt/>
+				</def>
+				<def name="Hyphen">
+					<alt>`[­–—―]`</alt>
+					<alt>-</alt>
+				</def>
+				<def name="OptHyphen">
+					<alt>
+						<elt ref="Hyphen" pre_separator="optional" post_separator="optional"/>
+					</alt>
+					<alt/>
+				</def>
+				<def name="Separator">
+					<alt>,</alt>
+					<alt>;</alt>
+					<alt>|</alt>
+				</def>
+				<def name="OptSeparator">
+					<alt>
+						<elt ref="Separator" pre_separator="optional" post_separator="optional"/>
+					</alt>
+					<alt/>
+				</def>
+			</section>
+			<!--This section defines the coordinates - the metadata of the reference data indexes-->
+			<section desc="Coordinates">
+				<def name="OptCoordsysID">
+					<alt>WGS_1984</alt>
+					<alt/>
+				</def>
+				<def name="CoordSeparator">
+					<alt>,</alt>
+					<alt>;</alt>
+					<alt>|</alt>
+					<alt/>
+				</def>
+				<def name="Coordinates">
+					<alt>
+						<elt ref="longitudePrefix"/>
+						<elt ref="positiveRealNumber" pre_separator="optional"/>
+						<elt ref="CoordSeparator"/>
+						<elt ref="latitudePrefix" pre_separator="optional"/>
+						<elt ref="positiveRealNumber" pre_separator="optional"/>
+						<elt ref="OptCoordsysID"/>
+						<result tag="Coordinates">
+							<method ref="create_point">
+								<init_properties>
+									<prop name="CoordinateSystem">WGS_1984</prop>
+								</init_properties>
+								<parameter>
+									<component_value component="_1"/>
+								</parameter>
+								<parameter>
+									<component_value component="_2"/>
+								</parameter>
+								<parameter>
+									<component_value component="_4"/>
+								</parameter>
+								<parameter>
+									<component_value component="_5"/>
+								</parameter>
+								<parameter>
+									<component_value component="_6"/>
+								</parameter>
+							</method>
+						</result>
+					</alt>
+				</def>
+				<def name="longitudePrefix">
+					<alt>w</alt>
+					<alt>e</alt>
+					<alt>-</alt>
+					<alt>+</alt>
+					<alt/>
+				</def>
+				<def name="latitudePrefix">
+					<alt>n</alt>
+					<alt>s</alt>
+					<alt>-</alt>
+					<alt>+</alt>
+					<alt/>
+				</def>
+			</section>
+			<!--This section defnes the grammar for spatial offset on a found location, e.g. 
+      100 feet northwest from <location>. It specifies the linear units and bearing directions. -->
+			<section desc="Spatial Operators">
+				<def name="SpatialOperator">
+					<alt ref="DirectedOffset"/>
+				</def>
+				<def name="DirectedOffset">
+					<alt>
+						<elt ref="positiveRealNumber" weight="0"/>
+						<elt ref="LinearUnits" weight="0"/>
+						<elt ref="Bearing" weight="0"/>
+						<elt ref="From" weight="0"/>
+						<elt ref="Location"/>
+						<result tag="SpatialOperator">
+							<method ref="directed_offset">
+								<parameter>
+									<component_value component="_1"/>
+								</parameter>
+								<parameter>
+									<component_value component="_2"/>
+								</parameter>
+								<parameter>
+									<component_value component="_3"/>
+								</parameter>
+								<parameter>
+									<component_value component="_5"/>
+								</parameter>
+							</method>
+							<format>
+								<component_value component="Distance"/>
+								<component_value component="Units" pre_separator=" "/>
+								<value xml:space="preserve"> bearing </value>
+								<component_value component="Bearing"/>
+								<value xml:space="preserve"> from </value>
+								<component_value component="Match_addr" record="1"/>
+							</format>
+						</result>
+					</alt>
+				</def>
+				<def name="From">
+					<alt>from</alt>
+				</def>
+				<def name="Bearing">
+					<alt>
+						<elt ref="north"/>
+						<result type="float">0.</result>
+					</alt>
+					<alt>
+						<elt ref="northeast"/>
+						<result type="float">45.</result>
+					</alt>
+					<alt>
+						<elt ref="east"/>
+						<result type="float">90.</result>
+					</alt>
+					<alt>
+						<elt ref="southeast"/>
+						<result type="float">135.</result>
+					</alt>
+					<alt>
+						<elt ref="south"/>
+						<result type="float">180.</result>
+					</alt>
+					<alt>
+						<elt ref="southwest"/>
+						<result type="float">225.</result>
+					</alt>
+					<alt>
+						<elt ref="west"/>
+						<result type="float">270.</result>
+					</alt>
+					<alt>
+						<elt ref="northwest"/>
+						<result type="float">315.</result>
+					</alt>
+					<alt>
+						<elt>bearing</elt>
+						<elt ref="realNumber">
+						</elt>
+						<result>
+							<component_value component="_2"/>
+						</result>
+					</alt>
+				</def>
+			</section>
+			<section desc="Linear Units">
+				<def name="LinearUnits">
+					<!-- parsed linear units return corresponding esriSystem.esriUnits values -->
+					<alt>
+						<elt ref="Inches"/>
+						<result type="Int">1</result>
+					</alt>
+					<alt>
+						<elt ref="Points"/>
+						<result type="Int">2</result>
+					</alt>
+					<alt>
+						<elt ref="Feet"/>
+						<result type="Int">3</result>
+					</alt>
+					<alt>
+						<elt ref="Yards"/>
+						<result type="Int">4</result>
+					</alt>
+					<alt>
+						<elt ref="Miles"/>
+						<result type="Int">5</result>
+					</alt>
+					<alt>
+						<elt ref="NauticalMiles"/>
+						<result type="Int">6</result>
+					</alt>
+					<alt>
+						<elt ref="Millimeters"/>
+						<result type="Int">7</result>
+					</alt>
+					<alt>
+						<elt ref="Centimeters"/>
+						<result type="Int">8</result>
+					</alt>
+					<alt>
+						<elt ref="Decimeters"/>
+						<result type="Int">12</result>
+					</alt>
+					<alt>
+						<elt ref="Meters"/>
+						<result type="Int">9</result>
+					</alt>
+					<alt>
+						<elt ref="Kilometers"/>
+						<result type="Int">10</result>
+					</alt>
+				</def>
+				<def name="Inches">
+					<alt>
+						<elt post_separator="required" pre_separator="optional">"</elt>
+					</alt>
+					<alt>In</alt>
+					<alt>Inch</alt>
+					<alt>Inches</alt>
+				</def>
+				<def name="Points">
+					<alt>Pt</alt>
+					<alt>Point</alt>
+					<alt>Points</alt>
+				</def>
+				<def name="Feet">
+					<alt>
+						<elt post_separator="required" pre_separator="optional">'</elt>
+					</alt>
+					<alt>Ft</alt>
+					<alt>Foot</alt>
+					<alt>Feet</alt>
+				</def>
+				<def name="Yards">
+					<alt>Yd</alt>
+					<alt>Yrd</alt>
+					<alt>Yrds</alt>
+					<alt>Yard</alt>
+					<alt>Yards</alt>
+				</def>
+				<def name="Miles">
+					<alt>mi</alt>
+					<alt>Mile</alt>
+					<alt>Miles</alt>
+				</def>
+				<def name="NauticalMiles">
+					<alt>Nautical Mile</alt>
+					<alt>Nautical Miles</alt>
+				</def>
+				<def name="Millimeters">
+					<alt>mm</alt>
+					<alt>Millimeter</alt>
+					<alt>Millimeters</alt>
+				</def>
+				<def name="Centimeters">
+					<alt>cm</alt>
+					<alt>Centimeter</alt>
+					<alt>Centimeters</alt>
+				</def>
+				<def name="Decimeters">
+					<alt>dm</alt>
+					<alt>Decimeter</alt>
+					<alt>Decimeters</alt>
+				</def>
+				<def name="Meters">
+					<alt>m</alt>
+					<alt>Meter</alt>
+					<alt>Meters</alt>
+				</def>
+				<def name="Kilometers">
+					<alt>km</alt>
+					<alt>Kilometer</alt>
+					<alt>Kilometers</alt>
+				</def>
+			</section>
+			<!--This section handles various house number formats including numeric, 
+      alphanumeric, fractional, hyphenated, and hyphenated alphanumeric numbers.-->
+			<section desc="House numbers">
+				<def name="House">
+					<alt ref="NyNumber"/>
+					<alt ref="WisconsinIllinoisNumber"/>
+					<alt ref="AlphaNumericHouse"/>
+					<alt>
+					</alt>
+				</def>
+				<def name="NyNumber">
+					<alt>
+						<elt ref="crossstreet"/>-<elt ref="number" pre_separator="optional"/>
+					</alt>
+				</def>
+				<def name="WisconsinIllinoisNumber">
+					<alt>
+						<elt ref="wisc_grid"/>
+						<elt ref="number" pre_separator="none"/>
+					</alt>
+					<alt>
+						<elt ref="wisc_dir"/>
+						<elt ref="number" pre_separator="none"/>
+					</alt>
+					<alt>
+						<elt ref="number"/>
+						<elt ref="illinois_dir" pre_separator="none" post_separator="none"/>
+						<elt ref="number"/>
+					</alt>
+				</def>
+				<def name="wisc_grid">
+					<alt>
+						<elt ref="wisc_dir"/>
+						<elt ref="number" pre_separator="none" post_separator="none"/>
+						<elt ref="wisc_dir"/>
+					</alt>
+				</def>
+				<def name="illinois_dir">
+					<alt>n</alt>
+					<alt>s</alt>
+					<alt>w</alt>
+				</def>
+				<def name="wisc_dir">
+					<alt ref="illinois_dir"/>
+					<alt>e</alt>
+					<alt>r</alt>
+				</def>
+				<def name="crossstreet">
+					<alt>
+						<elt ref="number" post_separator="optional"/>
+					</alt>
+				</def>
+				<def name="AlphaNumericHouse">
+					<alt>
+						<elt ref="number"/>
+						<elt ref="OptFraction"/>
+					</alt>
+					<alt ref="alpha"/>
+					<alt>
+						<elt ref="alpha"/>
+						<elt ref="OptHyphen" pre_separator="optional" post_separator="optional"/>
+						<elt ref="number"/>
+					</alt>
+					<alt>
+						<elt ref="number"/>
+						<elt ref="Hyphen" pre_separator="optional" post_separator="optional"/>
+						<elt ref="alpha"/>
+					</alt>
+					<alt>
+						<elt ref="number" post_separator="none"/>
+						<elt ref="alpha"/>
+					</alt>
+					<alt>
+						<elt ref="number"/>-<elt ref="number"/><elt ref="alpha"/>
+					</alt>
+				</def>
+				<def name="OptHyphenAlphaNum">
+					<alt>
+						<elt ref="Hyphen" pre_separator="optional" post_separator="optional"/>
+						<elt ref="alphaNumericWord"/>
+					</alt>
+					<alt/>
+				</def>
+				<def name="AlphaNumericUnit">
+					<alt>
+						<elt ref="number"/>
+						<elt ref="OptFraction"/>
+					</alt>
+					<alt>
+						<elt ref="alphaNumericWord"/>
+						<elt ref="OptHyphenAlphaNum" pre_separator="optional"/>
+					</alt>
+				</def>
+				<def name="OptFraction">
+					<alt ref="Fraction"/>
+					<alt/>
+				</def>
+				<def name="Fraction">
+					<alt>
+						<elt ref="number" post_separator="none"/>/<elt ref="number" pre_separator="none"/>
+					</alt>
+					<alt>¼</alt>
+					<alt>½</alt>
+					<alt>¾</alt>
+					<!--1/3-->
+					<alt>⅓</alt>
+					<!--2/3-->
+					<alt>⅔</alt>
+					<!--1/5-->
+					<alt>⅕</alt>
+					<!--2/5-->
+					<alt>⅖</alt>
+					<!--3/5-->
+					<alt>⅗</alt>
+					<!--4/5-->
+					<alt>⅘</alt>
+					<!--1/6-->
+					<alt>⅙</alt>
+					<!--5/6-->
+					<alt>⅚</alt>
+					<!--1/8-->
+					<alt>⅛</alt>
+					<!--3/8-->
+					<alt>⅜</alt>
+					<!--5/8-->
+					<alt>⅝</alt>
+					<!--7/8-->
+					<alt>⅞</alt>
+				</def>
+				<def name="alpha">
+					<alt>`[a-zA-Z]`</alt>
+				</def>
+			</section>
+			<!-- This section defines the street directions and their aliases.-->
+			<section desc="Street directions">
+				<def name="dir">
+					<alt ref="strictdir"/>
+					<alt ref="halfdir"/>
+					<alt ref="bounddir"/>
+				</def>
+				<def name="strictdir">
+					<alt ref="west"/>
+					<alt ref="east"/>
+					<alt ref="south"/>
+					<alt ref="north"/>
+				</def>
+				<def name="halfdir">
+					<alt ref="southeast"/>
+					<alt ref="southwest"/>
+					<alt ref="northeast"/>
+					<alt ref="northwest"/>
+				</def>
+				<def name="bounddir">
+					<alt ref="northbound"/>
+					<alt ref="southbound"/>
+					<alt ref="eastbound"/>
+					<alt ref="westbound"/>
+				</def>
+				<def name="west" is_alias_list="true">
+					<alt>w</alt>
+					<alt>west</alt>
+				</def>
+				<def name="east" is_alias_list="true">
+					<alt>e</alt>
+					<alt>east</alt>
+				</def>
+				<def name="south" is_alias_list="true">
+					<alt>s</alt>
+					<alt>so</alt>
+					<alt>south</alt>
+				</def>
+				<def name="north" is_alias_list="true">
+					<alt>n</alt>
+					<alt>no</alt>
+					<alt>north</alt>
+				</def>
+				<def name="southeast" is_alias_list="true">
+					<alt>se</alt>
+					<alt>southeast</alt>
+				</def>
+				<def name="southwest" is_alias_list="true">
+					<alt>sw</alt>
+					<alt>southwest</alt>
+				</def>
+				<def name="northeast" is_alias_list="true">
+					<alt>ne</alt>
+					<alt>northeast</alt>
+				</def>
+				<def name="northwest" is_alias_list="true">
+					<alt>nw</alt>
+					<alt>northwest</alt>
+				</def>
+				<def name="northbound" is_alias_list="true">
+					<alt>nb</alt>
+					<alt>northbound</alt>
+				</def>
+				<def name="southbound" is_alias_list="true">
+					<alt>sb</alt>
+					<alt>southbound</alt>
+				</def>
+				<def name="eastbound" is_alias_list="true">
+					<alt>eb</alt>
+					<alt>eastbound</alt>
+				</def>
+				<def name="westbound" is_alias_list="true">
+					<alt>wb</alt>
+					<alt>westbound</alt>
+				</def>
+			</section>
+			<!--This section defines the street types and their aliases.-->
+			<section desc="Street types">
+				<def name="_acrd" is_alias_list="true">
+					<alt>acrd</alt>
+				</def>
+				<def name="_aly" is_alias_list="true">
+					<alt>aly</alt>
+					<alt>allee</alt>
+					<alt>alley</alt>
+					<alt>ally</alt>
+					<alt>al</alt>
+				</def>
+				<def name="_anx" is_alias_list="true">
+					<alt>anx</alt>
+					<alt>annex</alt>
+					<alt>annx</alt>
+					<alt>anex</alt>
+				</def>
+				<def name="_arc" is_alias_list="true">
+					<alt>arc</alt>
+					<alt>arcade</alt>
+				</def>
+				<def name="_avct" is_alias_list="true">
+					<alt>avct</alt>
+					<alt>avect</alt>
+				</def>
+				<def name="_avdr" is_alias_list="true">
+					<alt>avdr</alt>
+					<alt>avedr</alt>
+				</def>
+				<def name="_ave" is_alias_list="true">
+					<alt>ave</alt>
+					<alt>avd</alt>
+					<alt>av</alt>
+					<alt>aveflr</alt>
+					<alt>aven</alt>
+					<alt>avenida</alt>
+					<alt>avenu</alt>
+					<alt>avenue</alt>
+					<alt>avn</alt>
+					<alt>avnue</alt>
+				</def>
+				<def name="_avln" is_alias_list="true">
+					<alt>avln</alt>
+					<alt>aveln</alt>
+				</def>
+				<def name="_avpl" is_alias_list="true">
+					<alt>avpl</alt>
+					<alt>avepl</alt>
+				</def>
+				<def name="_bch" is_alias_list="true">
+					<alt>bch</alt>
+					<alt>beach</alt>
+				</def>
+				<def name="_bg" is_alias_list="true">
+					<alt>bg</alt>
+					<alt>burg</alt>
+				</def>
+				<def name="_bgs" is_alias_list="true">
+					<alt>bgs</alt>
+					<alt>burgs</alt>
+				</def>
+				<def name="_blf" is_alias_list="true">
+					<alt>blf</alt>
+					<alt>bluf</alt>
+					<alt>bluff</alt>
+				</def>
+				<def name="_blfs" is_alias_list="true">
+					<alt>blfs</alt>
+					<alt>bluffs</alt>
+				</def>
+				<def name="_blvd" is_alias_list="true">
+					<alt>blvd</alt>
+					<alt>bl</alt>
+					<alt>blv</alt>
+					<alt>bd</alt>
+					<alt>boul</alt>
+					<alt>boulevard</alt>
+					<alt>boulv</alt>
+					<alt>bvd</alt>
+					<alt>bvld</alt>
+				</def>
+				<def name="_bnd" is_alias_list="true">
+					<alt>bnd</alt>
+					<alt>bend</alt>
+				</def>
+				<def name="_br" is_alias_list="true">
+					<alt>br</alt>
+					<alt>brnch</alt>
+					<alt>branch</alt>
+				</def>
+				<def name="_brg" is_alias_list="true">
+					<alt>brg</alt>
+					<alt>bridge</alt>
+					<alt>brdge</alt>
+				</def>
+				<def name="_brk" is_alias_list="true">
+					<alt>brk</alt>
+					<alt>brook</alt>
+				</def>
+				<def name="_brks" is_alias_list="true">
+					<alt>brks</alt>
+					<alt>brooks</alt>
+				</def>
+				<def name="_btm" is_alias_list="true">
+					<alt>btm</alt>
+					<alt>bot</alt>
+					<alt>bottm</alt>
+					<alt>bottom</alt>
+				</def>
+				<def name="_bus" is_alias_list="true">
+					<alt>bus</alt>
+				</def>
+				<def name="_byp" is_alias_list="true">
+					<alt>byp</alt>
+					<alt>bypa</alt>
+					<alt>bypas</alt>
+					<alt>bypass</alt>
+					<alt>byps</alt>
+				</def>
+				<def name="_byu" is_alias_list="true">
+					<alt>byu</alt>
+					<alt>bayoo</alt>
+					<alt>bayou</alt>
+				</def>
+				<def name="_cam" is_alias_list="true">
+					<alt>cam</alt>
+					<alt>cami</alt>
+					<alt>camino</alt>
+				</def>
+				<def name="_cer" is_alias_list="true">
+					<alt>cerrada</alt>
+					<alt>cer</alt>
+				</def>
+				<def name="_cir" is_alias_list="true">
+					<alt>cir</alt>
+					<alt>ci</alt>
+					<alt>circulo</alt>
+					<alt>circ</alt>
+					<alt>circl</alt>
+					<alt>circle</alt>
+					<alt>corcle</alt>
+					<alt>cr</alt>
+					<alt>crcl</alt>
+					<alt>crcle</alt>
+					<alt>crl</alt>
+				</def>
+				<def name="_cirs" is_alias_list="true">
+					<alt>cirs</alt>
+					<alt>circles</alt>
+				</def>
+				<def name="_clb" is_alias_list="true">
+					<alt>clb</alt>
+					<alt>club</alt>
+				</def>
+				<def name="_clf" is_alias_list="true">
+					<alt>clf</alt>
+					<alt>cliff</alt>
+				</def>
+				<def name="_clfs" is_alias_list="true">
+					<alt>clfs</alt>
+					<alt>cliffs</alt>
+				</def>
+				<def name="_cll" is_alias_list="true">
+					<alt>cll</alt>
+					<alt>calle</alt>
+				</def>
+				<def name="_cmn" is_alias_list="true">
+					<alt>cmn</alt>
+					<alt>common</alt>
+				</def>
+				<def name="_cmns" is_alias_list="true">
+					<alt>cmns</alt>
+					<alt>commons</alt>
+				</def>
+				<def name="_cmt" is_alias_list="true">
+					<alt>cmt</alt>
+					<alt>caminito</alt>
+				</def>
+				<def name="_cor" is_alias_list="true">
+					<alt>cor</alt>
+					<alt>corner</alt>
+				</def>
+				<def name="_cors" is_alias_list="true">
+					<alt>cors</alt>
+					<alt>corners</alt>
+				</def>
+				<def name="_cp" is_alias_list="true">
+					<alt>cp</alt>
+					<alt>camp</alt>
+					<alt>cmp</alt>
+				</def>
+				<def name="_cpe" is_alias_list="true">
+					<alt>cpe</alt>
+					<alt>cape</alt>
+				</def>
+				<def name="_cres" is_alias_list="true">
+					<alt>cres</alt>
+					<alt>crecent</alt>
+					<alt>crescent</alt>
+					<alt>crescnt</alt>
+					<alt>cresent</alt>
+					<alt>crscnt</alt>
+					<alt>crsent</alt>
+					<alt>crsnt</alt>
+				</def>
+				<def name="_crk" is_alias_list="true">
+					<alt>crk</alt>
+					<alt>ck</alt>
+					<alt>cr</alt>
+					<alt>creek</alt>
+				</def>
+				<def name="_crse" is_alias_list="true">
+					<alt>crse</alt>
+					<alt>course</alt>
+				</def>
+				<def name="_crst" is_alias_list="true">
+					<alt>crst</alt>
+					<alt>crest</alt>
+				</def>
+				<def name="_cswy" is_alias_list="true">
+					<alt>cswy</alt>
+					<alt>causeway</alt>
+					<alt>causway</alt>
+				</def>
+				<def name="_ct" is_alias_list="true">
+					<alt>ct</alt>
+					<alt>court</alt>
+					<alt>crt</alt>
+				</def>
+				<def name="_ctav" is_alias_list="true">
+					<alt>ctav</alt>
+					<alt>ctave</alt>
+				</def>
+				<def name="_ctr" is_alias_list="true">
+					<alt>ctr</alt>
+					<alt>cen</alt>
+					<alt>cent</alt>
+					<alt>center</alt>
+					<alt>centr</alt>
+					<alt>centre</alt>
+					<alt>cnter</alt>
+					<alt>cntr</alt>
+				</def>
+				<def name="_ctrs" is_alias_list="true">
+					<alt>ctrs</alt>
+					<alt>centers</alt>
+				</def>
+				<def name="_cts" is_alias_list="true">
+					<alt>cts</alt>
+					<alt>courts</alt>
+					<alt>crts</alt>
+				</def>
+				<def name="_curv" is_alias_list="true">
+					<alt>curv</alt>
+					<alt>curve</alt>
+				</def>
+				<def name="_cv" is_alias_list="true">
+					<alt>cv</alt>
+					<alt>cove</alt>
+				</def>
+				<def name="_cvs" is_alias_list="true">
+					<alt>cvs</alt>
+					<alt>coves</alt>
+				</def>
+				<def name="_cyn" is_alias_list="true">
+					<alt>cyn</alt>
+					<alt>canyn</alt>
+					<alt>canyon</alt>
+					<alt>cn</alt>
+					<alt>cnyn</alt>
+				</def>
+				<def name="_div" is_alias_list="true">
+					<alt>div</alt>
+					<alt>divide</alt>
+					<alt>dv</alt>
+					<alt>dvd</alt>
+				</def>
+				<def name="_dl" is_alias_list="true">
+					<alt>dl</alt>
+					<alt>dale</alt>
+				</def>
+				<def name="_dm" is_alias_list="true">
+					<alt>dm</alt>
+					<alt>dam</alt>
+				</def>
+				<def name="_dr" is_alias_list="true">
+					<alt>dr</alt>
+					<alt>driv</alt>
+					<alt>drive</alt>
+					<alt>drunit</alt>
+					<alt>drv</alt>
+					<alt>drve</alt>
+				</def>
+				<def name="_drs" is_alias_list="true">
+					<alt>drs</alt>
+					<alt>drives</alt>
+				</def>
+				<def name="_ent" is_alias_list="true">
+					<alt>ent</alt>
+					<alt>entrada</alt>
+				</def>
+				<def name="_est" is_alias_list="true">
+					<alt>est</alt>
+					<alt>estate</alt>
+				</def>
+				<def name="_ests" is_alias_list="true">
+					<alt>ests</alt>
+					<alt>estates</alt>
+				</def>
+				<def name="_expy" is_alias_list="true">
+					<alt>expy</alt>
+					<alt>epwy</alt>
+					<alt>ex</alt>
+					<alt>exp</alt>
+					<alt>expr</alt>
+					<alt>express</alt>
+					<alt>expressway</alt>
+					<alt>expswy</alt>
+					<alt>expw</alt>
+					<alt>expwy</alt>
+					<alt>exwy</alt>
+					<alt>exy</alt>
+					<alt>xpwy</alt>
+					<alt>xpy</alt>
+				</def>
+				<def name="_ext" is_alias_list="true">
+					<alt>ext</alt>
+					<alt>extended</alt>
+					<alt>extension</alt>
+					<alt>extn</alt>
+					<alt>extnsn</alt>
+				</def>
+				<def name="_exts" is_alias_list="true">
+					<alt>exts</alt>
+					<alt>extensions</alt>
+				</def>
+				<def name="_fall" is_alias_list="true">
+					<alt>fall</alt>
+					<alt>fll</alt>
+				</def>
+				<def name="_fld" is_alias_list="true">
+					<alt>fld</alt>
+					<alt>field</alt>
+				</def>
+				<def name="_flds" is_alias_list="true">
+					<alt>flds</alt>
+					<alt>fields</alt>
+				</def>
+				<def name="_fls" is_alias_list="true">
+					<alt>fls</alt>
+					<alt>falls</alt>
+				</def>
+				<def name="_flt" is_alias_list="true">
+					<alt>flt</alt>
+					<alt>flat</alt>
+				</def>
+				<def name="_flts" is_alias_list="true">
+					<alt>flts</alt>
+					<alt>flats</alt>
+				</def>
+				<def name="_frd" is_alias_list="true">
+					<alt>frd</alt>
+					<alt>ford</alt>
+				</def>
+				<def name="_frds" is_alias_list="true">
+					<alt>frds</alt>
+					<alt>fords</alt>
+				</def>
+				<def name="_frg" is_alias_list="true">
+					<alt>frg</alt>
+					<alt>forg</alt>
+					<alt>forge</alt>
+				</def>
+				<def name="_frgs" is_alias_list="true">
+					<alt>frgs</alt>
+					<alt>forges</alt>
+				</def>
+				<def name="_frk" is_alias_list="true">
+					<alt>frk</alt>
+					<alt>fork</alt>
+				</def>
+				<def name="_frks" is_alias_list="true">
+					<alt>frks</alt>
+					<alt>forks</alt>
+				</def>
+				<def name="_frst" is_alias_list="true">
+					<alt>frst</alt>
+					<alt>forest</alt>
+					<alt>forests</alt>
+				</def>
+				<def name="_fry" is_alias_list="true">
+					<alt>fry</alt>
+					<alt>ferry</alt>
+					<alt>frry</alt>
+				</def>
+				<def name="_ft" is_alias_list="true">
+					<alt>ft</alt>
+					<alt>fort</alt>
+					<alt>frt</alt>
+				</def>
+				<def name="_fwy" is_alias_list="true">
+					<alt>fwy</alt>
+					<alt>freeway</alt>
+					<alt>freewy</alt>
+					<alt>frway</alt>
+					<alt>frw</alt>
+					<alt>frwy</alt>
+					<alt>fw</alt>
+				</def>
+				<def name="_gdn" is_alias_list="true">
+					<alt>gdn</alt>
+					<alt>garden</alt>
+					<alt>gardn</alt>
+					<alt>grden</alt>
+					<alt>grdn</alt>
+				</def>
+				<def name="_gdns" is_alias_list="true">
+					<alt>gdns</alt>
+					<alt>gardens</alt>
+					<alt>grdns</alt>
+				</def>
+				<def name="_gln" is_alias_list="true">
+					<alt>gln</alt>
+					<alt>glen</alt>
+				</def>
+				<def name="_glns" is_alias_list="true">
+					<alt>glns</alt>
+					<alt>glens</alt>
+				</def>
+				<def name="_grn" is_alias_list="true">
+					<alt>grn</alt>
+					<alt>green</alt>
+				</def>
+				<def name="_grns" is_alias_list="true">
+					<alt>grns</alt>
+					<alt>greens</alt>
+				</def>
+				<def name="_grv" is_alias_list="true">
+					<alt>grv</alt>
+					<alt>grove</alt>
+					<alt>grov</alt>
+				</def>
+				<def name="_grvs" is_alias_list="true">
+					<alt>grvs</alt>
+					<alt>groves</alt>
+				</def>
+				<def name="_gtwy" is_alias_list="true">
+					<alt>gtwy</alt>
+					<alt>gateway</alt>
+					<alt>gatewy</alt>
+					<alt>gatway</alt>
+				</def>
+				<def name="_hbr" is_alias_list="true">
+					<alt>hbr</alt>
+					<alt>harb</alt>
+					<alt>harbor</alt>
+					<alt>harbr</alt>
+					<alt>hrbor</alt>
+				</def>
+				<def name="_hbrs" is_alias_list="true">
+					<alt>hbrs</alt>
+					<alt>harbors</alt>
+				</def>
+				<def name="_hl" is_alias_list="true">
+					<alt>hl</alt>
+					<alt>hill</alt>
+				</def>
+				<def name="_hls" is_alias_list="true">
+					<alt>hls</alt>
+					<alt>hills</alt>
+				</def>
+				<def name="_holw" is_alias_list="true">
+					<alt>holw</alt>
+					<alt>hllw</alt>
+					<alt>hollow</alt>
+					<alt>hollows</alt>
+					<alt>holws</alt>
+					<alt>hlws</alt>
+					<alt>hlw</alt>
+				</def>
+				<def name="_holws" is_alias_list="true">
+					<alt>holws</alt>
+					<alt>hollows</alt>
+					<alt>hlws</alt>
+				</def>
+				<def name="_hts" is_alias_list="true">
+					<alt>hts</alt>
+					<alt>height</alt>
+					<alt>heights</alt>
+					<alt>hgts</alt>
+					<alt>hgt</alt>
+					<alt>ht</alt>
+				</def>
+				<def name="_hvn" is_alias_list="true">
+					<alt>hvn</alt>
+					<alt>haven</alt>
+					<alt>havn</alt>
+				</def>
+				<def name="_ushwy" is_alias_list="true">
+					<alt>ushwy</alt>
+					<alt>ushy</alt>
+					<alt>
+						<elt>us</elt>
+						<elt ref="_hwy"/>
+					</alt>
+				</def>
+				<def name="_sthwy" is_alias_list="true">
+					<alt>sthwy</alt>
+					<alt>
+						<elt ref="State"/>
+						<elt ref="_hwy"/>
+					</alt>
+					<alt>
+						<elt>state</elt>
+						<elt ref="_hwy"/>
+					</alt>
+					<alt>
+						<elt>st</elt>
+						<elt ref="_hwy"/>
+					</alt>
+					<alt>
+						<elt>state</elt>
+						<elt ref="_rte"/>
+					</alt>
+					<alt>
+						<elt>st</elt>
+						<elt ref="_rte"/>
+					</alt>
+				</def>
+				<def name="_hwy" is_alias_list="true">
+					<alt>hwy</alt>
+					<alt>hghwy</alt>
+					<alt>hghway</alt>
+					<alt>hgwy</alt>
+					<alt>highw</alt>
+					<alt>highway</alt>
+					<alt>highwy</alt>
+					<alt>hiway</alt>
+					<alt>hiwy</alt>
+					<alt>hw</alt>
+					<alt>hway</alt>
+					<alt>hy</alt>
+					<alt>interstate</alt>
+					<alt>i</alt>
+				</def>
+				<def name="_inlt" is_alias_list="true">
+					<alt>inlt</alt>
+					<alt>inlet</alt>
+				</def>
+				<def name="_is" is_alias_list="true">
+					<alt>is</alt>
+					<alt>island</alt>
+					<alt>islnd</alt>
+				</def>
+				<def name="_isle" is_alias_list="true">
+					<alt>isle</alt>
+					<alt>isles</alt>
+				</def>
+				<def name="_iss" is_alias_list="true">
+					<alt>iss</alt>
+					<alt>islands</alt>
+					<alt>islnds</alt>
+				</def>
+				<def name="_jct" is_alias_list="true">
+					<alt>jct</alt>
+					<alt>jction</alt>
+					<alt>jcton</alt>
+					<alt>jctn</alt>
+					<alt>jctns</alt>
+					<alt>jcts</alt>
+					<alt>junctn</alt>
+					<alt>juncton</alt>
+					<alt>junction</alt>
+					<alt>junctions</alt>
+				</def>
+				<def name="_knl" is_alias_list="true">
+					<alt>knl</alt>
+					<alt>knol</alt>
+					<alt>knoll</alt>
+				</def>
+				<def name="_knls" is_alias_list="true">
+					<alt>knls</alt>
+					<alt>knolls</alt>
+				</def>
+				<def name="_ky" is_alias_list="true">
+					<alt>ky</alt>
+					<alt>key</alt>
+				</def>
+				<def name="_kys" is_alias_list="true">
+					<alt>kys</alt>
+					<alt>keys</alt>
+				</def>
+				<def name="_land" is_alias_list="true">
+					<alt>land</alt>
+					<alt>lnd</alt>
+				</def>
+				<def name="_lck" is_alias_list="true">
+					<alt>lck</alt>
+					<alt>lock</alt>
+				</def>
+				<def name="_lcks" is_alias_list="true">
+					<alt>lcks</alt>
+					<alt>locks</alt>
+				</def>
+				<def name="_ldg" is_alias_list="true">
+					<alt>ldg</alt>
+					<alt>ldge</alt>
+					<alt>lodg</alt>
+					<alt>lodge</alt>
+				</def>
+				<def name="_lf" is_alias_list="true">
+					<alt>lf</alt>
+					<alt>loaf</alt>
+				</def>
+				<def name="_lgt" is_alias_list="true">
+					<alt>lgt</alt>
+					<alt>light</alt>
+				</def>
+				<def name="_lgts" is_alias_list="true">
+					<alt>lgts</alt>
+					<alt>lights</alt>
+				</def>
+				<def name="_lk" is_alias_list="true">
+					<alt>lk</alt>
+					<alt>lake</alt>
+				</def>
+				<def name="_lks" is_alias_list="true">
+					<alt>lks</alt>
+					<alt>lakes</alt>
+				</def>
+				<def name="_ln" is_alias_list="true">
+					<alt>ln</alt>
+					<alt>lane</alt>
+					<alt>lanes</alt>
+					<alt>la</alt>
+					<alt>lne</alt>
+				</def>
+				<def name="_lndg" is_alias_list="true">
+					<alt>lndg</alt>
+					<alt>landing</alt>
+					<alt>lndng</alt>
+				</def>
+				<def name="_locks" is_alias_list="true">
+					<alt>locks</alt>
+					<alt>lcks</alt>
+				</def>
+				<def name="_loop" is_alias_list="true">
+					<alt>loop</alt>
+					<alt>loops</alt>
+					<alt>lp</alt>
+				</def>
+				<def name="_mall" is_alias_list="true">
+					<alt>mall</alt>
+					<alt>mll</alt>
+				</def>
+				<def name="_mdw" is_alias_list="true">
+					<alt>mdw</alt>
+					<alt>meadow</alt>
+				</def>
+				<def name="_mdws" is_alias_list="true">
+					<alt>mdws</alt>
+					<alt>meadows</alt>
+					<alt>medows</alt>
+				</def>
+				<def name="_mews" is_alias_list="true">
+					<alt>mews</alt>
+				</def>
+				<def name="_ml" is_alias_list="true">
+					<alt>ml</alt>
+					<alt>mill</alt>
+				</def>
+				<def name="_mls" is_alias_list="true">
+					<alt>mls</alt>
+					<alt>mills</alt>
+				</def>
+				<def name="_mnr" is_alias_list="true">
+					<alt>mnr</alt>
+					<alt>manor</alt>
+				</def>
+				<def name="_mnrs" is_alias_list="true">
+					<alt>mnrs</alt>
+					<alt>manors</alt>
+				</def>
+				<def name="_msn" is_alias_list="true">
+					<alt>msn</alt>
+					<alt>mission</alt>
+					<alt>missn</alt>
+					<alt>mssn</alt>
+				</def>
+				<def name="_mt" is_alias_list="true">
+					<alt>mt</alt>
+					<alt>mnt</alt>
+					<alt>mount</alt>
+				</def>
+				<def name="_mtn" is_alias_list="true">
+					<alt>mtn</alt>
+					<alt>mntain</alt>
+					<alt>mntn</alt>
+					<alt>mountain</alt>
+					<alt>mountin</alt>
+					<alt>mtin</alt>
+				</def>
+				<def name="_mtns" is_alias_list="true">
+					<alt>mntns</alt>
+					<alt>mountains</alt>
+				</def>
+				<def name="_mtwy" is_alias_list="true">
+					<alt>mtwy</alt>
+					<alt>motorway</alt>
+				</def>
+				<def name="_nck" is_alias_list="true">
+					<alt>nck</alt>
+					<alt>neck</alt>
+				</def>
+				<def name="_opas" is_alias_list="true">
+					<alt>opas</alt>
+					<alt>overpass</alt>
+					<alt>overps</alt>
+					<alt>ovps</alt>
+					<alt>ovrps</alt>
+				</def>
+				<def name="_orch" is_alias_list="true">
+					<alt>orch</alt>
+					<alt>orchard</alt>
+					<alt>orchrd</alt>
+				</def>
+				<def name="_oval" is_alias_list="true">
+					<alt>oval</alt>
+					<alt>ovl</alt>
+				</def>
+				<def name="_ovlk" is_alias_list="true">
+					<alt>ovlk</alt>
+					<alt>overlook</alt>
+				</def>
+				<def name="_park" is_alias_list="true">
+					<alt>park</alt>
+					<alt>parks</alt>
+					<alt>prk</alt>
+					<alt>pk</alt>
+				</def>
+				<def name="_pass" is_alias_list="true">
+					<alt>pass</alt>
+				</def>
+				<def name="_path" is_alias_list="true">
+					<alt>path</alt>
+					<alt>paths</alt>
+					<alt>pth</alt>
+				</def>
+				<def name="_pike" is_alias_list="true">
+					<alt>pike</alt>
+					<alt>pikes</alt>
+					<alt>pke</alt>
+				</def>
+				<def name="_pine" is_alias_list="true">
+					<alt>pine</alt>
+					<alt>pines</alt>
+					<alt>pne</alt>
+				</def>
+				<def name="_pkwy" is_alias_list="true">
+					<alt>pkwy</alt>
+					<alt>parkway</alt>
+					<alt>parkwy</alt>
+					<alt>pkway</alt>
+					<alt>pkw</alt>
+					<alt>pky</alt>
+					<alt>prkway</alt>
+					<alt>prkwy</alt>
+					<alt>pw</alt>
+					<alt>pwy</alt>
+					<alt>py</alt>
+					<alt>parkways</alt>
+					<alt>pkwys</alt>
+				</def>
+				<def name="_pl" is_alias_list="true">
+					<alt>pl</alt>
+					<alt>plac</alt>
+					<alt>place</alt>
+					<alt>plc</alt>
+					<alt>plce</alt>
+				</def>
+				<def name="_pla" is_alias_list="true">
+					<alt>pla</alt>
+					<alt>placita</alt>
+				</def>
+				<def name="_pln" is_alias_list="true">
+					<alt>pln</alt>
+					<alt>plain</alt>
+				</def>
+				<def name="_plns" is_alias_list="true">
+					<alt>plns</alt>
+					<alt>plaines</alt>
+					<alt>plains</alt>
+				</def>
+				<def name="_plz" is_alias_list="true">
+					<alt>plz</alt>
+					<alt>plaz</alt>
+					<alt>plaza</alt>
+					<alt>plza</alt>
+					<alt>pz</alt>
+				</def>
+				<def name="_pnes" is_alias_list="true">
+					<alt>pnes</alt>
+				</def>
+				<def name="_prr" is_alias_list="true">
+					<alt>prr</alt>
+					<alt>pr</alt>
+					<alt>prairie</alt>
+					<alt>prarie</alt>
+				</def>
+				<def name="_prd" is_alias_list="true">
+					<alt>prd</alt>
+					<alt>rpd</alt>
+				</def>
+				<def name="_prds" is_alias_list="true">
+					<alt>prds</alt>
+					<alt>rapids</alt>
+					<alt>rpds</alt>
+				</def>
+				<def name="_prom" is_alias_list="true">
+					<alt>prom</alt>
+					<alt>promenade</alt>
+				</def>
+				<def name="_prt" is_alias_list="true">
+					<alt>prt</alt>
+					<alt>port</alt>
+				</def>
+				<def name="_prts" is_alias_list="true">
+					<alt>prts</alt>
+					<alt>ports</alt>
+				</def>
+				<def name="_psge" is_alias_list="true">
+					<alt>psge</alt>
+					<alt>passage</alt>
+				</def>
+				<def name="_pso" is_alias_list="true">
+					<alt>pso</alt>
+					<alt>paseo</alt>
+				</def>
+				<def name="_pt" is_alias_list="true">
+					<alt>pt</alt>
+					<alt>pnt</alt>
+					<alt>point</alt>
+				</def>
+				<def name="_pts" is_alias_list="true">
+					<alt>pts</alt>
+					<alt>points</alt>
+					<alt>pt</alt>
+				</def>
+				<def name="_radl" is_alias_list="true">
+					<alt>radl</alt>
+					<alt>radial</alt>
+					<alt>radiel</alt>
+					<alt>rad</alt>
+				</def>
+				<def name="_ramp" is_alias_list="true">
+					<alt>ramp</alt>
+					<alt>rmp</alt>
+				</def>
+				<def name="_rch" is_alias_list="true">
+					<alt>rch</alt>
+					<alt>rancho</alt>
+				</def>
+				<def name="_rd" is_alias_list="true">
+					<alt>rd</alt>
+					<alt>rdbox</alt>
+					<alt>rdrr</alt>
+					<alt>road</alt>
+				</def>
+				<def name="_rdg" is_alias_list="true">
+					<alt>rdg</alt>
+					<alt>ridge</alt>
+					<alt>rdge</alt>
+				</def>
+				<def name="_rdgs" is_alias_list="true">
+					<alt>rdgs</alt>
+					<alt>ridges</alt>
+				</def>
+				<def name="_rds" is_alias_list="true">
+					<alt>rds</alt>
+					<alt>roads</alt>
+				</def>
+				<def name="_riv" is_alias_list="true">
+					<alt>riv</alt>
+					<alt>river</alt>
+					<alt>rvr</alt>
+					<alt>rivr</alt>
+				</def>
+				<def name="_rnch" is_alias_list="true">
+					<alt>rnch</alt>
+					<alt>ranch</alt>
+					<alt>ranches</alt>
+					<alt>rnchs</alt>
+				</def>
+				<def name="_row" is_alias_list="true">
+					<alt>row</alt>
+				</def>
+				<def name="_rpd" is_alias_list="true">
+					<alt>rpd</alt>
+					<alt>rapid</alt>
+				</def>
+				<def name="_rst" is_alias_list="true">
+					<alt>rst</alt>
+					<alt>rest</alt>
+				</def>
+				<def name="_rte" is_alias_list="true">
+					<alt>rte</alt>
+					<alt>rt</alt>
+					<alt>route</alt>
+				</def>
+				<def name="_rue" is_alias_list="true">
+					<alt>rue</alt>
+				</def>
+				<def name="_run" is_alias_list="true">
+					<alt>run</alt>
+				</def>
+				<def name="_shl" is_alias_list="true">
+					<alt>shl</alt>
+					<alt>shoal</alt>
+				</def>
+				<def name="_shls" is_alias_list="true">
+					<alt>shls</alt>
+					<alt>shoals</alt>
+				</def>
+				<def name="_shr" is_alias_list="true">
+					<alt>shr</alt>
+					<alt>shoar</alt>
+					<alt>shore</alt>
+				</def>
+				<def name="_shrs" is_alias_list="true">
+					<alt>shrs</alt>
+					<alt>shoars</alt>
+					<alt>shores</alt>
+				</def>
+				<def name="_skwy" is_alias_list="true">
+					<alt>skwy</alt>
+					<alt>skway</alt>
+					<alt>skyway</alt>
+				</def>
+				<def name="_smt" is_alias_list="true">
+					<alt>smt</alt>
+					<alt>sumit</alt>
+					<alt>sumitt</alt>
+					<alt>summit</alt>
+				</def>
+				<def name="_spg" is_alias_list="true">
+					<alt>spg</alt>
+					<alt>spring</alt>
+					<alt>spng</alt>
+					<alt>sprng</alt>
+				</def>
+				<def name="_spgs" is_alias_list="true">
+					<alt>spgs</alt>
+					<alt>springs</alt>
+					<alt>spngs</alt>
+					<alt>sprngs</alt>
+				</def>
+				<def name="_spur" is_alias_list="true">
+					<alt>spur</alt>
+					<alt>spurs</alt>
+				</def>
+				<def name="_sq" is_alias_list="true">
+					<alt>sq</alt>
+					<alt>sqr</alt>
+					<alt>sqre</alt>
+					<alt>squ</alt>
+					<alt>square</alt>
+				</def>
+				<def name="_sqs" is_alias_list="true">
+					<alt>sqs</alt>
+					<alt>squares</alt>
+					<alt>suqares</alt>
+					<alt>sqrs</alt>
+				</def>
+				<def name="_st" is_alias_list="true">
+					<alt>st</alt>
+					<alt>stapt</alt>
+					<alt>stbox</alt>
+					<alt>stbx</alt>
+					<alt>steet</alt>
+					<alt>stlot</alt>
+					<alt>stpobox</alt>
+					<alt>str</alt>
+					<alt>strd</alt>
+					<alt>street</alt>
+					<alt>streetbox</alt>
+					<alt>strfd</alt>
+					<alt>strr</alt>
+					<alt>strt</alt>
+				</def>
+				<def name="_sta" is_alias_list="true">
+					<alt>sta</alt>
+					<alt>station</alt>
+					<alt>statn</alt>
+					<alt>stn</alt>
+				</def>
+				<def name="_stct" is_alias_list="true">
+					<alt>stct</alt>
+					<alt>strct</alt>
+				</def>
+				<def name="_stdr" is_alias_list="true">
+					<alt>stdr</alt>
+					<alt>strdr</alt>
+				</def>
+				<def name="_stln" is_alias_list="true">
+					<alt>stln</alt>
+					<alt>strln</alt>
+				</def>
+				<def name="_stpl" is_alias_list="true">
+					<alt>stpl</alt>
+					<alt>strpl</alt>
+				</def>
+				<def name="_stra" is_alias_list="true">
+					<alt>stra</alt>
+					<alt>strav</alt>
+					<alt>strave</alt>
+					<alt>straven</alt>
+					<alt>stravenue</alt>
+					<alt>stravn</alt>
+					<alt>strvn</alt>
+					<alt>strvnue</alt>
+				</def>
+				<def name="_strm" is_alias_list="true">
+					<alt>strm</alt>
+					<alt>stream</alt>
+					<alt>streme</alt>
+				</def>
+				<def name="_sts" is_alias_list="true">
+					<alt>sts</alt>
+					<alt>streets</alt>
+				</def>
+				<def name="_ter" is_alias_list="true">
+					<alt>ter</alt>
+					<alt>te</alt>
+					<alt>terr</alt>
+					<alt>terrace</alt>
+					<alt>terrce</alt>
+				</def>
+				<def name="_tpke" is_alias_list="true">
+					<alt>tpke</alt>
+					<alt>tnpk</alt>
+					<alt>tpk</alt>
+					<alt>trnpk</alt>
+					<alt>trpk</alt>
+					<alt>turn</alt>
+					<alt>turnpike</alt>
+					<alt>turnpk</alt>
+				</def>
+				<def name="_trak" is_alias_list="true">
+					<alt>trak</alt>
+					<alt>track</alt>
+					<alt>tracks</alt>
+					<alt>trk</alt>
+					<alt>trks</alt>
+				</def>
+				<def name="_trce" is_alias_list="true">
+					<alt>trce</alt>
+					<alt>trace</alt>
+					<alt>traces</alt>
+				</def>
+				<def name="_trfy" is_alias_list="true">
+					<alt>trfy</alt>
+					<alt>trafficway</alt>
+				</def>
+				<def name="_trl" is_alias_list="true">
+					<alt>trl</alt>
+					<alt>tl</alt>
+					<alt>tr</alt>
+					<alt>trail</alt>
+					<alt>trails</alt>
+					<alt>trls</alt>
+				</def>
+				<def name="_trlr" is_alias_list="true">
+					<alt>trlr</alt>
+					<alt>trailer</alt>
+					<alt>trlrs</alt>
+				</def>
+				<def name="_trwy" is_alias_list="true">
+					<alt>trwy</alt>
+					<alt>throughway</alt>
+					<alt>thruway</alt>
+					<alt>thruwy</alt>
+				</def>
+				<def name="_tunl" is_alias_list="true">
+					<alt>tunl</alt>
+					<alt>tunel</alt>
+					<alt>tunls</alt>
+					<alt>tunnel</alt>
+					<alt>tunnels</alt>
+					<alt>tunnl</alt>
+				</def>
+				<def name="_un" is_alias_list="true">
+					<alt>un</alt>
+					<alt>union</alt>
+				</def>
+				<def name="_uns" is_alias_list="true">
+					<alt>uns</alt>
+					<alt>unions</alt>
+				</def>
+				<def name="_upas" is_alias_list="true">
+					<alt>upas</alt>
+					<alt>underpass</alt>
+				</def>
+				<def name="_ver" is_alias_list="true">
+					<alt>ver</alt>
+					<alt>vereda</alt>
+				</def>
+				<def name="_via" is_alias_list="true">
+					<alt>via</alt>
+					<alt>vdct</alt>
+					<alt>viadct</alt>
+					<alt>viaduct</alt>
+				</def>
+				<def name="_vis" is_alias_list="true">
+					<alt>vis</alt>
+					<alt>vist</alt>
+					<alt>vista</alt>
+					<alt>vst</alt>
+					<alt>vsta</alt>
+				</def>
+				<def name="_vl" is_alias_list="true">
+					<alt>vl</alt>
+					<alt>ville</alt>
+				</def>
+				<def name="_vlg" is_alias_list="true">
+					<alt>vlg</alt>
+					<alt>vill</alt>
+					<alt>villag</alt>
+					<alt>village</alt>
+					<alt>villg</alt>
+					<alt>villiage</alt>
+				</def>
+				<def name="_vlgs" is_alias_list="true">
+					<alt>vlgs</alt>
+					<alt>villages</alt>
+				</def>
+				<def name="_vly" is_alias_list="true">
+					<alt>vly</alt>
+					<alt>valley</alt>
+					<alt>vally</alt>
+					<alt>vlly</alt>
+				</def>
+				<def name="_vlys" is_alias_list="true">
+					<alt>vlys</alt>
+					<alt>valleys</alt>
+				</def>
+				<def name="_vw" is_alias_list="true">
+					<alt>vw</alt>
+					<alt>view</alt>
+				</def>
+				<def name="_vws" is_alias_list="true">
+					<alt>vws</alt>
+					<alt>views</alt>
+				</def>
+				<def name="_walk" is_alias_list="true">
+					<alt>walk</alt>
+					<alt>walks</alt>
+					<alt>wk</alt>
+				</def>
+				<def name="_wall" is_alias_list="true">
+					<alt>wall</alt>
+					<alt>wll</alt>
+				</def>
+				<def name="_way" is_alias_list="true">
+					<alt>way</alt>
+					<alt>wy</alt>
+				</def>
+				<def name="_ways" is_alias_list="true">
+					<alt>ways</alt>
+					<alt>wys</alt>
+				</def>
+				<def name="_wl" is_alias_list="true">
+					<alt>wl</alt>
+					<alt>well</alt>
+				</def>
+				<def name="_wls" is_alias_list="true">
+					<alt>wls</alt>
+					<alt>wells</alt>
+				</def>
+				<def name="_xing" is_alias_list="true">
+					<alt>xing</alt>
+					<alt>crossing</alt>
+					<alt>crssing</alt>
+					<alt>crsg</alt>
+					<alt>crssng</alt>
+				</def>
+				<def name="_xrd" is_alias_list="true">
+					<alt>xrd</alt>
+					<alt>crossroad</alt>
+					<alt>crossrd</alt>
+				</def>
+				<def name="_xrds" is_alias_list="true">
+					<alt>xrds</alt>
+					<alt>crossroads</alt>
+					<alt>crossrds</alt>
+				</def>
+				<def name="type">
+					<alt ref="_acrd"/>
+					<alt ref="_aly"/>
+					<alt ref="_anx"/>
+					<alt ref="_arc"/>
+					<alt ref="_avct"/>
+					<alt ref="_avdr"/>
+					<alt ref="_ave"/>
+					<alt ref="_avln"/>
+					<alt ref="_avpl"/>
+					<alt ref="_bch"/>
+					<alt ref="_bg"/>
+					<alt ref="_bgs"/>
+					<alt ref="_blf"/>
+					<alt ref="_blfs"/>
+					<alt ref="_blvd"/>
+					<alt ref="_bnd"/>
+					<alt ref="_br"/>
+					<alt ref="_brg"/>
+					<alt ref="_brk"/>
+					<alt ref="_brks"/>
+					<alt ref="_btm"/>
+					<alt ref="_bus"/>
+					<alt ref="_byp"/>
+					<alt ref="_byu"/>
+					<alt ref="_cam"/>
+					<alt ref="_cer"/>
+					<alt ref="_cir"/>
+					<alt ref="_cirs"/>
+					<alt ref="_clb"/>
+					<alt ref="_clf"/>
+					<alt ref="_clfs"/>
+					<alt ref="_cll"/>
+					<alt ref="_cmn"/>
+					<alt ref="_cmns"/>
+					<alt ref="_cmt"/>
+					<alt ref="_cor"/>
+					<alt ref="_cors"/>
+					<alt ref="_cp"/>
+					<alt ref="_cpe"/>
+					<alt ref="_cres"/>
+					<alt ref="_crk"/>
+					<alt ref="_crse"/>
+					<alt ref="_crst"/>
+					<alt ref="_cswy"/>
+					<alt ref="_ct"/>
+					<alt ref="_ctav"/>
+					<alt ref="_ctr"/>
+					<alt ref="_ctrs"/>
+					<alt ref="_cts"/>
+					<alt ref="_curv"/>
+					<alt ref="_cv"/>
+					<alt ref="_cvs"/>
+					<alt ref="_cyn"/>
+					<alt ref="_div"/>
+					<alt ref="_dl"/>
+					<alt ref="_dm"/>
+					<alt ref="_dr"/>
+					<alt ref="_drs"/>
+					<alt ref="_ent"/>
+					<alt ref="_est"/>
+					<alt ref="_ests"/>
+					<alt ref="_expy"/>
+					<alt ref="_ext"/>
+					<alt ref="_exts"/>
+					<alt ref="_fall"/>
+					<alt ref="_fld"/>
+					<alt ref="_flds"/>
+					<alt ref="_fls"/>
+					<alt ref="_flt"/>
+					<alt ref="_flts"/>
+					<alt ref="_frd"/>
+					<alt ref="_frds"/>
+					<alt ref="_frg"/>
+					<alt ref="_frgs"/>
+					<alt ref="_frk"/>
+					<alt ref="_frks"/>
+					<alt ref="_frst"/>
+					<alt ref="_fry"/>
+					<alt ref="_ft"/>
+					<alt ref="_fwy"/>
+					<alt ref="_gdn"/>
+					<alt ref="_gdns"/>
+					<alt ref="_gln"/>
+					<alt ref="_glns"/>
+					<alt ref="_grn"/>
+					<alt ref="_grns"/>
+					<alt ref="_grv"/>
+					<alt ref="_grvs"/>
+					<alt ref="_gtwy"/>
+					<alt ref="_hbr"/>
+					<alt ref="_hbrs"/>
+					<alt ref="_hl"/>
+					<alt ref="_hls"/>
+					<alt ref="_holw"/>
+					<alt ref="_holws"/>
+					<alt ref="_hts"/>
+					<alt ref="_hvn"/>
+					<alt ref="_hwy"/>
+					<alt ref="_inlt"/>
+					<alt ref="_is"/>
+					<alt ref="_isle"/>
+					<alt ref="_iss"/>
+					<alt ref="_jct"/>
+					<alt ref="_knl"/>
+					<alt ref="_knls"/>
+					<alt ref="_ky"/>
+					<alt ref="_kys"/>
+					<alt ref="_land"/>
+					<alt ref="_lck"/>
+					<alt ref="_lcks"/>
+					<alt ref="_ldg"/>
+					<alt ref="_lf"/>
+					<alt ref="_lgt"/>
+					<alt ref="_lgts"/>
+					<alt ref="_lk"/>
+					<alt ref="_lks"/>
+					<alt ref="_ln"/>
+					<alt ref="_lndg"/>
+					<alt ref="_locks"/>
+					<alt ref="_loop"/>
+					<alt ref="_mall"/>
+					<alt ref="_mdw"/>
+					<alt ref="_mdws"/>
+					<alt ref="_mews"/>
+					<alt ref="_ml"/>
+					<alt ref="_mls"/>
+					<alt ref="_mnr"/>
+					<alt ref="_mnrs"/>
+					<alt ref="_msn"/>
+					<alt ref="_mt"/>
+					<alt ref="_mtn"/>
+					<alt ref="_mtns"/>
+					<alt ref="_mtwy"/>
+					<alt ref="_nck"/>
+					<alt ref="_opas"/>
+					<alt ref="_orch"/>
+					<alt ref="_oval"/>
+					<alt ref="_ovlk"/>
+					<alt ref="_park"/>
+					<alt ref="_pass"/>
+					<alt ref="_path"/>
+					<alt ref="_pike"/>
+					<alt ref="_pine"/>
+					<alt ref="_pkwy"/>
+					<alt ref="_pl"/>
+					<alt ref="_pla"/>
+					<alt ref="_pln"/>
+					<alt ref="_plns"/>
+					<alt ref="_plz"/>
+					<alt ref="_pnes"/>
+					<alt ref="_prr"/>
+					<alt ref="_prd"/>
+					<alt ref="_prds"/>
+					<alt ref="_prom"/>
+					<alt ref="_prt"/>
+					<alt ref="_prts"/>
+					<alt ref="_psge"/>
+					<alt ref="_pso"/>
+					<alt ref="_pt"/>
+					<alt ref="_pts"/>
+					<alt ref="_radl"/>
+					<alt ref="_ramp"/>
+					<alt ref="_rch"/>
+					<alt ref="_rd"/>
+					<alt ref="_rdg"/>
+					<alt ref="_rdgs"/>
+					<alt ref="_rds"/>
+					<alt ref="_riv"/>
+					<alt ref="_rnch"/>
+					<alt ref="_row"/>
+					<alt ref="_rpd"/>
+					<alt ref="_rst"/>
+					<alt ref="_rte"/>
+					<alt ref="_rue"/>
+					<alt ref="_run"/>
+					<alt ref="_shl"/>
+					<alt ref="_shls"/>
+					<alt ref="_shr"/>
+					<alt ref="_shrs"/>
+					<alt ref="_skwy"/>
+					<alt ref="_smt"/>
+					<alt ref="_spg"/>
+					<alt ref="_spgs"/>
+					<alt ref="_spur"/>
+					<alt ref="_sq"/>
+					<alt ref="_sqs"/>
+					<alt ref="_st"/>
+					<alt ref="_sta"/>
+					<alt ref="_stct"/>
+					<alt ref="_stdr"/>
+					<alt ref="_sthwy"/>
+					<alt ref="_stln"/>
+					<alt ref="_stpl"/>
+					<alt ref="_stra"/>
+					<alt ref="_strm"/>
+					<alt ref="_sts"/>
+					<alt ref="_ter"/>
+					<alt ref="_tpke"/>
+					<alt ref="_trak"/>
+					<alt ref="_trce"/>
+					<alt ref="_trfy"/>
+					<alt ref="_trl"/>
+					<alt ref="_trlr"/>
+					<alt ref="_trwy"/>
+					<alt ref="_tunl"/>
+					<alt ref="_un"/>
+					<alt ref="_uns"/>
+					<alt ref="_upas"/>
+					<alt ref="_ushwy"/>
+					<alt ref="_ver"/>
+					<alt ref="_via"/>
+					<alt ref="_vis"/>
+					<alt ref="_vl"/>
+					<alt ref="_vlg"/>
+					<alt ref="_vlgs"/>
+					<alt ref="_vly"/>
+					<alt ref="_vlys"/>
+					<alt ref="_vw"/>
+					<alt ref="_vws"/>
+					<alt ref="_walk"/>
+					<alt ref="_wall"/>
+					<alt ref="_way"/>
+					<alt ref="_ways"/>
+					<alt ref="_wl"/>
+					<alt ref="_wls"/>
+					<alt ref="_xing"/>
+					<alt ref="_xrd"/>
+					<alt ref="_xrds"/>
+				</def>
+			</section>
+			<!--This section defines the house unit names and their aliases.-->
+			<section desc="Unit names">
+				<def name="_acres" is_alias_list="true">
+					<alt>acres</alt>
+					<alt>acr</alt>
+					<alt>acre</alt>
+					<alt>acrs</alt>
+				</def>
+				<def name="_apt" is_alias_list="true">
+					<alt>apt</alt>
+					<alt>apartments</alt>
+					<alt>apts</alt>
+					<alt>apartment</alt>
+					<alt>aprtmnt</alt>
+				</def>
+				<def name="_blgd" is_alias_list="true">
+					<alt>bldg</alt>
+					<alt>bld</alt>
+					<alt>bldg</alt>
+					<alt>building</alt>
+					<alt>blg</alt>
+					<alt>room</alt>
+				</def>
+				<def name="_church" is_alias_list="true">
+					<alt>church</alt>
+					<alt>ch</alt>
+				</def>
+				<def name="_coll" is_alias_list="true">
+					<alt>coll</alt>
+					<alt>college</alt>
+				</def>
+				<def name="_condo" is_alias_list="true">
+					<alt>condo</alt>
+					<alt>condominiums</alt>
+					<alt>condos</alt>
+				</def>
+				<def name="_coop" is_alias_list="true">
+					<alt>coop</alt>
+				</def>
+				<def name="_dorm" is_alias_list="true">
+					<alt>dorm</alt>
+					<alt>dormitory</alt>
+				</def>
+				<def name="_home" is_alias_list="true">
+					<alt>home</alt>
+					<alt>homes</alt>
+					<alt>house</alt>
+					<alt>hse</alt>
+				</def>
+				<def name="_hotel" is_alias_list="true">
+					<alt>hotel</alt>
+					<alt>htl</alt>
+				</def>
+				<def name="_house" is_alias_list="true">
+					<alt>house</alt>
+					<alt>hse</alt>
+				</def>
+				<def name="_inn" is_alias_list="true">
+					<alt>inn</alt>
+					<alt>motel</alt>
+				</def>
+				<def name="_motel" is_alias_list="true">
+					<alt>motel</alt>
+					<alt>mtl</alt>
+				</def>
+				<def name="_pier" is_alias_list="true">
+					<alt>pier</alt>
+					<alt>pier</alt>
+				</def>
+				<def name="_plnt" is_alias_list="true">
+					<alt>plnt</alt>
+					<alt>plantation</alt>
+				</def>
+				<def name="_school" is_alias_list="true">
+					<alt>school</alt>
+					<alt>sch</alt>
+				</def>
+				<def name="_sem" is_alias_list="true">
+					<alt>sem</alt>
+					<alt>seminary</alt>
+				</def>
+				<def name="_shctr" is_alias_list="true">
+					<alt>shctr</alt>
+					<alt>shopping</alt>
+					<alt>shoppinngcenter</alt>
+					<alt>shoppinng center</alt>
+					<alt>shoppingctr</alt>
+					<alt>shopping ctr</alt>
+				</def>
+				<def name="_tower" is_alias_list="true">
+					<alt>tower</alt>
+					<alt>twr</alt>
+					<alt>twrs</alt>
+					<alt>towers</alt>
+				</def>
+				<def name="_univ" is_alias_list="true">
+					<alt>univ</alt>
+					<alt>university</alt>
+					<alt>unv</alt>
+					<alt>unvrsty</alt>
+				</def>
+				<def name="_whs" is_alias_list="true">
+					<alt>whs</alt>
+					<alt>ware house</alt>
+					<alt>warehse</alt>
+				</def>
+				<def name="_bsmt" is_alias_list="true">
+					<alt>bsmt</alt>
+					<alt>bsmnt</alt>
+					<alt>basement</alt>
+				</def>
+				<def name="_unit" is_alias_list="true">
+					<alt>unit</alt>
+					<alt>units</alt>
+				</def>
+				<def name="_floor" is_alias_list="true">
+					<alt>flr</alt>
+					<alt>floor</alt>
+				</def>
+				<def name="_ste" is_alias_list="true">
+					<alt>ste</alt>
+					<alt>suite</alt>
+				</def>
+				<def name="_entry" is_alias_list="true">
+					<alt>entry</alt>
+				</def>
+				<def name="_lot" is_alias_list="true">
+					<alt>lot</alt>
+				</def>
+				<def name="_ms" is_alias_list="true">
+					<alt>ms</alt>
+				</def>
+				<def name="_pnth" is_alias_list="true">
+					<alt>pnth</alt>
+					<alt>penthouse</alt>
+					<alt>pent house</alt>
+				</def>
+				<def name="_rear" is_alias_list="true">
+					<alt>rear</alt>
+				</def>
+				<def name="_room" is_alias_list="true">
+					<alt>room</alt>
+					<alt>rm</alt>
+				</def>
+				<def name="_sp" is_alias_list="true">
+					<alt>sp</alt>
+					<alt>space</alt>
+					<alt>spc</alt>
+				</def>
+				<def name="_stall" is_alias_list="true">
+					<alt>stall</alt>
+					<alt>stll</alt>
+				</def>
+				<def name="HousingUnitType" optimize="true">
+					<alt ref="_acres"/>
+					<alt ref="_apt"/>
+					<alt ref="_blgd"/>
+					<alt ref="_church"/>
+					<alt ref="_coll"/>
+					<alt ref="_condo"/>
+					<alt ref="_coop"/>
+					<alt ref="_dorm"/>
+					<alt ref="_home"/>
+					<alt ref="_hotel"/>
+					<alt ref="_house"/>
+					<alt ref="_inn"/>
+					<alt ref="_motel"/>
+					<alt ref="_pier"/>
+					<alt ref="_plnt"/>
+					<alt ref="_school"/>
+					<alt ref="_sem"/>
+					<alt ref="_shctr"/>
+					<alt ref="_tower"/>
+					<alt ref="_univ"/>
+					<alt ref="_whs"/>
+					<alt ref="_bsmt"/>
+					<alt ref="_unit"/>
+					<alt ref="_floor"/>
+					<alt ref="_ste"/>
+					<alt ref="_entry"/>
+					<alt ref="_lot"/>
+					<alt ref="_ms"/>
+					<alt ref="_pnth"/>
+					<alt ref="_rear"/>
+					<alt ref="_room"/>
+					<alt ref="_sp"/>
+					<alt ref="_stall"/>
+					<alt>pmb</alt>
+				</def>
+			</section>
+			<!--This section defines the US state name parameter and refers to StateAliases
+      for the state name aliases.-->
+			<section desc="US States">
+				<def name="State">
+					<alias_list_ref ref="StateAliases"/>
+					<alt/>
+				</def>
+			</section>
+		</grammar>
+		<!--This section specifies the plugin functions for calculating offset distance,
+    intersection, interpolation of a range, reverse geocode street intersection, etc.
+    DO NOT EDIT this secton.-->
+		<plugins>
+			<plugin name="intersection">
+				<builtin>Intersection</builtin>
+			</plugin>
+			<plugin name="directed_offset">
+				<desc>
+          Calculates location given bearing and location. <br/>
+          Parameters: <br/>
+					<span class="pluginParam">distance</span> (as double),
+          <br/>
+					<span class="pluginParam">units</span> (as esriUnits integer value),
+          <br/>
+					<span class="pluginParam">bearing</span> (decimal degrees angle, clockwise),
+          <br/>
+					<span class="pluginParam">location</span> (some location as IPropertySet)
+        </desc>
+				<builtin>DirectedOffset</builtin>
+			</plugin>
+			<plugin name="create_point">
+				<builtin>CreatePoint</builtin>
+			</plugin>
+			<plugin name="CalcZipRange">
+				<builtin>MatchZipPlus4ToRange</builtin>
+			</plugin>
+			<plugin name="match_house_to_range">
+				<builtin>MatchHouseToRange</builtin>
+			</plugin>
+			<plugin name="reverse_geocode_range">
+				<builtin>GenerateHousesFromRange</builtin>
+			</plugin>
+			<plugin name="calc_polygon_centroid">
+				<desc>Expects one parameter as a IGeometry object (polygon). Returns IGeometry (point) as a centroid of the passed polygon.</desc>
+				<builtin>CalculatePolygonCentroid</builtin>
+			</plugin>
+			<plugin name="no_op">
+				<desc>No operation (does nothing) - returns value of the first parameter "as is"; other parameters ignored.</desc>
+				<builtin>NoOp</builtin>
+			</plugin>
+			<plugin name="concatenate">
+				<desc>Converts all parameters to strings and returns concatenation of them.</desc>
+				<builtin>Concatenate</builtin>
+			</plugin>
+			<plugin name="interpolate">
+				<desc>Calculates address location along a polyline.</desc>
+				<builtin>Interpolate</builtin>
+			</plugin>
+			<plugin name="reverse_geocode_intersections">
+				<desc>Reverse geocode street intersections</desc>
+				<builtin>ReverseGeocodeIntersections</builtin>
+			</plugin>
+			<plugin name="reverse_MGRS">
+				<desc>Reverse geocode location and return result as MGRS string</desc>
+				<builtin>ReverseMGRS</builtin>
+			</plugin>
+		</plugins>
+		<!--This section handles the mapping schema of the reference data towards the 
+    locator properties while creating and geocoding relatioinships, dictionary 
+    and output definition for Single Address (Address Points)-->
+		<mapping_schemas>
+			<mapping_schema name="SingleAddress" geom_type="point">
+				<desc>Single house addresses (points)</desc>
+				<desc>For point address datasets.</desc>
+				<fields>
+					<field name="Shape" type="geometry">
+						<desc>Shape field</desc>
+					</field>
+					<field name="ID">
+						<desc>Unique ID field</desc>
+					</field>
+					<field name="House" grammar_ref="House">
+						<desc>House number</desc>
+						<preferred_name>HN</preferred_name>
+						<preferred_name>ADDRESS</preferred_name>
+					</field>
+					<field name="PreDir" grammar_ref="prefix">
+						<desc>Prefix Direction</desc>
+						<preferred_name>PREDIR</preferred_name>
+						<preferred_name>PRE_DIR</preferred_name>
+					</field>
+					<field name="PreType" grammar_ref="pretype">
+						<desc>Prefix Type</desc>
+						<preferred_name>NAMEPREFIX</preferred_name>
+						<preferred_name>PRETYPE</preferred_name>
+						<preferred_name>PRE_TYPE</preferred_name>
+					</field>
+					<field name="StreetName" grammar_ref="StName">
+						<desc>Street Name</desc>
+						<preferred_name>STNAME</preferred_name>
+						<preferred_name>STREET_NAME</preferred_name>
+					</field>
+					<field name="SufType" grammar_ref="suftype">
+						<desc>Suffix Type</desc>
+						<preferred_name>NAMESUFFIX</preferred_name>
+						<preferred_name>SUFTYPE</preferred_name>
+						<preferred_name>SUFFIX_TYPE</preferred_name>
+					</field>
+					<field name="SufDir" grammar_ref="suffix">
+						<desc>Suffix Direction</desc>
+						<preferred_name>SUFDIR</preferred_name>
+						<preferred_name>SUFFIX_DIR</preferred_name>
+					</field>
+					<field name="City" grammar_ref="City">
+						<desc>City or Place</desc>
+						<preferred_name>CITY</preferred_name>
+						<preferred_name>PLACENAME</preferred_name>
+					</field>
+					<field name="ZIP" grammar_ref="ZIP5">
+						<desc>Suffix Direction</desc>
+						<preferred_name>ZIP</preferred_name>
+						<preferred_name>ZIPCODE</preferred_name>
+					</field>
+					<field name="State" grammar_ref="State">
+						<desc>State</desc>
+						<preferred_name>STATE</preferred_name>
+						<preferred_name>ST_ABBR</preferred_name>
+					</field>
+					<field name="Rank" required="false">
+						<desc>Specifies rank (primary or secondary) for alternate records of the same geometry</desc>
+						<preferred_name>Rank</preferred_name>
+					</field>
+					<field name="User_fld" required="false">
+						<desc>Additional field</desc>
+					</field>
+				</fields>
+				<selection_clause dbms="default">
+					<field_ref ref="StreetName"/> &lt;&gt; '' AND
+          <field_ref ref="StreetName"/> &lt;&gt; ' '
+        </selection_clause>
+				<selection_clause dbms="Oracle">
+					<field_ref ref="StreetName"/> IS NOT NULL AND
+          <field_ref ref="StreetName"/> &lt;&gt; ' '
+        </selection_clause>
+				<index>
+					<dictionary ref="House"/>
+					<dictionary ref="PreDir"/>
+					<dictionary ref="PreType"/>
+					<dictionary ref="StreetName" search="true"/>
+					<dictionary ref="SufType"/>
+					<dictionary ref="SufDir"/>
+					<dictionary ref="City" search="true"/>
+					<dictionary ref="State" search="true"/>
+					<dictionary ref="ZIP" search="true"/>
+					<dictionary ref="ID" type="ids"/>
+					<dictionary ref="User_fld" type="ids"/>
+					<relationship>
+						<field_ref ref="StreetName"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="City"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="State"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="City"/>
+						<field_ref ref="State"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="City"/>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="State"/>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="State"/>
+						<field_ref ref="City"/>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<reverse_relationship>
+						<field_ref ref="House"/>
+						<field_ref ref="PreDir"/>
+						<field_ref ref="PreType"/>
+						<field_ref ref="StreetName"/>
+						<field_ref ref="SufType"/>
+						<field_ref ref="SufDir"/>
+						<field_ref ref="City"/>
+						<field_ref ref="ZIP"/>
+						<field_ref ref="State"/>
+						<field_ref ref="ID"/>
+						<field_ref ref="User_fld"/>
+					</reverse_relationship>
+				</index>
+				<properties>
+					<prop name="supportsIntersections">false</prop>
+				</properties>
+				<outputs>
+					<output component="Shape" type="geometry"/>
+					<output component="Status" candidate_mode="false" length="1"/>
+					<output component="Score" type="float" decimal_digits="2"/>
+					<output component="Match_addr" length="120"/>
+					<output ref="House" batch_mode="false" length="12"/>
+					<output ref="PreDir" batch_mode="false" length="6"/>
+					<output ref="PreType" batch_mode="false" length="6"/>
+					<output ref="StreetName" batch_mode="false" length="32"/>
+					<output ref="SufType" batch_mode="false" length="6"/>
+					<output ref="SufDir" batch_mode="false" length="6"/>
+					<output ref="City" batch_mode="false" length="20"/>
+					<output ref="State" batch_mode="false" length="2"/>
+					<output ref="ZIP" batch_mode="false" length="5"/>
+					<output name="Ref_ID" ref="ID" type="fromdata" selector="WriteReferenceIDField"/>
+					<output name="X" component="X" type="float" selector="WriteXYCoordFields"/>
+					<output name="Y" component="Y" type="float" selector="WriteXYCoordFields"/>
+					<output ref="User_fld" type="string" length="120" selector="WriteAdditionalOutputFields"/>
+					<!--output name="Z" component="Z" type="float" selector="WriteXYCoordFields"/-->
+					<output component="Addr_type" length="20"/>
+				</outputs>
+				<!--This section handles the reverse geocoding methoid and output formats-->
+				<reverse_geocoding>
+					<reverse_geocoding_method name="Address">
+						<outputs>
+							<output component="Shape" type="geometry"/>
+							<output name="Street" length="120">
+								<format>
+									<field_value ref="House" nulls="0"/>
+									<field_value ref="PreDir" pre_separator=" "/>
+									<field_value ref="PreType" pre_separator=" "/>
+									<field_value ref="StreetName" pre_separator=" "/>
+									<field_value ref="SufType" pre_separator=" "/>
+									<field_value ref="SufDir" pre_separator=" "/>
+								</format>
+							</output>
+							<output ref="City" length="20"/>
+							<output ref="State" length="2"/>
+							<output ref="ZIP" length="5"/>
+						</outputs>
+					</reverse_geocoding_method>
+					<reverse_geocoding_method name="MGRS" use_spatial_search="false">
+						<method ref="reverse_MGRS"/>
+						<outputs>
+							<output component="Shape" type="geometry"/>
+							<output component="MGRS" length="12"/>
+						</outputs>
+					</reverse_geocoding_method>
+				</reverse_geocoding>
+			</mapping_schema>
+			<mapping_schema name="SingleAddressPolygon" base="SingleAddress" geom_type="polygon">
+				<desc>Single house addresses (polygons)</desc>
+			</mapping_schema>
+			<mapping_schema name="SingleAddressPolygonCentroid" base="SingleAddress" geom_type="polygon">
+				<desc>Single Address (Polygon centroids)</desc>
+				<conversions>
+					<conversion>
+						<mapping base_ref="Shape">
+							<method ref="calc_polygon_centroid">
+								<parameter>
+									<field_value ref="Shape"/>
+								</parameter>
+							</method>
+						</mapping>
+					</conversion>
+				</conversions>
+			</mapping_schema>
+			<!--This section handles the mapping schema of the reference data towards 
+      the locator properties while creating and geocoding relatioinships, dictionary 
+      and output definition for Single range polylines (one range street lines)-->
+			<mapping_schema name="Nickel" base="SingleAddress" geom_type="polyline">
+				<desc>Centerlines that contain single house ranges with side attribute</desc>
+				<fields>
+					<field name="From">
+						<desc>House From</desc>
+						<preferred_name>FROM</preferred_name>
+						<preferred_name>ADDR_FROM</preferred_name>
+					</field>
+					<field name="To">
+						<desc>House To</desc>
+						<preferred_name>TO</preferred_name>
+						<preferred_name>ADDR_TO</preferred_name>
+					</field>
+					<field name="Side">
+						<desc>Street Side</desc>
+						<preferred_name>SIDE</preferred_name>
+					</field>
+					<field name="Parity" required="false">
+						<desc>Range parity (used primaily for indicating non-trivial parity cases)</desc>
+						<preferred_name>PARITY</preferred_name>
+						<default_value>D</default_value>
+					</field>
+				</fields>
+				<virtualize_field base_ref="House">
+					<desc></desc>
+					<scoring_method ref="match_house_to_range">
+						<parameter>
+							<input_value/>
+						</parameter>
+						<parameter>
+							<field_value ref="From"/>
+						</parameter>
+						<parameter>
+							<field_value ref="To"/>
+						</parameter>
+						<parameter>
+							<field_value ref="Parity"/>
+						</parameter>
+					</scoring_method>
+				</virtualize_field>
+				<get_geometry_method ref="interpolate">
+					<parameter>
+						<field_value ref="Shape"/>
+					</parameter>
+					<parameter>
+						<component_value component="Pct_along"/>
+					</parameter>
+					<parameter>
+						<field_value ref="Side"/>
+					</parameter>
+				</get_geometry_method>
+				<index>
+					<dictionary ref="From"/>
+					<dictionary ref="To"/>
+					<dictionary ref="Side"/>
+					<dictionary ref="ID" type="ids"/>
+					<reverse_relationship>
+						<field_ref ref="From"/>
+						<field_ref ref="To"/>
+						<field_ref ref="Side"/>
+						<field_ref ref="ID"/>
+					</reverse_relationship>
+				</index>
+				<properties>
+					<prop name="supportsIntersections" type="Boolean">true</prop>
+					<prop name="Interpolate.SideOffset">20</prop>
+					<prop name="Interpolate.SideOffsetUnits">Feet</prop>
+					<prop name="Interpolate.EndOffset">3</prop>
+					<prop name="Interpolate.EndOffsetUnits">Percent</prop>
+					<prop name="Interpolate.SideValue.Left">L</prop>
+					<prop name="Interpolate.SideValue.Right">R</prop>
+					<prop name="Intersection.Delimiters">&amp; @ | and</prop>
+					<prop name="WritePercentAlongField" type="Boolean">true</prop>
+				</properties>
+				<outputs>
+					<output component="Shape" type="geometry"/>
+					<output component="Status" candidate_mode="false" length="1"/>
+					<output component="Score" type="float" decimal_digits="2"/>
+					<output component="Match_addr" length="120"/>
+					<output component="Pct_along" type="float" decimal_digits="2" selector="WritePercentAlongField"/>
+					<output ref="Side" length="1"/>
+					<output ref="From" batch_mode="false" length="10"/>
+					<output ref="To" batch_mode="false" length="10"/>
+					<output ref="PreDir" batch_mode="false" length="6"/>
+					<output ref="PreType" batch_mode="false" length="6"/>
+					<output ref="StreetName" batch_mode="false" length="32"/>
+					<output ref="SufType" batch_mode="false" length="6"/>
+					<output ref="SufDir" batch_mode="false" length="6"/>
+					<output ref="City" batch_mode="false" length="20"/>
+					<output ref="State" batch_mode="false" length="2"/>
+					<output ref="ZIP" batch_mode="false" length="5"/>
+					<output name="Ref_ID" ref="ID" type="fromdata" selector="WriteReferenceIDField"/>
+					<output name="X" component="X" type="float" selector="WriteXYCoordFields"/>
+					<output name="Y" component="Y" type="float" selector="WriteXYCoordFields"/>
+					<output ref="User_fld" type="string" length="120" selector="WriteAdditionalOutputFields"/>
+					<!--output name="Z" component="Z" type="float" selector="WriteXYCoordFields"/-->
+					<output component="Addr_type" length="20"/>
+				</outputs>
+				<reverse_geocoding>
+					<reverse_geocoding_method name="Intersection" selector="SupportsIntersections">
+						<method ref="reverse_geocode_intersections">
+							<init_properties>
+								<prop_list name="FeatureNameFields">
+									<value>PreDir</value>
+									<value>PreType</value>
+									<value>StreetName</value>
+									<value>SufType</value>
+									<value>SufDir</value>
+								</prop_list>
+							</init_properties>
+						</method>
+						<outputs>
+							<output component="Shape" type="geometry"/>
+							<output name="Street" length="120">
+								<format_ref ref="format_intersection_name"/>
+							</output>
+							<output name="City" length="20">
+								<format>
+									<field_value ref="City" record="1"/>
+								</format>
+							</output>
+							<output name="State" length="2">
+								<format>
+									<field_value ref="State" record="1"/>
+								</format>
+							</output>
+							<output name="ZIP" length="5">
+								<format>
+									<field_value ref="ZIP" record="1"/>
+								</format>
+							</output>
+						</outputs>
+					</reverse_geocoding_method>
+					<reverse_geocoding_method name="Address" use_spatial_search="true">
+						<method ref="reverse_geocode_range">
+							<init_properties>
+								<prop name="FromField">From</prop>
+								<prop name="ToField">To</prop>
+								<prop name="SideField">Side</prop>
+							</init_properties>
+						</method>
+						<outputs>
+							<output component="Shape" type="geometry"/>
+							<output name="Street" length="120">
+								<format_ref ref="format_reverse_range_address"/>
+							</output>
+							<output name="City" length="20">
+								<format>
+									<field_value ref="City" record="1"/>
+								</format>
+							</output>
+							<output name="State" length="2">
+								<format>
+									<field_value ref="State" record="1"/>
+								</format>
+							</output>
+							<output name="ZIP" length="5">
+								<format>
+									<field_value ref="ZIP" record="1"/>
+								</format>
+							</output>
+						</outputs>
+					</reverse_geocoding_method>
+				</reverse_geocoding>
+			</mapping_schema>
+			<!--This section handles the mapping schema of the reference data towards the 
+      locator properties while creating and geocoding relatioinships, dictionary and 
+      output definition for Street Centerlines with left and right house ranges (Dual Ranges)-->
+			<mapping_schema name="DIME" base="Nickel">
+				<desc>Centerlines that contain dual house ranges</desc>
+				<fields>
+					<field name="FromLeft" store="false">
+						<desc>
+						</desc>
+						<preferred_name>FROM_LEFT</preferred_name>
+					</field>
+					<field name="ToLeft" store="false">
+						<desc>
+						</desc>
+						<preferred_name>TO_LEFT</preferred_name>
+					</field>
+					<field name="FromRight" store="false">
+						<desc>
+						</desc>
+						<preferred_name>FROM_RIGHT</preferred_name>
+					</field>
+					<field name="ToRight" store="false">
+						<desc>
+						</desc>
+						<preferred_name>TO_RIGHT</preferred_name>
+					</field>
+					<field name="CityLeft" store="false" required="false">
+						<desc>City on the left</desc>
+						<preferred_name>CITYL</preferred_name>
+					</field>
+					<field name="CityRight" store="false" required="false">
+						<desc>City on the right</desc>
+						<preferred_name>CITYR</preferred_name>
+					</field>
+					<field name="StateLeft" store="false" required="false">
+						<desc>Street on the left</desc>
+						<preferred_name>STATEL</preferred_name>
+					</field>
+					<field name="StateRight" store="false" required="false">
+						<desc>Street on the right</desc>
+						<preferred_name>STATER</preferred_name>
+					</field>
+					<field name="ZIPLeft" store="false" required="false">
+						<desc>ZIP on the left</desc>
+						<preferred_name>ZIPL</preferred_name>
+					</field>
+					<field name="ZIPRight" store="false" required="false">
+						<desc>ZIP on the right</desc>
+						<preferred_name>ZIPR</preferred_name>
+					</field>
+					<field name="User_fldL" store="false" required="false">
+						<desc>Additional field on the left</desc>
+					</field>
+					<field name="User_fldR" store="false" required="false">
+						<desc>Additional field on the right</desc>
+					</field>
+				</fields>
+				<conversions>
+					<conversion>
+						<mapping base_ref="Side">
+							<value>L</value>
+						</mapping>
+						<mapping base_ref="From">
+							<field_value ref="FromLeft"/>
+						</mapping>
+						<mapping base_ref="To">
+							<field_value ref="ToLeft"/>
+						</mapping>
+						<mapping base_ref="State">
+							<field_value ref="StateLeft"/>
+						</mapping>
+						<mapping base_ref="City">
+							<field_value ref="CityLeft"/>
+						</mapping>
+						<mapping base_ref="ZIP">
+							<field_value ref="ZIPLeft"/>
+						</mapping>
+						<mapping base_ref="User_fld">
+							<field_value ref="User_fldL"/>
+						</mapping>
+					</conversion>
+					<conversion>
+						<mapping base_ref="Side">
+							<value>R</value>
+						</mapping>
+						<mapping base_ref="From">
+							<field_value ref="FromRight"/>
+						</mapping>
+						<mapping base_ref="To">
+							<field_value ref="ToRight"/>
+						</mapping>
+						<mapping base_ref="State">
+							<field_value ref="StateRight"/>
+						</mapping>
+						<mapping base_ref="City">
+							<field_value ref="CityRight"/>
+						</mapping>
+						<mapping base_ref="ZIP">
+							<field_value ref="ZIPRight"/>
+						</mapping>
+						<mapping base_ref="User_fld">
+							<field_value ref="User_fldR"/>
+						</mapping>
+					</conversion>
+				</conversions>
+			</mapping_schema>
+			<!--This section handles the mapping schema of the reference data towards the 
+      locator properties while creating and geocoding relatioinships, dictionary and 
+      output definition for Zip Plus 4 (ZIP4)-->
+			<mapping_schema name="USZIPPlus4" geom_type="point">
+				<desc>US ZIP+4</desc>
+				<desc>Point features containing US ZIP+4 codes.</desc>
+				<fields>
+					<field name="Shape" type="geometry">
+						<desc>Shape field</desc>
+					</field>
+					<field name="ID">
+						<desc>Unique ID field</desc>
+					</field>
+					<field name="ZIP" grammar_ref="ZIP5">
+						<desc>ZIP Code</desc>
+						<preferred_name>ZIP</preferred_name>
+						<preferred_name>ZIPCODE</preferred_name>
+					</field>
+					<field name="ZIP4" grammar_ref="ZIP4">
+						<desc>The last 4 digit plus4 code</desc>
+						<preferred_name>ZIP4</preferred_name>
+						<preferred_name>PLUS4</preferred_name>
+					</field>
+					<field name="User_fld" required="false">
+						<desc>Additional field</desc>
+					</field>
+				</fields>
+				<index>
+					<dictionary ref="ZIP" search="true"/>
+					<dictionary ref="ZIP4" search="true"/>
+					<dictionary ref="ID" type="ids"/>
+					<relationship>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<relationship>
+						<field_ref ref="ZIP"/>
+						<field_ref ref="ZIP4"/>
+					</relationship>
+					<reverse_relationship>
+						<field_ref ref="ZIP"/>
+						<field_ref ref="ZIP4"/>
+						<field_ref ref="ID"/>
+						<field_ref ref="User_fld"/>
+					</reverse_relationship>
+				</index>
+				<outputs>
+					<output ref="Shape" type="geometry"/>
+					<output component="Status" candidate_mode="false" length="1"/>
+					<output component="Score" type="float" decimal_digits="2"/>
+					<output name="Match_addr" length="12">
+						<format>
+							<field_value ref="ZIP"/>
+							<field_value ref="ZIP4" pre_separator="-"/>
+						</format>
+					</output>
+					<output name="Ref_ID" ref="ID" type="fromdata" selector="WriteReferenceIDField"/>
+					<output ref="User_fld" type="string" length="120" selector="WriteAdditionalOutputFields"/>
+				</outputs>
+				<reverse_geocoding>
+					<reverse_geocoding_method name="Address">
+						<outputs>
+							<output ref="Shape" type="geometry"/>
+							<output ref="ZIP" length="5"/>
+							<output ref="ZIP4" length="4"/>
+							<output name="Match_addr" length="10">
+								<format>
+									<field_value ref="ZIP"/>
+									<field_value ref="ZIP4" pre_separator="-"/>
+								</format>
+							</output>
+						</outputs>
+					</reverse_geocoding_method>
+				</reverse_geocoding>
+			</mapping_schema>
+			<mapping_schema name="USZIP" geom_type="point">
+				<desc>US 5-digit ZIP</desc>
+				<desc>Point features containing US 5-digit ZIP.</desc>
+				<fields>
+					<field name="Shape" type="geometry">
+						<desc>Shape field</desc>
+					</field>
+					<field name="ID">
+						<desc>Unique ID field</desc>
+					</field>
+					<field name="ZIP" grammar_ref="ZIP5">
+						<desc>ZIP code</desc>
+						<preferred_name>ZIP</preferred_name>
+						<preferred_name>ZIPCODE</preferred_name>
+					</field>
+					<field name="User_fld" required="false">
+						<desc>Additional field</desc>
+					</field>
+				</fields>
+				<index>
+					<dictionary ref="ZIP" search="true"/>
+					<dictionary ref="ID" type="ids"/>
+					<relationship>
+						<field_ref ref="ZIP"/>
+					</relationship>
+					<reverse_relationship>
+						<field_ref ref="ZIP"/>
+						<field_ref ref="ID"/>
+						<field_ref ref="User_fld"/>
+					</reverse_relationship>
+				</index>
+				<outputs>
+					<output ref="Shape" type="geometry"/>
+					<output component="Status" candidate_mode="false" length="1"/>
+					<output component="Score" type="float" decimal_digits="2"/>
+					<output name="Match_addr" length="10">
+						<format>
+							<field_value ref="ZIP"/>
+						</format>
+					</output>
+					<output name="Ref_ID" ref="ID" type="fromdata" selector="WriteReferenceIDField"/>
+					<output ref="User_fld" type="string" length="120" selector="WriteAdditionalOutputFields"/>
+				</outputs>
+				<reverse_geocoding>
+					<reverse_geocoding_method name="Address">
+						<outputs>
+							<output ref="Shape" type="geometry"/>
+							<output ref="ZIP" length="5"/>
+						</outputs>
+					</reverse_geocoding_method>
+				</reverse_geocoding>
+			</mapping_schema>
+			<!--This section handles the mapping schema of the reference data towards the 
+      locator properties while creating and geocoding relatioinships, dictionary and 
+      output definition for Zip plus 4 Ranges(ZIP4 Range)-->
+			<mapping_schema name="USZIPPlus4Range" geom_type="point" base="USZIPPlus4">
+				<desc>US ZIP+4 Range</desc>
+				<desc>Point features containing US ZIP+4 Range codes.</desc>
+				<fields>
+					<field name="ZIP4Low">
+						<desc>ZIP+4 code - low number</desc>
+						<preferred_name>ZIP4LOW</preferred_name>
+					</field>
+					<field name="ZIP4High">
+						<desc>ZIP+4 code - high number</desc>
+						<preferred_name>ZIP4HIGH</preferred_name>
+					</field>
+				</fields>
+				<virtualize_field base_ref="ZIP4">
+					<scoring_method ref="CalcZipRange">
+						<parameter>
+							<input_value/>
+						</parameter>
+						<parameter>
+							<field_value ref="ZIP4Low"/>
+						</parameter>
+						<parameter>
+							<field_value ref="ZIP4High"/>
+						</parameter>
+					</scoring_method>
+				</virtualize_field>
+				<index>
+					<dictionary ref="ZIP4Low"/>
+					<dictionary ref="ZIP4High"/>
+					<dictionary ref="ZIP" search="true"/>
+					<dictionary ref="ID" type="ids"/>
+					<reverse_relationship>
+						<field_ref ref="ZIP4High"/>
+						<field_ref ref="ZIP4Low"/>
+					</reverse_relationship>
+				</index>
+				<outputs>
+					<output ref="Shape" type="geometry"/>
+					<output component="Status" candidate_mode="false" length="1"/>
+					<output component="Score" type="float" decimal_digits="2"/>
+					<output name="Match_addr" length="30">
+						<format>
+							<field_value ref="ZIP"/>
+							<component_value component="ZIP4" pre_separator="-"/>
+						</format>
+					</output>
+					<output ref="ZIP" length="5"/>
+					<output ref="ZIP4Low" length="4"/>
+					<output ref="ZIP4High" length="4"/>
+					<output name="Ref_ID" ref="ID" type="fromdata" selector="WriteReferenceIDField"/>
+					<output ref="User_fld" type="string" length="120" selector="WriteAdditionalOutputFields"/>
+				</outputs>
+				<reverse_geocoding>
+					<reverse_geocoding_method name="Address">
+						<outputs>
+							<output ref="Shape" type="geometry"/>
+							<output ref="ZIP" length="5"/>
+							<output ref="ZIP4" length="9">
+								<format>
+									<field_value ref="ZIP4Low"/>
+									<field_value ref="ZIP4High" pre_separator="-"/>
+								</format>
+							</output>
+						</outputs>
+					</reverse_geocoding_method>
+				</reverse_geocoding>
+			</mapping_schema>
+		</mapping_schemas>
+		<!--This section handles the reference data Style for Single House (Address Points) 
+    with Field Name and Display name on locator with preferred names from reference 
+    data input with indexes Join Clauses and Queries for geocoding operations-->
+		<!--This section handles the locator geocoding properties such as minimum match 
+    score, spelling sensitivity, output field options.-->
+		<properties>
+			<prop name="MinimumMatchScore" type="float">90</prop>
+<prop name="MinimumCandidateScore" type="float">10</prop>
+<prop name="SpellingSensitivity" type="float">10</prop>
+<prop name="IntersectionConnectors">&amp; @ |</prop>
+<prop name="MatchIfScoresTie" type="Boolean">true</prop>
+<prop name="WriteXYCoordFields" type="Boolean">false</prop>
+<prop name="WriteStandardizedAddressField" type="Boolean">false</prop>
+<prop name="WriteReferenceIDField" type="Boolean">true</prop>
+<prop name="WriteAdditionalOutputFields" type="Boolean">true</prop>
+<prop name="WritePercentAlongField" type="Boolean">false</prop>
+<prop name="supportsIntersections" type="Boolean">true</prop>
+<prop name="Interpolate.SideOffset">20</prop>
+<prop name="Interpolate.SideOffsetUnits">Feet</prop>
+<prop name="Interpolate.EndOffset">3</prop>
+<prop name="Interpolate.EndOffsetUnits">Percent</prop>
+<prop name="Interpolate.SideValue.Left">L</prop>
+<prop name="Interpolate.SideValue.Right">R</prop>
+<prop name="Intersection.Delimiters">&amp; @ | and</prop>
+<prop name="CLSID">{DA70B7E3-10B2-42E3-BFF7-6C81355862BC}</prop>
+<prop name="LocatorWorkspaceString">ProgID = esriDataSourcesFile.ShapefileWorkspaceFactory; Path = C:\temp\data\BloomfieldTownship\</prop>
+<prop name="RebuildStartTime">129109831213180000</prop>
+<prop name="RebuildStartTimeAscii">4:12:01 PM</prop>
+<prop name="SafeLocatorName">RoadCenterline_Locator</prop>
+<prop name="UICLSID">{AE5A3A0E-F756-11D2-9F4F-00C04F8ED1C4}</prop>
+<prop name="DefaultPath">C:\temp\data\BloomfieldTownship\</prop>
+</properties>
+		<!--This section defines the output address formats and the order of address
+    elements for normal addresses, intersections, and reverse geocoded addresses.-->
+		<output_formats>
+			<format_definition name="format_intersections">
+				<field_value ref="PreDir" record="1"/>
+				<field_value ref="PreType" record="1" pre_separator=" "/>
+				<field_value ref="StreetName" record="1" pre_separator=" "/>
+				<field_value ref="SufType" record="1" pre_separator=" "/>
+				<field_value ref="SufDir" record="1" pre_separator=" "/>
+				<value xml:space="preserve"> &amp;</value>
+				<field_value ref="PreDir" record="2" pre_separator=" "/>
+				<field_value ref="PreType" record="2" pre_separator=" "/>
+				<field_value ref="StreetName" record="2" pre_separator=" "/>
+				<field_value ref="SufType" record="2" pre_separator=" "/>
+				<field_value ref="SufDir" record="2" pre_separator=" "/>
+				<field_value ref="City" record="1" pre_separator=", "/>
+				<field_value ref="State" record="1" pre_separator=", "/>
+				<field_value ref="ZIP" record="1" pre_separator=" "/>
+			</format_definition>
+			<format_definition name="format_intersection_name">
+				<field_value ref="PreDir" record="1"/>
+				<field_value ref="PreType" record="1" pre_separator=" "/>
+				<field_value ref="StreetName" record="1" pre_separator=" "/>
+				<field_value ref="SufType" record="1" pre_separator=" "/>
+				<field_value ref="SufDir" record="1" pre_separator=" "/>
+				<value xml:space="preserve"> &amp;</value>
+				<field_value ref="PreDir" record="2" pre_separator=" "/>
+				<field_value ref="PreType" record="2" pre_separator=" "/>
+				<field_value ref="StreetName" record="2" pre_separator=" "/>
+				<field_value ref="SufType" record="2" pre_separator=" "/>
+				<field_value ref="SufDir" record="2" pre_separator=" "/>
+			</format_definition>
+			<format_definition name="format_reverse_range_address">
+				<component_value component="House"/>
+				<field_value ref="PreDir" pre_separator=" " record="1"/>
+				<field_value ref="PreType" pre_separator=" " record="1"/>
+				<field_value ref="StreetName" pre_separator=" " record="1"/>
+				<field_value ref="SufType" pre_separator=" " record="1"/>
+				<field_value ref="SufDir" pre_separator=" " record="1"/>
+			</format_definition>
+			<format_definition name="format_normal_address">
+				<field_value ref="House" nulls="0"/>
+				<field_value ref="PreDir" pre_separator=" "/>
+				<field_value ref="PreType" pre_separator=" "/>
+				<field_value ref="StreetName" pre_separator=" "/>
+				<field_value ref="SufType" pre_separator=" "/>
+				<field_value ref="SufDir" pre_separator=" "/>
+				<field_value ref="City" pre_separator=", "/>
+				<field_value ref="State" pre_separator=", "/>
+				<field_value ref="ZIP" pre_separator=" "/>
+			</format_definition>
+		</output_formats>
+		<ref_data><table_roles>
+				<table_role name="Primary">
+					<display_name>Primary Table</display_name>
+					<desc>Address range feature class</desc>
+					<field_roles>
+						<field_role name="Primary.Shape" is_geometry="true">
+							<display_name>Geometry</display_name>
+							<preferred_name>Shape</preferred_name>
+							<preferred_name>Feature</preferred_name>
+							<field_name>Shape</field_name></field_role>
+						<field_role name="Primary.ID">
+							<display_name>Feature ID</display_name>
+							<preferred_name>ID</preferred_name>
+							<preferred_name>POINTID</preferred_name>
+							<preferred_name>FEATUREID</preferred_name>
+							<preferred_name>FEATURE_ID</preferred_name>
+							<preferred_name>FEAT_ID</preferred_name>
+							<preferred_name>FEATUREID_1</preferred_name>
+							<preferred_name>FEATUREID_2</preferred_name>
+							<preferred_name>DYNAMAPID</preferred_name>
+							<preferred_name>DYNAMAP_ID</preferred_name>
+							<preferred_name>DYNAMAPID_1</preferred_name>
+							<preferred_name>DYNAMAPID_2</preferred_name>
+							<preferred_name>OBJECTID</preferred_name>
+							<preferred_name>OBJECT_ID</preferred_name>
+							<preferred_name>OBJECTID_1</preferred_name>
+							<preferred_name>OBJECTID_2</preferred_name>
+							<preferred_name>FID</preferred_name>
+							<preferred_name>FID_1</preferred_name>
+							<preferred_name>FID_2</preferred_name>
+							<preferred_name>AREAID</preferred_name>
+							<preferred_name>LINK_ID</preferred_name>
+							<preferred_name>AREA_ID</preferred_name>
+							<preferred_name>LINKID</preferred_name>
+							<preferred_name>TLID</preferred_name>
+							<field_name>FID</field_name></field_role>
+						<field_role name="Primary.FromLeft" required="true">
+							<display_name>From Left</display_name>
+							<preferred_name>L-F-ADD</preferred_name>
+							<preferred_name>L_F_ADD</preferred_name>
+							<preferred_name>L_F_F_ADD</preferred_name>
+							<preferred_name>L_F_ADD_INT</preferred_name>
+							<preferred_name>L_F_ADD_IN</preferred_name>
+							<preferred_name>L_F_F_ADD_INT</preferred_name>
+							<preferred_name>L_F_F_ADD_IN</preferred_name>
+							<preferred_name>LEFTADD1</preferred_name>
+							<preferred_name>L-ADD_FROM</preferred_name>
+							<preferred_name>L_ADD_FROM</preferred_name>
+							<preferred_name>L-ADD-FROM</preferred_name>
+							<preferred_name>L_ADD-FROM</preferred_name>
+							<preferred_name>LADD_FR</preferred_name>
+							<preferred_name>LADD-FR</preferred_name>
+							<preferred_name>LFROM</preferred_name>
+							<preferred_name>LFROMADD</preferred_name>
+							<preferred_name>FRADDL</preferred_name>
+							<preferred_name>FROMLEFT</preferred_name>
+							<preferred_name>ADLF</preferred_name>
+							<preferred_name>L_REFADDR</preferred_name>
+							<preferred_name>LLOWHOUSEN</preferred_name>
+							<field_name>FR_ADD_L</field_name></field_role>
+						<field_role name="Primary.ToLeft" required="true">
+							<display_name>To Left</display_name>
+							<preferred_name>L-T-ADD</preferred_name>
+							<preferred_name>L_T_ADD</preferred_name>
+							<preferred_name>L_T_F_ADD</preferred_name>
+							<preferred_name>L_T_ADD_INT</preferred_name>
+							<preferred_name>L_T_ADD_IN</preferred_name>
+							<preferred_name>L_T_F_ADD_INT</preferred_name>
+							<preferred_name>L_T_F_ADD_IN</preferred_name>
+							<preferred_name>LEFTADD2</preferred_name>
+							<preferred_name>L-ADD_TO</preferred_name>
+							<preferred_name>L_ADD_TO</preferred_name>
+							<preferred_name>L-ADD-TO</preferred_name>
+							<preferred_name>L_ADD-TO</preferred_name>
+							<preferred_name>LADD_TO</preferred_name>
+							<preferred_name>LADD-TO</preferred_name>
+							<preferred_name>LTO</preferred_name>
+							<preferred_name>LTOADD</preferred_name>
+							<preferred_name>TOADDL</preferred_name>
+							<preferred_name>TOLEFT</preferred_name>
+							<preferred_name>ADLT</preferred_name>
+							<preferred_name>L_NREFADDR</preferred_name>
+							<preferred_name>LHIGHHOUSE</preferred_name>
+							<field_name>TO_ADD_L</field_name></field_role>
+						<field_role name="Primary.FromRight" required="true">
+							<display_name>From Right</display_name>
+							<preferred_name>R-F-ADD</preferred_name>
+							<preferred_name>R_F_ADD</preferred_name>
+							<preferred_name>R_F_F_ADD</preferred_name>
+							<preferred_name>R_F_ADD_INT</preferred_name>
+							<preferred_name>R_F_ADD_IN</preferred_name>
+							<preferred_name>R_F_F_ADD_INT</preferred_name>
+							<preferred_name>R_F_F_ADD_IN</preferred_name>
+							<preferred_name>RGTADD1</preferred_name>
+							<preferred_name>R-ADD_FROM</preferred_name>
+							<preferred_name>R_ADD_FROM</preferred_name>
+							<preferred_name>R-ADD-FROM</preferred_name>
+							<preferred_name>R_ADD-FROM</preferred_name>
+							<preferred_name>RADD_FROM</preferred_name>
+							<preferred_name>RADD-FROM</preferred_name>
+							<preferred_name>RFROM</preferred_name>
+							<preferred_name>RFROMADD</preferred_name>
+							<preferred_name>FRADDR</preferred_name>
+							<preferred_name>FROMRIGHT</preferred_name>
+							<preferred_name>ADRF</preferred_name>
+							<preferred_name>R_REFADDR</preferred_name>
+							<preferred_name>RLOWHOUSEN</preferred_name>
+							<field_name>FR_ADD_R</field_name></field_role>
+						<field_role name="Primary.ToRight" required="true">
+							<display_name>To Right</display_name>
+							<preferred_name>R-T-ADD</preferred_name>
+							<preferred_name>R_T_ADD</preferred_name>
+							<preferred_name>R_T_F_ADD</preferred_name>
+							<preferred_name>R_T_ADD_INT</preferred_name>
+							<preferred_name>R_T_ADD_IN</preferred_name>
+							<preferred_name>R_T_F_ADD_INT</preferred_name>
+							<preferred_name>R_T_F_ADD_IN</preferred_name>
+							<preferred_name>RGTADD2</preferred_name>
+							<preferred_name>R-ADD_TO</preferred_name>
+							<preferred_name>R_ADD_TO</preferred_name>
+							<preferred_name>R-ADD-TO</preferred_name>
+							<preferred_name>R_ADD-TO</preferred_name>
+							<preferred_name>RADD_TO</preferred_name>
+							<preferred_name>RADD-TO</preferred_name>
+							<preferred_name>RTO</preferred_name>
+							<preferred_name>RTOADD</preferred_name>
+							<preferred_name>TOADDR</preferred_name>
+							<preferred_name>TORIGHT</preferred_name>
+							<preferred_name>ADRT</preferred_name>
+							<preferred_name>R_NREFADDR</preferred_name>
+							<preferred_name>RHIGHHOUSE</preferred_name>
+							<field_name>TO_ADD_R</field_name></field_role>
+						<field_role name="Primary.PreDir">
+							<display_name>Prefix Direction</display_name>
+							<preferred_name>ADDR_PD</preferred_name>
+							<preferred_name>PREFIX</preferred_name>
+							<preferred_name>FDPRE</preferred_name>
+							<preferred_name>FEDIRP</preferred_name>
+							<preferred_name>PREDIR</preferred_name>
+							<preferred_name>PRE_DIR</preferred_name>
+							<preferred_name>DIR</preferred_name>
+							<preferred_name>DIRPABV_AL</preferred_name>
+							<preferred_name>DIRPABV-AL</preferred_name>
+							<preferred_name>ST_NM_PREF</preferred_name>
+							<field_name>PRE_DIR</field_name></field_role>
+						<field_role name="Primary.PreType">
+							<display_name>Prefix Type</display_name>
+							<preferred_name>ADDR_PT</preferred_name>
+							<preferred_name>PRE_TYPE</preferred_name>
+							<preferred_name>NAMEPREFIX</preferred_name>
+							<preferred_name>PRETYPE</preferred_name>
+							<preferred_name>PRETYP</preferred_name>
+							<preferred_name>ST_TYP_BEF</preferred_name>
+							<preferred_name>PREFIX_TYPE</preferred_name>
+							<preferred_name>PREFIX_TYP</preferred_name>
+							<preferred_name>PREFIXTYPE</preferred_name>
+							<preferred_name>PREF_ALF</preferred_name>
+							<preferred_name>PREF-ALF</preferred_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.StreetName" required="true">
+							<display_name>Street Name</display_name>
+							<preferred_name>ADDR_SN</preferred_name>
+							<preferred_name>FNAME</preferred_name>
+							<preferred_name>FENAME</preferred_name>
+							<preferred_name>ST_NM_BASE</preferred_name>
+							<preferred_name>STREET-NAME</preferred_name>
+							<preferred_name>STREET_NAME</preferred_name>
+							<preferred_name>STREET_NAM</preferred_name>
+							<preferred_name>STREETNAME</preferred_name>
+							<preferred_name>ST_NAME</preferred_name>
+							<preferred_name>ST-NAME</preferred_name>
+							<preferred_name>STR_NAME</preferred_name>
+							<preferred_name>STR-NAME</preferred_name>
+							<preferred_name>STR-NAME</preferred_name>
+							<preferred_name>NAME</preferred_name>
+							<preferred_name>BASENAME</preferred_name>
+							<field_name>NAME</field_name></field_role>
+						<field_role name="Primary.SufType">
+							<display_name>Suffix Type</display_name>
+							<preferred_name>ADDR_ST</preferred_name>
+							<preferred_name>FTYPE</preferred_name>
+							<preferred_name>FETYPE</preferred_name>
+							<preferred_name>NAMESUFFIX</preferred_name>
+							<preferred_name>SUFTYPE</preferred_name>
+							<preferred_name>SUFTYP</preferred_name>
+							<preferred_name>ST_TYP_AFT</preferred_name>
+							<preferred_name>STREET_TYPE</preferred_name>
+							<preferred_name>STREET-TYPE</preferred_name>
+							<preferred_name>STREET_TYP</preferred_name>
+							<preferred_name>STREETTYPE</preferred_name>
+							<preferred_name>ST_TYPE</preferred_name>
+							<preferred_name>ST-TYPE</preferred_name>
+							<preferred_name>STR_TYPE</preferred_name>
+							<preferred_name>STR-TYPE</preferred_name>
+							<preferred_name>ST_NM_TYPE</preferred_name>
+							<preferred_name>TYPE_</preferred_name>
+							<preferred_name>TYPE</preferred_name>
+							<field_name>SUFFIX</field_name></field_role>
+						<field_role name="Primary.SufDir">
+							<display_name>Suffix Direction</display_name>
+							<preferred_name>ADDR_SD</preferred_name>
+							<preferred_name>STREETDIR</preferred_name>
+							<preferred_name>FDSUF</preferred_name>
+							<preferred_name>FEDIRS</preferred_name>
+							<preferred_name>SUFFIXDIR</preferred_name>
+							<preferred_name>SUFDIR</preferred_name>
+							<preferred_name>SUF_DIR</preferred_name>
+							<preferred_name>SUF-DIR</preferred_name>
+							<preferred_name>SUFFIX_DIR</preferred_name>
+							<preferred_name>SUFFIX-DIR</preferred_name>
+							<preferred_name>DIRSABV_AL</preferred_name>
+							<preferred_name>DIRSABV-AL</preferred_name>
+							<preferred_name>STREET_DIR</preferred_name>
+							<preferred_name>STREET-DIR</preferred_name>
+							<preferred_name>ST_NM_SUFF</preferred_name>
+							<preferred_name>SUFFIX</preferred_name>
+							<field_name>POST_DIR</field_name></field_role>
+						<field_role name="Primary.CityLeft">
+							<display_name>Left City or Place</display_name>
+							<preferred_name>LCITY</preferred_name>
+							<preferred_name>CITYL</preferred_name>
+							<preferred_name>CITY_L</preferred_name>
+							<preferred_name>LEFT_CITY</preferred_name>
+							<preferred_name>LEFT-CITY</preferred_name>
+							<preferred_name>LEFT.CITY</preferred_name>
+							<preferred_name>LEFTCITY</preferred_name>
+							<preferred_name>L_CITY</preferred_name>
+							<preferred_name>L-CITY</preferred_name>
+							<preferred_name>L.CITY</preferred_name>
+							<preferred_name>PLACEL</preferred_name>
+							<preferred_name>GEONAME_L</preferred_name>
+							<preferred_name>PLACENAME_L</preferred_name>
+							<preferred_name>CITY</preferred_name>
+							<preferred_name>L_LAXON</preferred_name>
+							<preferred_name>L_AXON</preferred_name>
+							<preferred_name>ZIPNAME_L</preferred_name>
+							<preferred_name>L_ZIPNAME</preferred_name>
+							<preferred_name>L_CITYNAME</preferred_name>
+							<preferred_name>CITYNAME_L</preferred_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.CityRight">
+							<display_name>Right City or Place</display_name>
+							<preferred_name>RCITY</preferred_name>
+							<preferred_name>CITYR</preferred_name>
+							<preferred_name>CITY_R</preferred_name>
+							<preferred_name>RIGHT_CITY</preferred_name>
+							<preferred_name>RIGHT-CITY</preferred_name>
+							<preferred_name>RIGHT.CITY</preferred_name>
+							<preferred_name>RIGHTCITY</preferred_name>
+							<preferred_name>R_CITY</preferred_name>
+							<preferred_name>R-CITY</preferred_name>
+							<preferred_name>R.CITY</preferred_name>
+							<preferred_name>PLACER</preferred_name>
+							<preferred_name>GEONAME_R</preferred_name>
+							<preferred_name>PLACENAME_R</preferred_name>
+							<preferred_name>CITY</preferred_name>
+							<preferred_name>R_LAXON</preferred_name>
+							<preferred_name>R_AXON</preferred_name>
+							<preferred_name>ZIPNAME_R</preferred_name>
+							<preferred_name>R_ZIPNAME</preferred_name>
+							<preferred_name>R_CITYNAME</preferred_name>
+							<preferred_name>CITYNAME_R</preferred_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.ZIPLeft">
+							<display_name>Left ZIP Code</display_name>
+							<preferred_name>LZIP</preferred_name>
+							<preferred_name>ZIPL</preferred_name>
+							<preferred_name>ZIP_L</preferred_name>
+							<preferred_name>POSTAL_L</preferred_name>
+							<preferred_name>ZIP_LEFT</preferred_name>
+							<preferred_name>ZIP-LEFT</preferred_name>
+							<preferred_name>ZIP.LEFT</preferred_name>
+							<preferred_name>ZIPLEFT</preferred_name>
+							<preferred_name>LEFT_ZIP</preferred_name>
+							<preferred_name>LEFT-ZIP</preferred_name>
+							<preferred_name>LEFT.ZIP</preferred_name>
+							<preferred_name>LEFTZIP</preferred_name>
+							<preferred_name>L_ZIP</preferred_name>
+							<preferred_name>L-ZIP</preferred_name>
+							<preferred_name>L.ZIP</preferred_name>
+							<preferred_name>L_PC</preferred_name>
+							<preferred_name>L_POSTCODE</preferred_name>
+							<preferred_name>ZIPCOLEF</preferred_name>
+							<preferred_name>ZIP</preferred_name>
+							<field_name>ZIP_L</field_name></field_role>
+						<field_role name="Primary.ZIPRight">
+							<display_name>Right ZIP Code</display_name>
+							<preferred_name>RZIP</preferred_name>
+							<preferred_name>ZIPR</preferred_name>
+							<preferred_name>ZIP_R</preferred_name>
+							<preferred_name>POSTAL_R</preferred_name>
+							<preferred_name>ZIP_RIGHT</preferred_name>
+							<preferred_name>ZIP-RIGHT</preferred_name>
+							<preferred_name>ZIP.RIGHT</preferred_name>
+							<preferred_name>ZIPRIGHT</preferred_name>
+							<preferred_name>RIGHT_ZIP</preferred_name>
+							<preferred_name>RIGHT-ZIP</preferred_name>
+							<preferred_name>RIGHT.ZIP</preferred_name>
+							<preferred_name>RIGHTZIP</preferred_name>
+							<preferred_name>R_ZIP</preferred_name>
+							<preferred_name>R-ZIP</preferred_name>
+							<preferred_name>R.ZIP</preferred_name>
+							<preferred_name>R_PC</preferred_name>
+							<preferred_name>R_POSTCODE</preferred_name>
+							<preferred_name>ZIPCORGT</preferred_name>
+							<preferred_name>ZIP</preferred_name>
+							<field_name>ZIP_R</field_name></field_role>
+						<field_role name="Primary.StateLeft">
+							<display_name>Left State</display_name>
+							<preferred_name>STATE_ABBR</preferred_name>
+							<preferred_name>STATE_NAME</preferred_name>
+							<preferred_name>STATE_L</preferred_name>
+							<preferred_name>STABBR_L</preferred_name>
+							<preferred_name>STATE</preferred_name>
+							<preferred_name>L_ORDER01</preferred_name>
+							<preferred_name>L_STATE</preferred_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.StateRight">
+							<display_name>Right State</display_name>
+							<preferred_name>STATE_ABBR</preferred_name>
+							<preferred_name>STATE_NAME</preferred_name>
+							<preferred_name>STATE_R</preferred_name>
+							<preferred_name>STABBR_R</preferred_name>
+							<preferred_name>STATE</preferred_name>
+							<preferred_name>R_ORDER01</preferred_name>
+							<preferred_name>R_STATE</preferred_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.User_fldL">
+							<display_name>Left Additional Field</display_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.User_fldR">
+							<display_name>Right Additional Field</display_name>
+							<field_name></field_name></field_role>
+						<field_role name="Primary.Alt_JoinID">
+							<display_name>Altname JoinID</display_name>
+							<field_name></field_name></field_role>
+					</field_roles>
+					<table_name>RoadCenterline</table_name></table_role>
+			</table_roles>
+			<data_source type="indexed">
+				<mapping_schema ref="DIME"/>
+				<workspace_properties><factory_progid>esriDataSourcesFile.ShapefileWorkspaceFactory.1</factory_progid><path>C:\temp\data\BloomfieldTownship</path></workspace_properties><queries>
+					<query>
+						<tables>
+							<table role_ref="Primary">RoadCenterline</table>
+						</tables>
+						<fields>
+							<field ref="Shape" field_role_ref="Primary.Shape">RoadCenterline.Shape</field>
+							<field ref="ID" field_role_ref="Primary.ID">RoadCenterline.FID</field>
+							<field ref="FromLeft" field_role_ref="Primary.FromLeft">RoadCenterline.FR_ADD_L</field>
+							<field ref="ToLeft" field_role_ref="Primary.ToLeft">RoadCenterline.TO_ADD_L</field>
+							<field ref="FromRight" field_role_ref="Primary.FromRight">RoadCenterline.FR_ADD_R</field>
+							<field ref="ToRight" field_role_ref="Primary.ToRight">RoadCenterline.TO_ADD_R</field>
+							<field ref="PreDir" field_role_ref="Primary.PreDir">RoadCenterline.PRE_DIR</field>
+							<field ref="PreType" field_role_ref="Primary.PreType"></field>
+							<field ref="StreetName" field_role_ref="Primary.StreetName">RoadCenterline.NAME</field>
+							<field ref="SufType" field_role_ref="Primary.SufType">RoadCenterline.SUFFIX</field>
+							<field ref="SufDir" field_role_ref="Primary.SufDir">RoadCenterline.POST_DIR</field>
+							<field ref="CityLeft" field_role_ref="Primary.CityLeft"></field>
+							<field ref="CityRight" field_role_ref="Primary.CityRight"></field>
+							<field ref="StateLeft" field_role_ref="Primary.StateLeft"></field>
+							<field ref="StateRight" field_role_ref="Primary.StateRight"></field>
+							<field ref="ZIPLeft" field_role_ref="Primary.ZIPLeft">RoadCenterline.ZIP_L</field>
+							<field ref="ZIPRight" field_role_ref="Primary.ZIPRight">RoadCenterline.ZIP_R</field>
+							<field ref="User_fldL" field_role_ref="Primary.User_fldL"></field>
+							<field ref="User_fldR" field_role_ref="Primary.User_fldR"></field>
+							<field ref="Alt_JoinID" field_role_ref="Primary.Alt_JoinID"></field>
+						</fields>
+						<join_clause/>
+						<selection_clause/>
+					</query>
+				</queries>
+			</data_source>
+		</ref_data><metadata><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows Server 2008 R2 Version 6.1 (Build 7600) ; ESRI ArcGIS 10.0.0.2333</envirDesc><dataLang><languageCode value="eng" country="USA"></languageCode></dataLang><spatRpType><SpatRepTypCd value="001"></SpatRepTypCd></spatRpType></dataIdInfo><mdLang><languageCode value="eng"></languageCode></mdLang><mdChar><CharSetCd value="004"></CharSetCd></mdChar><Esri><SyncDate>20100218</SyncDate><SyncTime>16125700</SyncTime><ModDate>20100218</ModDate><ModTime>16125700</ModTime><DataProperties><coordRef><type Sync="TRUE">Projected</type><geogcsn Sync="TRUE">GCS_North_American_1983</geogcsn><projcsn Sync="TRUE">NAD_1983_StatePlane_Michigan_South_FIPS_2113_IntlFeet</projcsn><peXml Sync="TRUE">&lt;ProjectedCoordinateSystem xsi:type='typens:ProjectedCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.0'&gt;&lt;WKT&gt;PROJCS[&amp;quot;NAD_1983_StatePlane_Michigan_South_FIPS_2113_IntlFeet&amp;quot;,GEOGCS[&amp;quot;GCS_North_American_1983&amp;quot;,DATUM[&amp;quot;D_North_American_1983&amp;quot;,SPHEROID[&amp;quot;GRS_1980&amp;quot;,6378137.0,298.257222101]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433]],PROJECTION[&amp;quot;Lambert_Conformal_Conic&amp;quot;],PARAMETER[&amp;quot;False_Easting&amp;quot;,13123359.58005249],PARAMETER[&amp;quot;False_Northing&amp;quot;,0.0],PARAMETER[&amp;quot;Central_Meridian&amp;quot;,-84.36666666666666],PARAMETER[&amp;quot;Standard_Parallel_1&amp;quot;,42.1],PARAMETER[&amp;quot;Standard_Parallel_2&amp;quot;,43.66666666666666],PARAMETER[&amp;quot;Latitude_Of_Origin&amp;quot;,41.5],UNIT[&amp;quot;Foot&amp;quot;,0.3048]]&lt;/WKT&gt;&lt;XOrigin&gt;-107138600&lt;/XOrigin&gt;&lt;YOrigin&gt;-97193800&lt;/YOrigin&gt;&lt;XYScale&gt;37448250.484633707&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;0.0032808398950131233&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;/ProjectedCoordinateSystem&gt;</peXml></coordRef></DataProperties></Esri><mdDateSt Sync="TRUE">20100218</mdDateSt><DatasetName>RoadCenterline_Locator</DatasetName><DatasetType>Address Locator</DatasetType><refSysInfo><RefSystem><refSysID><identCode code="0"></identCode></refSysID></RefSystem></refSysInfo></metadata>
+	</locator>
+</locators>

@@ -1,0 +1,75 @@
+﻿<Window x:Class="fristArcGisEngineDome.ArcSdeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ArcSdeWindow" Width="450" Style="{StaticResource AsideWindowsStyle}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resource/Imgur.ico">
+    
+    <Grid  Background="WhiteSmoke" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Name="Title" Background="#E0E0E0" MouseMove="Title_MouseMove" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource NoMouseOverButtonStyle_title}" Name="btn_minimize" Click="btn_minimize_Click">
+                        <TextBlock Style="{DynamicResource BarTextBlockStyle}" Text="&#xE949;" />
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource NoMouseOverButtonStyle_title}" Name="btn_exit" Click="btn_exit_Click">
+                        <TextBlock Style="{StaticResource BarTextBlockStyle}" Text="&#xE947;" />
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Text="服务器URL：" Style="{StaticResource BaseTextBlockStyle}" Grid.Column="1"  Grid.Row="2" HorizontalAlignment="Right" />
+        <TextBlock Text="服务器名称：" Style="{StaticResource BaseTextBlockStyle}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" />
+        <TextBlock Text="数据库名称：" Style="{StaticResource BaseTextBlockStyle}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" />
+        <TextBlock Text="用    户   名：" Style="{StaticResource BaseTextBlockStyle}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" />
+        <TextBlock Text="密          码：" Style="{StaticResource BaseTextBlockStyle}" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" />
+
+        <TextBox Style="{StaticResource BaseTextBoxStyle}" Grid.Column="2" Grid.Row="2" Name="txb_ServerURL" Text="intMinor-PC" />
+        <TextBox Style="{StaticResource BaseTextBoxStyle}" Grid.Column="2" Grid.Row="3" Name="txb_ServerName" Text="sde:sqlserver:INTMINOR-PC\SQLEXPRESS" FontSize="10" />
+        <TextBox Style="{StaticResource BaseTextBoxStyle}" Grid.Column="2" Grid.Row="4" Name="txb_DataBaseName" Text="ArcSDE" />
+        <TextBox Style="{StaticResource BaseTextBoxStyle}" Grid.Column="2" Grid.Row="5" Name="txb_UserName" Text="intMinor" />
+        <PasswordBox Style="{StaticResource PasswordBoxStyle}" Grid.Column="2" Grid.Row="6" Name="txb_PassWord" Password="2016" />
+
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Orientation="Horizontal" Margin="25,0,0,0">
+            <RadioButton VerticalAlignment="Center" Name="rdb_DataBaseConfirm" IsChecked="True" />
+            <TextBlock Text="数据库验证" Style="{StaticResource BaseTextBlockStyle}"  Margin="0,0,20,0"/>
+            <RadioButton VerticalAlignment="Center" Name="rdb_WindowsConfirm" IsEnabled="False"/>
+            <TextBlock Text="Window验证" Style="{StaticResource BaseTextBlockStyle}" />  
+        </StackPanel>
+
+        <Grid Grid.ColumnSpan="3" Grid.Row="8" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="测试连接" Name="btn_ConnectTest" Style="{StaticResource NoMouseOverButtonStyle_body}" Width="120" Click="btn_ConnectTest_Click" Margin="0,0,30,0"/>
+            <Button Content="确定" Name="btn_Confirm" Style="{StaticResource NoMouseOverButtonStyle_body}" Width="120" Grid.Column="1" Click="btn_Confirm_Click" />
+        </Grid>
+    </Grid>
+</Window>

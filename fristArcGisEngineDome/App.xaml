@@ -1,0 +1,19 @@
+﻿<Application x:Class="fristArcGisEngineDome.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StartupUri="MainWindow.xaml" Startup="Application_Startup" Exit="Application_Exit">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleTemplet/ColorStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/ButtonStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/PageStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/ScrollBarStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/WindowsStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/MenuStyle.xaml" />
+                <ResourceDictionary Source="StyleTemplet/DataGridStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<metadata xml:lang="en"><Esri><CreaDate>20090611</CreaDate><CreaTime>10500000</CreaTime><SyncOnce>FALSE</SyncOnce><MetaID>{235175F4-C66E-41A7-89FA-CB8DB7BE040E}</MetaID><SyncDate>20100218</SyncDate><SyncTime>13032300</SyncTime><ModDate>20100218</ModDate><ModTime>13032300</ModTime><DataProperties><lineage><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Conversion Tools.tbx\FeatureClassToFeatureClass" Date="20100218" Time="130326">FeatureClassToFeatureClass "C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline" c:\temp\bloomfieldhills RoadCenterline.shp # "CENTERLINE 'CENTERLINE' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,CENTERLINE,-1,-1;FR_ADD_L 'FR_ADD_L' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,FR_ADD_L,-1,-1;TO_ADD_L 'TO_ADD_L' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,TO_ADD_L,-1,-1;FR_ADD_R 'FR_ADD_R' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,FR_ADD_R,-1,-1;TO_ADD_R 'TO_ADD_R' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,TO_ADD_R,-1,-1;NAME_FLAG 'NAME_FLAG' true true false 4 Long 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,NAME_FLAG,-1,-1;PRE_DIR 'PRE_DIR' true true false 2 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,PRE_DIR,-1,-1;NAME 'NAME' true true false 30 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,NAME,-1,-1;SUFFIX 'SUFFIX' true true false 4 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,SUFFIX,-1,-1;POST_DIR 'POST_DIR' true true false 2 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,POST_DIR,-1,-1;CVT_L 'CVT_L' true true false 5 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,CVT_L,-1,-1;CVT_R 'CVT_R' true true false 5 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,CVT_R,-1,-1;ZIP_L 'ZIP_L' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,ZIP_L,-1,-1;ZIP_R 'ZIP_R' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,ZIP_R,-1,-1;ROAD_CODE 'ROAD_CODE' true true false 2 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,ROAD_CODE,-1,-1;VERSION 'VERSION' true true false 4 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,VERSION,-1,-1;TLID_FLAG 'TLID_FLAG' true true false 4 Long 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,TLID_FLAG,-1,-1;TLID 'TLID' true true false 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,TLID,-1,-1;DIR_TRV 'DIR_TRV' true true false 4 Long 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,DIR_TRV,-1,-1;CONV_SOURC 'CONV_SOURC' true true false 1 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,CONV_SOURC,-1,-1;ROUTE 'ROUTE' true true false 4 Long 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,ROUTE,-1,-1;L_MAP_PAGE 'L_MAP_PAGE' true true false 4 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,L_MAP_PAGE,-1,-1;R_MAP_PAGE 'R_MAP_PAGE' true true false 4 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,R_MAP_PAGE,-1,-1;CARTO_NAME 'CARTO_NAME' true true false 30 Text 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,CARTO_NAME,-1,-1;SHAPE_Leng 'SHAPE_Length' false true true 8 Double 0 0 ,First,#,C:\Program Files\ArcGIS\DeveloperKit\SamplesNET\Server\data\Maps and GDB\Sample.gdb\Basemap\RoadCenterline,SHAPE_Length,-1,-1" # c:\temp\bloomfieldhills\RoadCenterline.shp</Process></lineage></DataProperties></Esri>
+	<idinfo>
+		<descript>
+			<abstract>A spatial representation of road centerlines. This linear feature class was captured through stereo compilation using Oakland County's 1997 orthophotography as reference. Key attributes include left and right address ranges and street name.</abstract>
+			<purpose></purpose>
+			<langdata Sync="TRUE">en</langdata></descript>
+		<keywords>
+			<theme>
+				<themekt>ESRI Data Models</themekt>
+				<themekey>road centerlines</themekey>
+			</theme>
+		</keywords>
+		<accconst></accconst>
+		<useconst></useconst>
+		<status>
+			<progress></progress>
+			<update></update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc>NaN</westbc>
+				<eastbc>NaN</eastbc>
+				<northbc>NaN</northbc>
+				<southbc>NaN</southbc>
+			</bounding>
+		</spdom>
+		<citation><citeinfo><onlink Sync="TRUE">\\YUMA\temp\bloomfieldhills\RoadCenterline.shp</onlink><origin>REQUIRED: The name of an organization or individual that developed the data set.</origin><pubdate>REQUIRED: The date when the data set is published or otherwise made available for release.</pubdate><title Sync="TRUE">RoadCenterline</title><ftname Sync="TRUE">RoadCenterline</ftname><geoform Sync="TRUE">vector digital data</geoform></citeinfo></citation><native Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 2; ESRI ArcCatalog 9.3.1.3000</native><timeperd><current>REQUIRED: The basis on which the time period of content information is determined.</current><timeinfo><sngdate><caldate>REQUIRED: The year (and optionally month, or month and day) for which the data set corresponds to the ground.</caldate></sngdate></timeinfo></timeperd><natvform Sync="TRUE">Shapefile</natvform></idinfo>
+	<eainfo><detailed Name="RoadCenterline">
+			<attr>
+				<attrlabl Sync="TRUE">SHAPE</attrlabl>
+				<attalias Sync="TRUE">Shape</attalias>
+				<attrtype Sync="TRUE">Geometry</attrtype>
+				<attwidth Sync="TRUE">0</attwidth>
+				<atprecis Sync="TRUE">0</atprecis>
+				<attscale Sync="TRUE">0</attscale>
+				<attrdef Sync="TRUE">Feature geometry.</attrdef>
+				<attrdefs Sync="TRUE">ESRI</attrdefs>
+				<attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv>
+			</attr><attr><attrlabl Sync="TRUE">FID</attrlabl><attalias Sync="TRUE">FID</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Internal feature number.</attrdef><attrdefs Sync="TRUE">ESRI</attrdefs><attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">CARTO_NAME</attrlabl>
+				<attalias Sync="TRUE">CARTO_NAME</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">30</attwidth>
+				<attrdef Sync="TRUE">Cartographic Representation of complete road name for cartographic output</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">CENTERLINE</attrlabl>
+				<attalias Sync="TRUE">CENTERLINE</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">CENTERLINE</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">CONV_SOURC</attrlabl>
+				<attalias Sync="TRUE">CONV_SOURC</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">1</attwidth>
+				<attrdef Sync="TRUE">CONV_SOURC</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">CVT_L</attrlabl>
+				<attalias Sync="TRUE">CVT_L</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">5</attwidth>
+				<attrdef Sync="TRUE">Municipal code on left side of the road.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">CVT_R</attrlabl>
+				<attalias Sync="TRUE">CVT_R</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">5</attwidth>
+				<attrdef Sync="TRUE">Municipal code on right side of the road.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">DIR_TRV</attrlabl>
+				<attalias Sync="TRUE">DIR_TRV</attalias>
+				<attrtype Sync="TRUE">Number</attrtype>
+				<attwidth Sync="TRUE">9</attwidth>
+				<attrdef Sync="TRUE">The direction of travel as defined by the from-to nodes.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">FR_ADD_L</attrlabl>
+				<attalias Sync="TRUE">FR_ADD_L</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Lowest address range on left side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">FR_ADD_R</attrlabl>
+				<attalias Sync="TRUE">FR_ADD_R</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Lowest address range on right side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">L_MAP_PAGE</attrlabl>
+				<attalias Sync="TRUE">L_MAP_PAGE</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">4</attwidth>
+				<attrdef Sync="TRUE">Map page number on left side of feature</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">NAME</attrlabl>
+				<attalias Sync="TRUE">NAME</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">30</attwidth>
+				<attrdef Sync="TRUE">The road name.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">NAME_FLAG</attrlabl>
+				<attalias Sync="TRUE">NAME_FLAG</attalias>
+				<attrtype Sync="TRUE">Number</attrtype>
+				<attwidth Sync="TRUE">9</attwidth>
+				<attrdef Sync="TRUE">Flag used to identify those roads that contain multiple road names that are stored in the ALIAS_NAME relate table.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">POST_DIR</attrlabl>
+				<attalias Sync="TRUE">POST_DIR</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">2</attwidth>
+				<attrdef Sync="TRUE">The post direction of the road.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">PRE_DIR</attrlabl>
+				<attalias Sync="TRUE">PRE_DIR</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">2</attwidth>
+				<attrdef Sync="TRUE">The road name prefix.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">R_MAP_PAGE</attrlabl>
+				<attalias Sync="TRUE">R_MAP_PAGE</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">4</attwidth>
+				<attrdef Sync="TRUE">Map page number on right side of feature</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">ROAD_CODE</attrlabl>
+				<attalias Sync="TRUE">ROAD_CODE</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">2</attwidth>
+				<attrdef Sync="TRUE">Functional classification of roads based on type of service. A modified version of DOT's Federal Highway Administration (FHWA) classification scheme.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">ROUTE</attrlabl>
+				<attalias Sync="TRUE">ROUTE</attalias>
+				<attrtype Sync="TRUE">Number</attrtype>
+				<attwidth Sync="TRUE">9</attwidth>
+				<attrdef Sync="TRUE">State or Federal route number</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">SUFFIX</attrlabl>
+				<attalias Sync="TRUE">SUFFIX</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">4</attwidth>
+				<attrdef Sync="TRUE">The road type.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">TLID</attrlabl>
+				<attalias Sync="TRUE">TLID</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">The lowest TLID (TIGER Line Identification Number) as derived from the 1995 TIGER Census coverage.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">TLID_FLAG</attrlabl>
+				<attalias Sync="TRUE">TLID_FLAG</attalias>
+				<attrtype Sync="TRUE">Number</attrtype>
+				<attwidth Sync="TRUE">9</attwidth>
+				<attrdef Sync="TRUE">Flag used to identify those segments that contain multiple TLID's that are stored in the DUP_TLID relate table.</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">TO_ADD_L</attrlabl>
+				<attalias Sync="TRUE">TO_ADD_L</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Highest address range on left side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">TO_ADD_R</attrlabl>
+				<attalias Sync="TRUE">TO_ADD_R</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Highest address range on right side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">VERSION</attrlabl>
+				<attalias Sync="TRUE">VERSION</attalias>
+				<attrtype Sync="TRUE">String</attrtype>
+				<attwidth Sync="TRUE">4</attwidth>
+				<attrdef Sync="TRUE">4 digit version indicator - see TLID</attrdef>
+			</attr><attr><attrlabl Sync="TRUE">ZIP_L</attrlabl>
+				<attalias Sync="TRUE">ZIP_L</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Zip code on left side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><attr><attrlabl Sync="TRUE">ZIP_R</attrlabl>
+				<attalias Sync="TRUE">ZIP_R</attalias>
+				<attrtype Sync="TRUE">Float</attrtype>
+				<attwidth Sync="TRUE">19</attwidth>
+				<attrdef Sync="TRUE">Zip code on right side of the road.</attrdef>
+				<atnumdec Sync="TRUE">11</atnumdec></attr><enttyp><enttypl Sync="TRUE">RoadCenterline</enttypl><enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">0</enttypc></enttyp><attr><attrlabl Sync="TRUE">SHAPE_Leng</attrlabl><attalias Sync="TRUE">SHAPE_Leng</attalias><attrtype Sync="TRUE">Float</attrtype><attwidth Sync="TRUE">19</attwidth><atnumdec Sync="TRUE">11</atnumdec></attr></detailed></eainfo><distInfo><distributor><distorTran><onLineSrc><linkage Sync="TRUE">file://\\YUMA\temp\bloomfieldhills\RoadCenterline.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol><orDesc Sync="TRUE">002</orDesc></onLineSrc><transSize Sync="TRUE">0.000</transSize></distorTran><distorFormat><formatName Sync="TRUE">Shapefile</formatName></distorFormat></distributor></distInfo><dataqual><lineage><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\NewTaxParcels.gdb</srcused><procdate Sync="TRUE">20090506</procdate><proctime Sync="TRUE">15163600</proctime></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\TaxParcels.gdb</srcused><procdate Sync="TRUE">20090512</procdate><proctime Sync="TRUE">09415200</proctime></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\TaxParcels.gdb</srcused><procdate Sync="TRUE">20090518</procdate><proctime Sync="TRUE">11384100</proctime></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\NewTaxParcels.mdb</srcused><procdate Sync="TRUE">20090518</procdate><proctime Sync="TRUE">12483200</proctime></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\TaxParcels.gdb</srcused><procdate Sync="TRUE">20090602</procdate><proctime Sync="TRUE">14372700</proctime></procstep><procstep><procdesc Sync="TRUE">Dataset copied.</procdesc><srcused Sync="TRUE">\\SCOTTO\C$\Users\scot6032\Documents\Application Templates\Tax Parcels\Tax Parcel Templates\DataModel\Sample.gdb</srcused><procdate Sync="TRUE">20090611</procdate><proctime Sync="TRUE">10500000</proctime></procstep></lineage></dataqual><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 2; ESRI ArcCatalog 9.3.1.3000</envirDesc><dataLang><languageCode Sync="TRUE" value="en"></languageCode></dataLang><idCitation><resTitle Sync="TRUE">RoadCenterline</resTitle><presForm><PresFormCd Sync="TRUE" value="005"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd Sync="TRUE" value="001"></SpatRepTypCd></spatRpType></dataIdInfo><metainfo><langmeta Sync="TRUE">en</langmeta><metstdn Sync="TRUE">FGDC Content Standards for Digital Geospatial Metadata</metstdn><metstdv Sync="TRUE">FGDC-STD-001-1998</metstdv><mettc Sync="TRUE">local time</mettc><metextns><onlink Sync="TRUE">http://www.esri.com/metadata/esriprof80.html</onlink><metprof Sync="TRUE">ESRI Metadata Profile</metprof></metextns><metc><cntinfo><cntorgp><cntper>REQUIRED: The person responsible for the metadata information.</cntper><cntorg>REQUIRED: The organization responsible for the metadata information.</cntorg></cntorgp><cntaddr><addrtype>REQUIRED: The mailing and/or physical address for the organization or individual.</addrtype><city>REQUIRED: The city of the address.</city><state>REQUIRED: The state or province of the address.</state><postal>REQUIRED: The ZIP or other postal code of the address.</postal></cntaddr><cntvoice>REQUIRED: The telephone number by which individuals can speak to the organization or individual.</cntvoice></cntinfo></metc><metd Sync="TRUE">20100218</metd></metainfo><mdLang><languageCode Sync="TRUE" value="en"></languageCode></mdLang><mdStanName Sync="TRUE">ISO 19115 Geographic Information - Metadata</mdStanName><mdStanVer Sync="TRUE">DIS_ESRI1.0</mdStanVer><mdChar><CharSetCd Sync="TRUE" value="004"></CharSetCd></mdChar><mdHrLv><ScopeCd Sync="TRUE" value="005"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><distinfo><resdesc Sync="TRUE">Downloadable Data</resdesc><stdorder><digform><digtinfo><transize Sync="TRUE">0.000</transize><dssize Sync="TRUE">0.000</dssize></digtinfo></digform></stdorder></distinfo><spdoinfo><direct Sync="TRUE">Vector</direct><ptvctinf><esriterm Name="RoadCenterline"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom Sync="TRUE">Polyline</efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">0</efeacnt><spindex Sync="TRUE">FALSE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm><sdtsterm Name="RoadCenterline"><sdtstype Sync="TRUE">String</sdtstype><ptvctcnt Sync="TRUE">0</ptvctcnt></sdtsterm></ptvctinf></spdoinfo><spref><horizsys><cordsysn><geogcsn Sync="TRUE">GCS_North_American_1983</geogcsn><projcsn Sync="TRUE">NAD_1983_StatePlane_Michigan_South_FIPS_2113_IntlFeet</projcsn></cordsysn><planar><mapproj><mapprojn Sync="TRUE">Lambert Conformal Conic</mapprojn><lambertc><stdparll Sync="TRUE">42.100000</stdparll><stdparll Sync="TRUE">43.666667</stdparll><longcm Sync="TRUE">-84.366667</longcm><latprjo Sync="TRUE">41.500000</latprjo><feast Sync="TRUE">13123359.580052</feast><fnorth Sync="TRUE">0.000000</fnorth></lambertc></mapproj><planci><plance Sync="TRUE">coordinate pair</plance><plandu Sync="TRUE">international feet</plandu><coordrep><absres Sync="TRUE">0.000000</absres><ordres Sync="TRUE">0.000000</ordres></coordrep></planci></planar><geodetic><horizdn Sync="TRUE">North American Datum of 1983</horizdn><ellips Sync="TRUE">Geodetic Reference System 80</ellips><semiaxis Sync="TRUE">6378137.000000</semiaxis><denflat Sync="TRUE">298.257222</denflat></geodetic></horizsys></spref><refSysInfo><RefSystem><refSysID><identCode Sync="TRUE">NAD_1983_StatePlane_Michigan_South_FIPS_2113_IntlFeet</identCode></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><topLvl><TopoLevCd Sync="TRUE" value="001"></TopoLevCd></topLvl><geometObjs Name="RoadCenterline"><geoObjTyp><GeoObjTypCd Sync="TRUE" value="001"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">0</geoObjCnt></geometObjs></VectSpatRep></spatRepInfo><mdDateSt Sync="TRUE">20100218</mdDateSt></metadata>
