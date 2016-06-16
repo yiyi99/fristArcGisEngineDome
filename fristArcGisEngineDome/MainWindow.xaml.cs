@@ -30,6 +30,8 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.DataSourcesRaster;
+using ESRI.ArcGIS.Geoprocessor;
+using ESRI.ArcGIS.AnalysisTools;
 
 
 
@@ -64,6 +66,11 @@ namespace fristArcGisEngineDome
 
         public MainWindow()
         {
+            //ESRI.ArcGIS.RuntimeManager.Bind(ESRI.ArcGIS.ProductCode.EngineOrDesktop);
+            //IAoInitialize aoInitialize = new AoInitialize();
+            //esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
+            //licenseStatus = aoInitialize.Initialize(esriLicenseProductCode.esriLicenseProductCodeAdvanced);
+
             InitializeComponent();
 
             //GainAuthorize();
@@ -1055,29 +1062,13 @@ namespace fristArcGisEngineDome
 
         private void menu_BufferAnalysis_Click(object sender, RoutedEventArgs e)
         {
-            IGraphicsContainer graphicsContainer = mapControl.Map as IGraphicsContainer;
-            IGeometry geometry;
-            IFeature feature;
-
-            feature = featureCursorBuffer.NextFeature();
-
-            //new MessageWindow("BufferAnalysis").Show();
-
-            if (feature == null) return;
-
-            geometry = feature.Shape;
-            ITopologicalOperator topologicalOperator = geometry as ITopologicalOperator;
-            IGeometry geometryBuffer = topologicalOperator.Buffer(5);
-
-            IElement pElement = new PolygonElement();
-            pElement.Geometry = geometryBuffer;
-
-            graphicsContainer.AddElement((IElement)pElement, 0);
-            IActiveView activeView = mapControl.ActiveView;
-            activeView.Refresh();
+            BufferWindow bufferWindow = new BufferWindow();
+            bufferWindow.SetFeatureLayers = GetFeatureLayers();
+            bufferWindow.loadBufferResultEvemtHandle += LoadBufferResult;
+            bufferWindow.ShowDialog();
         }
 
-
+        
         private void PrepareEnvironment()
         {
             splitHost.Visibility = Visibility.Collapsed;
@@ -1227,6 +1218,18 @@ namespace fristArcGisEngineDome
             txb_StatusBar.Visibility = Visibility.Visible;
         }
 
+        private void LoadBufferResult(string filePath, string fileName)
+        {
+            try
+            {
+                mapControl.AddShapeFile(filePath, fileName);
+                mapControl.MoveLayerTo(mapControl.LayerCount - 1, 0);
+            }
+            catch
+            {
+            }
+        }
+
         private double GetMeasureDistance(IGeometry geometry)
         {
             ICurve curve = (ICurve)geometry;
@@ -1237,6 +1240,22 @@ namespace fristArcGisEngineDome
         {
             IArea area = (IArea)geometry;
             return Math.Abs(area.Area);
+        }
+
+        private List<IFeatureLayer> GetFeatureLayers()
+        {
+            List<IFeatureLayer> featureLayers = new List<IFeatureLayer>();
+            List<ILayer> layers = new List<ILayer>();
+            for (int i = 0; i < this.mapControl.ActiveView.FocusMap.LayerCount; i++)
+			{
+                layers.Add(this.mapControl.ActiveView.FocusMap.get_Layer(i));
+			}
+            foreach (ILayer item in layers)
+            {
+                IFeatureLayer featureLayer = item as IFeatureLayer;
+                featureLayers.Add(featureLayer);
+            }
+            return featureLayers;
         }
 
         private ISimpleFillSymbol CreateSimpleFillSymbol(IRgbColor rgbColor, esriSimpleFillStyle simpleFillStyle, ILineSymbol lineSymbol)

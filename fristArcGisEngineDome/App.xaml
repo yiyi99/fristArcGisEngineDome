@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="StyleTemplet/WindowsStyle.xaml" />
                 <ResourceDictionary Source="StyleTemplet/MenuStyle.xaml" />
                 <ResourceDictionary Source="StyleTemplet/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="StyleTemplet/ComboBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
         </ResourceDictionary>
