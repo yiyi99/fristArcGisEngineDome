@@ -159,6 +159,8 @@ namespace fristArcGisEngineDome
                 new MessageWindow("缓冲区建立成功").Show();
 
                 Mouse.SetCursor(Cursors.Arrow);
+
+                this.Close();
             }
             catch
             {
