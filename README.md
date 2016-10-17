@@ -39,7 +39,7 @@
 
 ![image](https://github.com/intMinor/fristArcGisEngineDome/blob/master/Screenshots/18.PNG)
 
-![image](https://github.com/intMinor/fristArcGisEngineDome/blob/master/Screenshots/19.png)
+![image](https://github.com/intMinor/fristArcGisEngineDome/blob/master/Screenshots/19.PNG)
 
 ![image](https://github.com/intMinor/fristArcGisEngineDome/blob/master/Screenshots/20.png)
 
